@@ -1,68 +1,86 @@
 package com.planify.api.POJOs;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "tarea")
+@Table(name = "tarea", schema = "PlanifyBD_composedhe")
 public class Tarea {
     @Id
-    @Column(name = "idTarea")
-    private Integer idTarea;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idTarea", nullable = false)
+    private Integer id;
 
-    @Column(name = "idCal")
-    private Integer idCal;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idCal", nullable = false)
+    private Calendario idCal;
 
-    @Column(name = "nombre")
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @Column(name = "fecha")
-    private LocalDateTime fecha;
+    @NotNull
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "fecha", nullable = false)
+    private Instant fecha;
 
-    @Column(name = "tipo")
+    @NotNull
+    @Lob
+    @Column(name = "tipo", nullable = false)
     private String tipo;
 
+    @Lob
     @Column(name = "estado")
     private String estado;
 
     @Column(name = "fechaLim")
-    private LocalDateTime fechaLim;
+    private Instant fechaLim;
 
-    public Integer getIdTarea() {
-        return this.idTarea;
+    @ManyToMany(mappedBy = "tareas")
+    private Set<Logro> logroes = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdTarea(Integer idTarea) {
-        this.idTarea = idTarea;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getIdCal() {
-        return this.idCal;
+    public Calendario getIdCal() {
+        return idCal;
     }
 
-    public void setIdCal(Integer idCal) {
+    public void setIdCal(Calendario idCal) {
         this.idCal = idCal;
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public LocalDateTime getFecha() {
-        return this.fecha;
+    public Instant getFecha() {
+        return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Instant fecha) {
         this.fecha = fecha;
     }
 
     public String getTipo() {
-        return this.tipo;
+        return tipo;
     }
 
     public void setTipo(String tipo) {
@@ -70,18 +88,27 @@ public class Tarea {
     }
 
     public String getEstado() {
-        return this.estado;
+        return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public LocalDateTime getFechaLim() {
-        return this.fechaLim;
+    public Instant getFechaLim() {
+        return fechaLim;
     }
 
-    public void setFechaLim(LocalDateTime fechaLim) {
+    public void setFechaLim(Instant fechaLim) {
         this.fechaLim = fechaLim;
     }
+
+    public Set<Logro> getLogroes() {
+        return logroes;
+    }
+
+    public void setLogroes(Set<Logro> logroes) {
+        this.logroes = logroes;
+    }
+
 }

@@ -1,39 +1,61 @@
 package com.planify.api.POJOs;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", schema = "PlanifyBD_composedhe")
 public class Usuario {
     @Id
-    @Column(name = "idUser")
-    private Integer idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser", nullable = false)
+    private Integer id;
 
-    @Column(name = "nombre")
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @Column(name = "username")
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "username", nullable = false, length = 30)
     private String username;
 
-    @Column(name = "email")
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "telefono")
-    private String telefono;
-
-    @Column(name = "password_hash")
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    public Integer getIdUser() {
-        return this.idUser;
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "telefono", nullable = false, length = 20)
+    private String telefono;
+
+    @OneToMany(mappedBy = "idUser")
+    private Set<Logro> logroes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idUser")
+    private Set<RelUserCal> relUserCals = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -41,7 +63,7 @@ public class Usuario {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -49,26 +71,43 @@ public class Usuario {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     public String getTelefono() {
-        return this.telefono;
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public String getPasswordHash() {
-        return this.passwordHash;
+    public Set<Logro> getLogroes() {
+        return logroes;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setLogroes(Set<Logro> logroes) {
+        this.logroes = logroes;
     }
+
+    public Set<RelUserCal> getRelUserCals() {
+        return relUserCals;
+    }
+
+    public void setRelUserCals(Set<RelUserCal> relUserCals) {
+        this.relUserCals = relUserCals;
+    }
+
 }

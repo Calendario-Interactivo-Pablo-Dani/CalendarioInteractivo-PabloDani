@@ -1,52 +1,67 @@
 package com.planify.api.POJOs;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "logro")
+@Table(name = "logro", schema = "PlanifyBD_composedhe")
 public class Logro {
     @Id
-    @Column(name = "idLogro")
-    private Integer idLogro;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idLogro", nullable = false)
+    private Integer id;
 
-    @Column(name = "idUser")
-    private Integer idUser;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idUser", nullable = false)
+    private Usuario idUser;
 
-    @Column(name = "nombre")
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @Column(name = "meta")
+    @NotNull
+    @Column(name = "meta", nullable = false)
     private Integer meta;
 
-    @Column(name = "estado")
+    @NotNull
+    @Lob
+    @Column(name = "estado", nullable = false)
     private String estado;
 
     @Column(name = "fechaLim")
-    private LocalDateTime fechaLim;
+    private Instant fechaLim;
 
     @Column(name = "fechaCumpl")
-    private LocalDateTime fechaCumpl;
+    private Instant fechaCumpl;
 
-    public Integer getIdLogro() {
-        return this.idLogro;
+    @ManyToMany
+    private Set<Tarea> tareas = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdLogro(Integer idLogro) {
-        this.idLogro = idLogro;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getIdUser() {
-        return this.idUser;
+    public Usuario getIdUser() {
+        return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setIdUser(Usuario idUser) {
         this.idUser = idUser;
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -54,7 +69,7 @@ public class Logro {
     }
 
     public Integer getMeta() {
-        return this.meta;
+        return meta;
     }
 
     public void setMeta(Integer meta) {
@@ -62,26 +77,35 @@ public class Logro {
     }
 
     public String getEstado() {
-        return this.estado;
+        return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public LocalDateTime getFechaLim() {
-        return this.fechaLim;
+    public Instant getFechaLim() {
+        return fechaLim;
     }
 
-    public void setFechaLim(LocalDateTime fechaLim) {
+    public void setFechaLim(Instant fechaLim) {
         this.fechaLim = fechaLim;
     }
 
-    public LocalDateTime getFechaCumpl() {
-        return this.fechaCumpl;
+    public Instant getFechaCumpl() {
+        return fechaCumpl;
     }
 
-    public void setFechaCumpl(LocalDateTime fechaCumpl) {
+    public void setFechaCumpl(Instant fechaCumpl) {
         this.fechaCumpl = fechaCumpl;
     }
+
+    public Set<Tarea> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(Set<Tarea> tareas) {
+        this.tareas = tareas;
+    }
+
 }
