@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/tarea")
-class TareaController {
+public class TareaController {
 
     private final TareaService tareaService;
 

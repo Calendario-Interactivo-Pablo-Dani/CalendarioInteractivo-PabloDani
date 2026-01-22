@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/logro")
-class LogroController {
+public class LogroController {
 
 }

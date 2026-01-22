@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/user-cal")
-class RelUserCalController {
+public class RelUserCalController {
 }
