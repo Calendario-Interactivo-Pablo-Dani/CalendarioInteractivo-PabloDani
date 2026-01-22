@@ -12,6 +12,11 @@ import java.util.Optional;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+    // EN LOS REPOSITORIES SOLO SE CREAN FIND/DELETES/UPDATES PARA PARAMETROS
+    // QUE NO SON AUTOMATICOS(osea todos menos id y alguna excepción más)
+
+
     /*Este metodo genera una consulta para buscar un usuario por su email
      * equivale a SELECT * FROM usuario WHERE email = ?*/
     Optional<Usuario> findByEmail(String email);
