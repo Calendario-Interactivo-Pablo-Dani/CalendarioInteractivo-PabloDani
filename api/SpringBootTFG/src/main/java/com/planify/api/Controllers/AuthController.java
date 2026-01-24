@@ -4,6 +4,9 @@ import com.planify.api.POJOs.Usuario;
 import com.planify.api.Service.AuthService;
 import com.planify.api.dto.LoginRequestDTO;
 import com.planify.api.dto.LoginResponseDTO;
+import com.planify.api.dto.RegisterRequestDTO;
+import com.planify.api.dto.RegisterResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +53,23 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciales incorrectas");
             /*Mandas el 401(Unauthorized)*/
         }
+    }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request){
+        try{
+            Usuario usuario = authService.register(request);
+            RegisterResponseDTO response = new RegisterResponseDTO(
+                    usuario.getId(),
+                    usuario.getNombre(),
+                    usuario.getUsername(),
+                    usuario.getEmail(),
+                    usuario.getTelefono(),
+                    "Usuario registrado correctamente"
+            );
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body("Error al registrar usuario");
+        }
     }
 }
