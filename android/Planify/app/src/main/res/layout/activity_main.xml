@@ -18,35 +18,82 @@
         >
 
         <ImageView
-            android:layout_width="260dp"
-            android:layout_height="260dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:src="@drawable/icono_login_foreground"
 
             />
 
         <EditText
+            android:id="@+id/user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Usuario"
+            android:layout_marginTop="10dp"
+            android:hint="Correo electrónico"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:background="@drawable/rounded_corners"
-            android:padding="18dp"
-            android:
+            android:padding="16dp"
+            android:inputType="textEmailAddress"
+            android:drawableEnd="@drawable/email_logo"
             />
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:hint="Contraseña"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:background="@drawable/rounded_corners"
-            android:padding="18dp"
+            android:padding="16dp"
+            android:inputType="textPassword"
+            android:drawableEnd="@drawable/candado_logo"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Iniciar Sesión"
+            android:textColor="#3F51B5"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/rounded_corners"
+            android:padding="12dp"
+        />
+        <TextView
+            android:id="@+id/text_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="¿No tienes cuenta aún?"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="Registrarse"
+            android:textColor="#3F51B5"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/rounded_corners"
+            android:padding="12dp"
+            />
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:src="@mipmap/logo_escrito_foreground"
+
             />
 
     </LinearLayout>
