@@ -44,6 +44,7 @@
             android:padding="12dp"
             android:inputType="text"
             android:fontFamily="sans-serif-condensed-medium"
+            android:drawableEnd="@drawable/user_minilogo"
 
             />
 
@@ -60,6 +61,7 @@
             android:padding="12dp"
             android:inputType="phone"
             android:fontFamily="sans-serif-condensed-medium"
+            android:drawableEnd="@drawable/telefono_logo"
 
             />
 
@@ -76,6 +78,7 @@
             android:padding="12dp"
             android:inputType="text"
             android:fontFamily="sans-serif-condensed-medium"
+            android:drawableEnd="@drawable/arroba_logo"
 
             />
 
@@ -92,6 +95,7 @@
             android:padding="12dp"
             android:inputType="textEmailAddress"
             android:fontFamily="sans-serif-condensed-medium"
+            android:drawableEnd="@drawable/email_logo"
             />
 
         <EditText
@@ -107,6 +111,7 @@
             android:padding="12dp"
             android:inputType="textPassword"
             android:fontFamily="sans-serif-condensed-medium"
+            android:drawableEnd="@drawable/candado_logo"
             />
 
         <androidx.appcompat.widget.AppCompatButton

@@ -37,6 +37,7 @@
             android:padding="16dp"
             android:inputType="textEmailAddress"
             android:drawableEnd="@drawable/email_logo"
+            android:fontFamily="sans-serif-condensed-medium"
             />
 
         <EditText
@@ -52,6 +53,7 @@
             android:padding="16dp"
             android:inputType="textPassword"
             android:drawableEnd="@drawable/candado_logo"
+            android:fontFamily="sans-serif-condensed-medium"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -64,6 +66,7 @@
             android:backgroundTint="@color/white"
             android:background="@drawable/rounded_corners"
             android:padding="12dp"
+            android:fontFamily="sans-serif-condensed-medium"
         />
         <TextView
             android:id="@+id/text_registro"
@@ -75,6 +78,7 @@
             android:textSize="14dp"
             android:padding="10dp"
             android:textAlignment="center"
+            android:fontFamily="sans-serif-condensed-medium"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -87,6 +91,7 @@
             android:backgroundTint="@color/white"
             android:background="@drawable/rounded_corners"
             android:padding="12dp"
+            android:fontFamily="sans-serif-condensed-medium"
             />
 
         <ImageView
