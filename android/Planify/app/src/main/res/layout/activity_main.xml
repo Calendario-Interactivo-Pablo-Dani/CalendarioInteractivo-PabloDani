@@ -16,7 +16,20 @@
         android:gravity="center"
         android:orientation="vertical"
         >
+        <!--
+        Escogemos utilizar un linearLayout por q para pantallas como el Login, como todo va situado
+        en vertical, nos sirve como Layout sencillo, donde nada más q ponemos la gravedad centrada,
+        para que los componentes se situen en el centro hporizontal y ponemos la orientación en
+        vertical, de esta manera los componentes se pondran uno debajo del otro.
+        Para los logins q no hay cosas a los costados nos sirve bastante bien
+        -->
 
+        <!--
+        Este Image View es el icono redondo de Usuario típico.
+        Aquí lo que hemos hecho ha sido crear un image view y desde la carpeta drawable seleccionar
+        New >> Image Asset >> y ahi hemos escogido el tipo de imagen que queriamos, como es un xml,
+        luego le dimos formato blanco
+        -->
         <ImageView
             android:layout_width="240dp"
             android:layout_height="240dp"
@@ -24,6 +37,13 @@
 
             />
 
+        <!--
+        Los hints que se ven por ahi son lo tipico que te pone en la barra lo que tienes que escribir
+        y una vez empiezas a escribir se va.
+
+        Los drawableEnd es lo que hace que coloquemos el iconito al final del Edit Text, si fuese
+        drawableStart saldría a la izquierda.
+        -->
         <EditText
             android:id="@+id/user_email"
             android:layout_width="match_parent"
@@ -102,7 +122,4 @@
             />
 
     </LinearLayout>
-
-
-
 </RelativeLayout>
