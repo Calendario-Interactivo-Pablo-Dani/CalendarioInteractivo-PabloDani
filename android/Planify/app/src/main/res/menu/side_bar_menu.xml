@@ -5,11 +5,11 @@
 
       <item
           android:id="@+id/nav_home"
-          adnroid:title="Home"
+          android:title="Home"
           />
       <item
           android:id="@+id/nav_logros"
-          adnroid:title="Logros"
+          android:title="Logros"
           />
     </group>
     <group adnroid:clickableBehavior="single">
@@ -35,6 +35,12 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
+                android:title="share"
+                />
+
+            <item
+                android:id="@+id/nav_rate"
+                android:title="rate"
                 />
         </menu>
 
