@@ -57,7 +57,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request){
-        try{
+
             Usuario usuario = authService.register(request);
             RegisterResponseDTO response = new RegisterResponseDTO(
                     usuario.getId(),
@@ -68,8 +68,5 @@ public class AuthController {
                     "Usuario registrado correctamente"
             );
             return ResponseEntity.ok(response);
-        }catch (RuntimeException e){
-            return ResponseEntity.badRequest().body("Error al registrar usuario");
-        }
     }
 }
