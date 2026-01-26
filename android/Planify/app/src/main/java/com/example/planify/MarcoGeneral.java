@@ -85,8 +85,8 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             // cargar fragment Home
         } else if (id == R.id.nav_logros) {
-            Intent i= new Intent(getApplicationContext(), Logros.class);
-            startActivity(i);
+            //Intent i= new Intent(getApplicationContext(), Logros.class);
+            //startActivity(i);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

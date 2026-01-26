@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.planify.Register"></activity>
+        <activity android:name="com.example.planify.MarcoGeneral"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
