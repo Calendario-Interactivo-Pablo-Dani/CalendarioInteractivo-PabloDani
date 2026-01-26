@@ -13,24 +13,21 @@
           android:title="Logros"
           />
     </group>
-    <group>
         <item
             android:title="Profile">
 
             <menu>
-
+                <group>
                 <item
                     android:id="@+id/nav_profile"
                     android:title="Profile" />
                 <item
                     android:id="@+id/nav_logout"
                     android:title="Logout" />
-
+                </group>
             </menu>
 
         </item>
-
-    </group>
 
     <item android:title="Communicate">
         <menu>
