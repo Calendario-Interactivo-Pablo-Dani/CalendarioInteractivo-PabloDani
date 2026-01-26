@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Planify">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="com.example.planify.Register"></activity>
         <activity android:name="com.example.planify.MarcoGeneral"></activity>
+
+        <activity android:name="com.example.planify.ui.Register"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

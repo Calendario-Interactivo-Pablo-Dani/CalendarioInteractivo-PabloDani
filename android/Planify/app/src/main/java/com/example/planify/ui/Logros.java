@@ -1,4 +1,4 @@
-package com.example.planify;
+package com.example.planify.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 

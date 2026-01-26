@@ -1,4 +1,4 @@
-package com.example.planify;
+package com.example.planify.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.planify.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class MarcoGeneral extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

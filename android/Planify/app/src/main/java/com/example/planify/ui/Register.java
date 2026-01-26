@@ -1,9 +1,10 @@
-package com.example.planify;
+package com.example.planify.ui;
 
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planify.R;
 
 public class Register extends AppCompatActivity {
 
