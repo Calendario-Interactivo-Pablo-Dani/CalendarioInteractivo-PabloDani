@@ -40,5 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Button bRegister=(Button) findViewById(R.id.button_registro);
         bRegister.setOnClickListener(listenerRegistro);
         Button bLogin=(Button) findViewById(R.id.button_login);
+        bLogin.setOnClickListener(listenerLogin);
     }
 }
