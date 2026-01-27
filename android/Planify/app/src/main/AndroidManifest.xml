@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.planify.Register"></activity>
-        <activity android:name="com.example.planify.MarcoGeneral"></activity>
-
         <activity android:name="com.example.planify.ui.Register"></activity>
+        <activity android:name="com.example.planify.ui.MarcoGeneral"></activity>
+
+        <activity android:name="com.example.planify.ui.Logros"></activity>
 
 
         <meta-data
