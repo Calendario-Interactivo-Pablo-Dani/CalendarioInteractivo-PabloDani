@@ -13,11 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
-import com.example.planify.ui.EventAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-public class fragmentMainCalendario extends Fragment {
+public class FragmentMainCalendario extends Fragment {
 
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
