@@ -1,6 +1,8 @@
 package com.example.planify.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +11,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +39,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //esto es para que la toolbar q acabamos de declarar android la tome como la suya, osea que
         //la use por defecto como si fuese la suya nativa
         setSupportActionBar(toolbar);
+
 
         //OCULTAR O ENSEÑAR items
 

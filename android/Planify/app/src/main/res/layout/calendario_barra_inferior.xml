@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/calendar_title"
+    android:backgroundTint="#2E2E2E"
     android:elevation="2dp"
     android:padding="8dp">
 

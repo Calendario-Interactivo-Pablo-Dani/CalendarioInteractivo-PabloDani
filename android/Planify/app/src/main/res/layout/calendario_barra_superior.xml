@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <TextView
-        android:id="@+id/textTurno"
+        android:id="@+id/textNombreCalendario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="nombreCalendario"
@@ -14,10 +15,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/calendar_title"
+        android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="24dp"
         android:fontFamily="@font/anton"
+        android:drawableEnd="@drawable/tres_puntos"
+        android:drawableStart="@drawable/menu_treslineas"
         android:elevation="2dp"
         android:translationZ="2dp"
         />
+        
+   
 </androidx.constraintlayout.widget.ConstraintLayout>

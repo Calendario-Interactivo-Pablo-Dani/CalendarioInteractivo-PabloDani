@@ -24,20 +24,24 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#424242">
+            android:background="#1B1B1B">
 
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="#008577"
+                android:background="#1B1B1B"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/menu_treslineas"
+                android:titleTextColor="@android:color/white"
+                app:titleTextColor="@android:color/white"
+                app:subtitleTextColor="@android:color/white"
+                app:navigationIconTint="@android:color/white"
                 />
 
             <androidx.fragment.app.FragmentContainerView
