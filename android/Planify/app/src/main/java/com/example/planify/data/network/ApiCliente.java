@@ -4,13 +4,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.example.planify.BuildConfig;
+
 
 public class ApiCliente {
     /*Esta clase se encarga de:
     -Crea el objeto authApi
     -Indica el url con el que vamos a mandar las peticiones a spring
     -Convierte JSON en Java*/
-    private static final String BASE_URL = "http://localhost:8080/";/*CAMBIAR IP DESPUES*/
+    private static final String BASE_URL = BuildConfig.BASE_URL;/*CAMBIAR IP DESPUES*/
     private static Retrofit retrofit;
     public static Retrofit getRetrofit() {
         /*Si no he creado retrofit lo creo ahora*/
