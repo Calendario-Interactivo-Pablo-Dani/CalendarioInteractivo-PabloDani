@@ -75,7 +75,27 @@ public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventView
     //----------------------------------------------------------------------------------------------------
 
 
+
     // 2️⃣ Aquí se rellena cada item con datos distintos
+    //------------------------------------ON BIND VIEW HOLDER---------------------------------------------
+
+    /*
+     * Este méto-do se encarga de RELLENAR cada tarjeta con la información
+     * correspondiente a una posición de la lista de tareas.
+     *
+     * Aquí NO se crean vistas ni se hace findViewById.
+     * Se utilizan ViewHolder ya creados y preparados previamente, por el metodo onCreateViewHolder
+     *
+     * El parámetro "position" indica qué elemento de la lista de tareas
+     * corresponde a esta tarjeta en ese momento.
+     *
+     * El RecyclerView puede reutilizar un mismo ViewHolder para distintas
+     * posiciones al hacer scroll, por lo que este méto-do se ejecuta muchas veces.
+     *
+     * En este méto-do se asignan los datos reales (nombre, fecha, hora, etc.)
+     * a los TextView de la tarjeta.
+     */
+
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
 
@@ -88,6 +108,9 @@ public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventView
         holder.mesEvento.setText("ENE");
         holder.horaEvento.setText("18:30");
     }
+    //-----------------------------------------------------------------------------------------------------
+
+
 
     // 3️⃣ Cuántos items hay
     @Override

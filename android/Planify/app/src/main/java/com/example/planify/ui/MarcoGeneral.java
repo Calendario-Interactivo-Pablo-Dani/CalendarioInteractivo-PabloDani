@@ -78,7 +78,17 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new FragmentMainCalendario())
+                    .commit();
+        }
+
     }
+
+    //--------------------------------ON NAVIGATION ITEM SELECTED-----------------------------------------
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
         int id = menuItem.getItemId();
@@ -87,12 +97,13 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             // cargar fragment Home
         } else if (id == R.id.nav_logros) {
-            //Intent i= new Intent(getApplicationContext(), Logros.class);
-            //startActivity(i);
+            Intent i= new Intent(getApplicationContext(), Logros.class);
+            startActivity(i);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+    //----------------------------------------------------------------------------------------------------
 
 }
