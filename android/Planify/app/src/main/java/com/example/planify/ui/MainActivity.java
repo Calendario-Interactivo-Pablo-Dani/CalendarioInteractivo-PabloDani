@@ -2,6 +2,7 @@ package com.example.planify.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,14 +15,18 @@ import com.example.planify.data.dto.LoginRequestDTO;
 import com.example.planify.data.dto.LoginResponseDTO;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.AuthApi;
+import com.example.planify.data.session.SessionManager;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    /*Datos login*/
     private EditText txEmail;
     private  EditText txPassword;
+    /*Api*/
     private  AuthApi authApi;
     private View.OnClickListener listenerRegistro=new View.OnClickListener() {
 
@@ -35,10 +40,30 @@ public class MainActivity extends AppCompatActivity {
     //esto aun esta sin flitros(que haya campos escritos) es solo para ir probando
     private View.OnClickListener listenerLogin=new View.OnClickListener() {
         public void onClick(View view) {
-//            Intent i=new Intent(getApplicationContext(), MarcoGeneral.class);
-//            startActivity(i);
             String email = txEmail.getText().toString();
             String password = txPassword.getText().toString();
+            /*COMPROBAMOS QUE LOS CAMPOS NO ESTAN VACIOS*/
+            if (email.isEmpty() || password.isEmpty()) {
+
+                Toast.makeText(MainActivity.this,
+                        "Rellena todos los campos",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // COMPROBAMOS FORMATO DE EMAIL VALIDO
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(MainActivity.this,
+                        "Email no válido",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //CONTRASEÑA MINIMA
+            if (password.length() < 3) {
+                Toast.makeText(MainActivity.this,
+                        "La contraseña debe tener al menos 3 caracteres",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             LoginRequestDTO request = new LoginRequestDTO(email, password);
 
@@ -46,12 +71,24 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
                     if (response.isSuccessful() && response.body() != null) {
+                        //CREAMOS DTO
                         LoginResponseDTO usuario = response.body();
+                        //GUARDAR SESIÓN
+                        SessionManager session = new SessionManager(MainActivity.this);
+                        session.saveSession(
+                                usuario.getId(),
+                                usuario.getNombre(),
+                                usuario.getUsername(),
+                                usuario.getEmail()
+                        );
+                        //TEXTO CONFIRMACIÓN
                         Toast.makeText(MainActivity.this,
                                 "Bienvenido " + usuario.getNombre(),
                                 Toast.LENGTH_SHORT).show();
+                        //PASAMOS A LA PANTALLA GENERAL
                         Intent i = new Intent(getApplicationContext(), MarcoGeneral.class);
                         startActivity(i);
+                        finish();
                     } else if (response.code() == 401) {
                         Toast.makeText(MainActivity.this,
                                 "Email o contraseña incorrectos",
@@ -73,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*MANEJO DE SESION*/
+        SessionManager session = new SessionManager(this);
+        session.logout();
+        if (session.isLogged()) {
+            Intent intent = new Intent(MainActivity.this, MarcoGeneral.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
         /*Registro*/
         Button bRegister=(Button) findViewById(R.id.button_registro);
@@ -80,11 +126,10 @@ public class MainActivity extends AppCompatActivity {
         /*Login*/
         Button bLogin=(Button) findViewById(R.id.button_login);
         bLogin.setOnClickListener(listenerLogin);
-        /*Email y Contraseña*/
+        /*Email y Contraseña(login)*/
         txEmail = findViewById(R.id.user_email);
         txPassword= findViewById(R.id.password);
         /*Api*/
         authApi = ApiCliente.getRetrofit().create(AuthApi.class);
-
     }
 }

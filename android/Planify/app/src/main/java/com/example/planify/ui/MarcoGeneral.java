@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -16,6 +18,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+import com.example.planify.data.session.SessionManager;
+
 
 import com.example.planify.R;
 import com.google.android.material.navigation.NavigationView;
@@ -31,10 +35,32 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marco_general);
+        SessionManager session = new SessionManager(this);
+        //ACCEDEMOS AL HEADER Y AHI PILLAMOS EL USERNAME Y LO PONEMOS
+        /*Pillamos el xml de marco general y lo guardamos en una variable tipo
+        * navigation view*/
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        /*Le decimos algo tipo “Dame el primer header que tengas dentro”
+        * y como solo tenemos 1 siempre es 0*/
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView tvUsername = headerView.findViewById(R.id.username);
+
+
+        int idUser = session.getIdUser();
+        String username = session.getUsername();
+        String email = session.getEmail();
+
+        tvUsername.setText(username);
+
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+
+
+
+
 
         //esto es para que la toolbar q acabamos de declarar android la tome como la suya, osea que
         //la use por defecto como si fuese la suya nativa
