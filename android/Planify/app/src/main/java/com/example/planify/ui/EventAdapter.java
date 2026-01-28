@@ -13,7 +13,7 @@ import com.example.planify.data.POJOs.Tarea;
 
 import java.util.List;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private List<Tarea> tareas;
 
