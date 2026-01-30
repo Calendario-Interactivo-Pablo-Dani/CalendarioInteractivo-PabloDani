@@ -14,7 +14,7 @@ public class AuthService {
     * decide quien va a entrar y quien no
     * controla el acceso
     * NO ES UNA GESTION DE USUARIOS, SINO UN PROCESO DE AUTENTICACIÓN
-    * No hace falta crear un AuthRepository pq usaremos los datos del usuario(UsuarioRepository)*/
+    * No hace falta crear un AuthRepository pq usaremos los datos del usuario(UsuarioRepository) h*/
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
     public AuthService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
