@@ -17,11 +17,24 @@
     mostrar otra tarea.
     ESO ES EL RECYLCERView.
     -->
+    <TextView
+        android:id="@+id/titulo_eventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Próximos eventos"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/barra_eventos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/titulo_eventos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
