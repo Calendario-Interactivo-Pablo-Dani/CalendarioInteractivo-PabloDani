@@ -36,6 +36,8 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marco_general);
         SessionManager session = new SessionManager(this);
+
+
         //ACCEDEMOS AL HEADER Y AHI PILLAMOS EL USERNAME Y LO PONEMOS
         /*Pillamos el xml de marco general y lo guardamos en una variable tipo
         * navigation view*/
@@ -74,7 +76,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //por ejemplo, si estamos verificados y hubiese un menu de verificación, pues ocultarlo.
         //las lineas de abajo son solo ejemplos
         Menu menu=navigationView.getMenu();
-        menu.findItem(R.id.nav_logout).setVisible(false);
+        menu.findItem(R.id.nav_logout).setVisible(true);
         menu.findItem(R.id.nav_profile).setVisible(false);
 
 
@@ -130,6 +132,19 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_logros) {
             Intent i= new Intent(getApplicationContext(), Logros.class);
             startActivity(i);
+        }else if (id == R.id.nav_logout) {
+            SessionManager session = new SessionManager(this);
+            session.logout();
+            Intent i= new Intent(getApplicationContext(), MainActivity.class);
+
+
+            //esta linea borra todas las pestañas abiertas q hubiese de esa app y vuelves al punto
+            //inicial, es decir, al login, sin ella si le dieses a la flecha de atrás despues de
+            //logout, volverías a la app logueado.
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+
+            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

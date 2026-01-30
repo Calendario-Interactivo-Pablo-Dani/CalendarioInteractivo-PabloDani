@@ -51,25 +51,11 @@ public class FragmentMainCalendario extends Fragment {
 
         Tarea t4 = new Tarea();
         t2.setNombre("Avanzar TFG");
-        Tarea t5 = new Tarea();
-        t1.setNombre("Estudiar PDM");
-
-        Tarea t6 = new Tarea();
-        t2.setNombre("Avanzar TFG");
-        Tarea t7 = new Tarea();
-        t1.setNombre("Estudiar PDM");
-
-        Tarea t8 = new Tarea();
-        t2.setNombre("Avanzar TFG");
 
         tareas.add(t1);
         tareas.add(t2);
         tareas.add(t3);
         tareas.add(t4);
-        tareas.add(t5);
-        tareas.add(t6);
-        tareas.add(t7);
-        tareas.add(t8);
 
         // 4️⃣ Creamos el adapter
         eventAdapter = new EventAdapter(tareas);

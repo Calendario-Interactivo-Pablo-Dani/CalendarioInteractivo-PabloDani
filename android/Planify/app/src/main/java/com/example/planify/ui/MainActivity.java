@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         /*MANEJO DE SESION*/
         SessionManager session = new SessionManager(this);
-        session.logout();
         if (session.isLogged()) {
             Intent intent = new Intent(MainActivity.this, MarcoGeneral.class);
             startActivity(intent);
