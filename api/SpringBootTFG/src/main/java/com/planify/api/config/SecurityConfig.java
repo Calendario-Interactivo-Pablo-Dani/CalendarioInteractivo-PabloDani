@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-/*Para poder encriptar las contraseñas con él has vamos a usar BCryptPasswordEncoder
+/*Para poder encriptar las contraseñas con él hash vamos a usar BCryptPasswordEncoder
 * Esta función se encuentra dentro de la dependencia spring-security-crypto
 * La hemos añadido al pom, pero Spring Security por defecto nos va a bloquear la API
 *Con esta clase vamos a conseguir usar BCrypto sin que Spring bloquee la API */
