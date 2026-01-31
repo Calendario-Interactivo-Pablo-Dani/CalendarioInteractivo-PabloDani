@@ -13,7 +13,7 @@ import com.example.planify.data.POJOs.Tarea;
 
 import java.util.List;
 
-public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private List<Tarea> tareas;
 
@@ -21,7 +21,6 @@ public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventView
         this.tareas = tareas;
     }
 
-    // 1️⃣ Aquí se infla el layout del item
 
     //---------------------ON CREATE VIEW HOLDER----------------------------------------------------------
     /*
@@ -76,7 +75,7 @@ public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventView
 
 
 
-    // 2️⃣ Aquí se rellena cada item con datos distintos
+    // Aquí se rellena cada item con datos distintos
     //------------------------------------ON BIND VIEW HOLDER---------------------------------------------
 
     /*
@@ -112,7 +111,7 @@ public class    EventAdapter extends RecyclerView.Adapter<EventAdapter.EventView
 
 
 
-    // 3️⃣ Cuántos items hay
+    // Cuántos items hay
     @Override
     public int getItemCount() {
         return tareas.size();

@@ -6,6 +6,15 @@ package com.example.planify.ui;
 * */
 
 public class CalendarDay {
+    private Integer dayNumber; // null = celda vacía
 
-
+    public CalendarDay(Integer dayNumber) {
+        this.dayNumber = dayNumber;
+    }
+    public boolean isEmpty() {
+        return dayNumber == null;
+    }
+    public Integer getDayNumber() {
+        return dayNumber;
+    }
 }

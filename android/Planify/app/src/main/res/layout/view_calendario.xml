@@ -7,9 +7,11 @@
 
     <!-- Grid del calendario -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCalendar"
+        android:id="@+id/recycler_Calendar"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
