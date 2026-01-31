@@ -160,7 +160,7 @@ public class FragmentMainCalendario extends Fragment {
 
     private void actualizarTituloMes() {
         SimpleDateFormat sdf =
-                new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+                new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
         textoMes.setText(sdf.format(calendarioActual.getTime()));
     }
 
