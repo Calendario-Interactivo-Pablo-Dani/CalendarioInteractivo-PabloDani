@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
 public class FragmentMainCalendario extends Fragment {
 
     private RecyclerView recyclerViewCalendar;
@@ -30,6 +35,12 @@ public class FragmentMainCalendario extends Fragment {
     private RecyclerView recyclerViewTareas;
     private EventAdapter eventAdapter;
     private List<Tarea> tareas;
+
+
+    private Calendar calendarioActual;
+    private TextView textoMes;
+    private Button btnMesAnterior;
+    private Button btnMesSiguiente;
 
     @Nullable
     @Override
@@ -42,21 +53,46 @@ public class FragmentMainCalendario extends Fragment {
         // 1️⃣ Inflamos el layout del fragment
         View view = inflater.inflate(R.layout.fragment_main_calendario, container, false);
 
+        View mesView = view.findViewById(R.id.mes);
+
+        textoMes = mesView.findViewById(R.id.nombre_mes);
+        btnMesAnterior = mesView.findViewById(R.id.boton_mes_anterior);
+        btnMesSiguiente = mesView.findViewById(R.id.boton_mes_siguiente);
+
+        btnMesAnterior.setOnClickListener(v -> {
+            calendarioActual.add(Calendar.MONTH, -1);
+            refrescarCalendario();
+        });
+
+        btnMesSiguiente.setOnClickListener(v -> {
+            calendarioActual.add(Calendar.MONTH, 1);
+            refrescarCalendario();
+        });
+
         recyclerViewCalendar = view.findViewById(R.id.recycler_Calendar);
 
         recyclerViewCalendar.setLayoutManager(
                 new GridLayoutManager(getContext(), 7)
         );
 
-        calendarDays = generarDiasDelMes(2026, 3);
+        calendarioActual = Calendar.getInstance();
+        calendarioActual.set(Calendar.DAY_OF_MONTH, 1);
+        actualizarTituloMes();
+
+        // generar días del mes actual
+        calendarDays = generarDiasDelMes(calendarioActual);
 
         calendarAdapter = new CalendarAdapter(calendarDays);
 
         recyclerViewCalendar.setAdapter(calendarAdapter);
 
-
         // 2️⃣ Encontramos el RecyclerView
         recyclerViewTareas = view.findViewById(R.id.barra_eventos);
+
+
+
+
+
 
         // 3️⃣ Creamos datos de prueba
         tareas = new ArrayList<>();
@@ -98,33 +134,44 @@ public class FragmentMainCalendario extends Fragment {
 
     }
 
-    private List<CalendarDay> generarDiasDelMes(int year, int month) {
+    private List<CalendarDay> generarDiasDelMes(Calendar calendar) {
 
         List<CalendarDay> days = new ArrayList<>();
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar temp = (Calendar) calendar.clone();
+        temp.set(Calendar.DAY_OF_MONTH, 1);
 
-        // Calendar.MONTH va de 0 a 11
-        calendar.set(year, month - 1, 1);
+        int firstDayOfWeek = temp.get(Calendar.DAY_OF_WEEK);
+        int daysInMonth = temp.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        // Convertimos para que lunes = 1
         int adjustedFirstDay =
                 (firstDayOfWeek == Calendar.SUNDAY) ? 7 : firstDayOfWeek - 1;
 
-        // Huecos antes del día 1
         for (int i = 1; i < adjustedFirstDay; i++) {
             days.add(new CalendarDay(null));
         }
 
-        // Días reales
         for (int day = 1; day <= daysInMonth; day++) {
             days.add(new CalendarDay(day));
         }
 
         return days;
     }
+
+    private void actualizarTituloMes() {
+        SimpleDateFormat sdf =
+                new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+        textoMes.setText(sdf.format(calendarioActual.getTime()));
+    }
+
+    private void refrescarCalendario() {
+
+        calendarDays.clear();
+        calendarDays.addAll(generarDiasDelMes(calendarioActual));
+
+        calendarAdapter.notifyDataSetChanged();
+        actualizarTituloMes();
+    }
+
 
 }
