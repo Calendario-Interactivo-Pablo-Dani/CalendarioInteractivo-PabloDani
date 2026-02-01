@@ -27,7 +27,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request){
         /*->El @RequestBody LoginRequestDTO request significa que
-        * todo lo que venga desde android en formato JSON (las credenciales del usuario que queremos
+        * to-do lo que venga desde android en formato JSON (las credenciales del usuario que queremos
         *  comprobar), se van a combertin en un objeto LoginRequestDTO
         * ->El ResponseEntity<?> El responseEntity es un objeto que devuelve el servicio, sirve
         * para controlar errores, sin el, si el metodo falla se devuelve el http 200 por defecto
@@ -48,7 +48,7 @@ public class AuthController {
                     usuario.getTelefono()
             );
             return ResponseEntity.ok(response);
-            /*Si todo va bien significa 200(ok))*/
+            /*Si to-do va bien significa 200(ok))*/
         }catch (RuntimeException e){
             return ResponseEntity.status(401).body("Credenciales incorrectas");
             /*Mandas el 401(Unauthorized)*/
