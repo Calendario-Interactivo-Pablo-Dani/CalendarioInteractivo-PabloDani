@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.dto.CalendarioResponseDTO;
@@ -20,35 +22,43 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VentanaGeneral extends AppCompatActivity {
+    private RecyclerView recyclerCalendarios;
+    private ListaCalendariosAdapter ListaCalendariosAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ventana_general);
-        // Sesión (para sacar el idUser)
+        inicializarVistas();
+        cargarCalendarios();
+    }
+    private void inicializarVistas() {
+        recyclerCalendarios = findViewById(R.id.recyclerCalendarios);
+        recyclerCalendarios.setLayoutManager(new LinearLayoutManager(this));
+    }
+    private void cargarCalendarios() {
+
+        // Sesión
         SessionManager sessionManager = new SessionManager(this);
         int idUser = sessionManager.getIdUser();
 
-        // Crear la API
+        // API
         CalendarioApi calendarioApi =
                 ApiCliente.getRetrofit().create(CalendarioApi.class);
 
-        // 🔹 PROBAR: obtener mis calendarios
-        Call<List<CalendarioResponseDTO>> call = calendarioApi.getMisCalendarios(idUser);
+        Call<List<CalendarioResponseDTO>> call =
+                calendarioApi.getMisCalendarios(idUser);
 
         call.enqueue(new Callback<List<CalendarioResponseDTO>>() {
+
             @Override
             public void onResponse(Call<List<CalendarioResponseDTO>> call,
                                    Response<List<CalendarioResponseDTO>> response) {
 
                 if (response.isSuccessful() && response.body() != null) {
+
                     List<CalendarioResponseDTO> calendarios = response.body();
+                    mostrarCalendarios(calendarios);
 
-                    Log.d("CALENDARIO", "Calendarios recibidos: " + calendarios.size());
-
-                    for (CalendarioResponseDTO c : calendarios) {
-                        Log.d("CALENDARIO",
-                                c.getIdCal() + " - " + c.getNombre() + " (" + c.getRol() + ")");
-                    }
                 } else {
                     Log.e("CALENDARIO", "Error response: " + response.code());
                 }
@@ -61,6 +71,10 @@ public class VentanaGeneral extends AppCompatActivity {
                         "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void mostrarCalendarios(List<CalendarioResponseDTO> calendarios) {
+        ListaCalendariosAdapter = new ListaCalendariosAdapter(calendarios);
+        recyclerCalendarios.setAdapter(ListaCalendariosAdapter);
     }
 
 }
