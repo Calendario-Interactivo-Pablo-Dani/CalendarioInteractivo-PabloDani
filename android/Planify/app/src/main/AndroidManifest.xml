@@ -28,6 +28,8 @@
         <activity android:name="com.example.planify.ui.Register"></activity>
         <activity android:name="com.example.planify.ui.MarcoGeneral"></activity>
         <activity android:name="com.example.planify.ui.Logros"></activity>
+        <activity android:name="com.example.planify.ui.VentanaGeneral"></activity>
+
 
 
         <meta-data
