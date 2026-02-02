@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //esto aun esta sin flitros(que haya campos escritos) es solo para ir probando
+    //esto aun esta sin flitros(que haya campos escritos) es solo para ir probandoa
     private View.OnClickListener listenerLogin=new View.OnClickListener() {
         public void onClick(View view) {
             String email = txEmail.getText().toString();
