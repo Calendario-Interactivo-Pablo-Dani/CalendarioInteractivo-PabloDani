@@ -1,5 +1,6 @@
 package com.example.planify.ui;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.example.planify.data.dto.CalendarioResponseDTO;
 
 import java.util.List;
 
+/**/
 public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendariosAdapter.CalendarioViewHolder> {
     // 1️⃣ Lista de calendarios que vienen del backend
     private List<CalendarioResponseDTO> calendarios;
@@ -47,6 +49,18 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
                 + " (" + calendario.getRol() + ")";
 
         holder.btnCalendario.setText(texto);
+
+        holder.btnCalendario.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    v.getContext(),
+                    MarcoGeneral.class
+            );
+
+            intent.putExtra("ID_CAL", calendario.getIdCal());
+
+            v.getContext().startActivity(intent);
+        });
     }
 
     // 5️⃣ Cuántos elementos hay

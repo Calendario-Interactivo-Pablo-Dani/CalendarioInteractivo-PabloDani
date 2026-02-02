@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/etNombreCalendario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del calendario"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/etCodigoCalendario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Código del calendario"
+        android:inputType="number"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etNombreCalendario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/btnConfirmarCrearCalendario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Crear calendario"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/etCodigoCalendario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

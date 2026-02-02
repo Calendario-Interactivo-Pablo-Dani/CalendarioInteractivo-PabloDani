@@ -50,8 +50,14 @@ public class FragmentMainCalendario extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
 
+
+
         // 1️⃣ Inflamos el layout del fragment
         View view = inflater.inflate(R.layout.fragment_main_calendario, container, false);
+        //NOMBRE CALENDARIO
+        View tituloView = view.findViewById(R.id.titulo);
+        TextView titulo = tituloView.findViewById(R.id.textNombreCalendario);
+        titulo.setText("Calendario");
 
         View mesView = view.findViewById(R.id.mes);
 
