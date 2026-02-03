@@ -34,7 +34,7 @@ public class Calendario {
     @OneToMany(mappedBy = "idCal")
     private Set<RelUserCal> relUserCals = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idCal")
+    @OneToMany(mappedBy = "calendario")
     private Set<Tarea> tareas = new LinkedHashSet<>();
 
     public Integer getId() {
