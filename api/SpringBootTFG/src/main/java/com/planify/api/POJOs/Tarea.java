@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tarea", schema = "PlanifyBD_composedhe")
+@Table(name = "tarea")
 public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,20 @@ public class Tarea {
     @Column(name = "fechaLim")
     private Instant fechaLim;
 
-    @ManyToMany(mappedBy = "tareas")
+    @NotNull
+    @Column(name = "id_cal", nullable = false)
+    private Integer idCal1;
+
+    @NotNull
+    @ColumnDefault("'BLANCO'")
+    @Lob
+    @Column(name = "color", nullable = false)
+    private String color;
+
+    @ManyToMany
+    @JoinTable(name = "logroTarea",
+            joinColumns = @JoinColumn(name = "idTarea"),
+            inverseJoinColumns = @JoinColumn(name = "idLogro"))
     private Set<Logro> logroes = new LinkedHashSet<>();
 
     public Integer getId() {
@@ -101,6 +114,22 @@ public class Tarea {
 
     public void setFechaLim(Instant fechaLim) {
         this.fechaLim = fechaLim;
+    }
+
+    public Integer getIdCal1() {
+        return idCal1;
+    }
+
+    public void setIdCal1(Integer idCal1) {
+        this.idCal1 = idCal1;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Set<Logro> getLogroes() {

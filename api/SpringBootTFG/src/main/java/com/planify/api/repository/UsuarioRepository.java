@@ -9,8 +9,6 @@ import java.util.Optional;
  * JpaRepository es la interfaz que nos permite realizar consultas a la base de datos
  * solo consultas y persistencia(Guarda y busca) No toma decisiones*/
 
-import java.util.Optional;
-
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     // EN LOS REPOSITORIES SOLO SE CREAN FIND/DELETES/UPDATES PARA PARAMETROS

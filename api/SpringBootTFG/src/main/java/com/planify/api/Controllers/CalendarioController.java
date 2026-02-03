@@ -1,11 +1,9 @@
 package com.planify.api.Controllers;
 
-import com.planify.api.POJOs.RelUserCal;
 import com.planify.api.Service.CalendarioService;
 import com.planify.api.Service.ReluserCalService;
 import com.planify.api.dto.CalendarioSimpleDTO;
 import com.planify.api.dto.CrearCalendarioRequestDTO;
-import com.planify.api.repository.RelUserCalRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "relUserCal", schema = "PlanifyBD_composedhe")
+@Table(name = "relUserCal")
 public class RelUserCal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

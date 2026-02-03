@@ -44,6 +44,32 @@ public class Logro {
     @ManyToMany
     private Set<Tarea> tareas = new LinkedHashSet<>();
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idUser", nullable = false)
+    private Usuario idUser1;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idUser", nullable = false)
+    private Usuario idUser2;
+
+    public Usuario getIdUser2() {
+        return idUser2;
+    }
+
+    public void setIdUser2(Usuario idUser2) {
+        this.idUser2 = idUser2;
+    }
+
+    public Usuario getIdUser1() {
+        return idUser1;
+    }
+
+    public void setIdUser1(Usuario idUser1) {
+        this.idUser1 = idUser1;
+    }
+
     public Integer getId() {
         return id;
     }
