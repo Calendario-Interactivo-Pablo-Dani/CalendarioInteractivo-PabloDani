@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "calendario", schema = "PlanifyBD_composedhe")
+@Table(name = "calendario")
 public class Calendario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,9 @@ public class Calendario {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
+    @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fechaCreacion", nullable = false, insertable = false, updatable = false)
+    @Column(name = "fechaCreacion", nullable = false)
     private Instant fechaCreacion;
 
     @NotNull

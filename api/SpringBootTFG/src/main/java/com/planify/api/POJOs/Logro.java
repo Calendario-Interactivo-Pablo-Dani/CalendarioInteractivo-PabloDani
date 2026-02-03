@@ -1,39 +1,37 @@
 package com.planify.api.POJOs;
 
+import com.planify.api.enums.EstadoLogro;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "logro", schema = "PlanifyBD_composedhe")
+@Table(name = "logro")
 public class Logro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLogro", nullable = false)
     private Integer id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idUser", nullable = false)
-    private Usuario idUser;
+    private Usuario usuario;
 
-    @Size(max = 30)
-    @NotNull
     @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @NotNull
     @Column(name = "meta", nullable = false)
     private Integer meta;
 
-    @NotNull
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private String estado;
+    private EstadoLogro estado;
 
     @Column(name = "fechaLim")
     private Instant fechaLim;
@@ -41,34 +39,16 @@ public class Logro {
     @Column(name = "fechaCumpl")
     private Instant fechaCumpl;
 
-    @ManyToMany
-    private Set<Tarea> tareas = new LinkedHashSet<>();
+    /* ========= RELACIÓN CON TAREA (VÍA TABLA INTERMEDIA) ========= */
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUser", nullable = false)
-    private Usuario idUser1;
+    @OneToMany(
+            mappedBy = "idLogro",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<LogroTarea> logroTareas = new HashSet<>();
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUser", nullable = false)
-    private Usuario idUser2;
-
-    public Usuario getIdUser2() {
-        return idUser2;
-    }
-
-    public void setIdUser2(Usuario idUser2) {
-        this.idUser2 = idUser2;
-    }
-
-    public Usuario getIdUser1() {
-        return idUser1;
-    }
-
-    public void setIdUser1(Usuario idUser1) {
-        this.idUser1 = idUser1;
-    }
+    /* ================= GETTERS / SETTERS ================= */
 
     public Integer getId() {
         return id;
@@ -78,12 +58,12 @@ public class Logro {
         this.id = id;
     }
 
-    public Usuario getIdUser() {
-        return idUser;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUser(Usuario idUser) {
-        this.idUser = idUser;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getNombre() {
@@ -102,11 +82,11 @@ public class Logro {
         this.meta = meta;
     }
 
-    public String getEstado() {
+    public EstadoLogro getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoLogro estado) {
         this.estado = estado;
     }
 
@@ -126,12 +106,11 @@ public class Logro {
         this.fechaCumpl = fechaCumpl;
     }
 
-    public Set<Tarea> getTareas() {
-        return tareas;
+    public Set<LogroTarea> getLogroTareas() {
+        return logroTareas;
     }
 
-    public void setTareas(Set<Tarea> tareas) {
-        this.tareas = tareas;
+    public void setLogroTareas(Set<LogroTarea> logroTareas) {
+        this.logroTareas = logroTareas;
     }
-
 }

@@ -3,7 +3,7 @@ package com.planify.api.POJOs;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "logroTarea", schema = "PlanifyBD_composedhe")
+@Table(name = "logroTarea")
 public class LogroTarea {
     @EmbeddedId
     private LogroTareaId id;

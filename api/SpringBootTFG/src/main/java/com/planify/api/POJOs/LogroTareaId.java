@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 public class LogroTareaId implements Serializable {
-    private static final long serialVersionUID = -5566612083116559556L;
+    private static final long serialVersionUID = 7555334049904179518L;
     @NotNull
     @Column(name = "idLogro", nullable = false)
     private Integer idLogro;

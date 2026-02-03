@@ -1,5 +1,6 @@
 package com.planify.api.POJOs;
 
+import com.planify.api.enums.RolUsuarioCalendario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
@@ -24,10 +25,9 @@ public class RelUserCal {
     @JoinColumn(name = "idCal", nullable = false)
     private Calendario idCal;
 
-    @NotNull
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
-    private String rol;
+    private RolUsuarioCalendario rol;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class RelUserCal {
         this.idCal = idCal;
     }
 
-    public String getRol() {
+    public RolUsuarioCalendario getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(RolUsuarioCalendario rol) {
         this.rol = rol;
     }
 

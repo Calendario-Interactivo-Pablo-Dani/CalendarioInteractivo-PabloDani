@@ -40,8 +40,8 @@ public class Usuario {
     @Column(name = "telefono", nullable = false, length = 20)
     private String telefono;
 
-    @OneToMany(mappedBy = "idUser")
-    private Set<Logro> logroes = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "usuario")
+    private Set<Logro> logros = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idUser")
     private Set<RelUserCal> relUserCals = new LinkedHashSet<>();
@@ -94,12 +94,12 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public Set<Logro> getLogroes() {
-        return logroes;
+    public Set<Logro> getLogros() {
+        return logros;
     }
 
-    public void setLogroes(Set<Logro> logroes) {
-        this.logroes = logroes;
+    public void setLogros(Set<Logro> logros) {
+        this.logros = logros;
     }
 
     public Set<RelUserCal> getRelUserCals() {

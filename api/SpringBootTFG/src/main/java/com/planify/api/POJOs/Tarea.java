@@ -1,64 +1,62 @@
 package com.planify.api.POJOs;
 
+import com.planify.api.enums.ColorTarea;
+import com.planify.api.enums.EstadoTarea;
+import com.planify.api.enums.TipoTarea;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tarea")
 public class Tarea {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idTarea", nullable = false)
     private Integer id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idCal", nullable = false)
-    private Calendario idCal;
+    private Calendario calendario;
 
-    @Size(max = 30)
-    @NotNull
     @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @NotNull
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fecha", nullable = false)
     private Instant fecha;
 
-    @NotNull
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
-    private String tipo;
+    private TipoTarea tipo;
 
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado")
-    private String estado;
+    private EstadoTarea estado;
 
     @Column(name = "fechaLim")
     private Instant fechaLim;
 
-    @NotNull
-    @Column(name = "id_cal", nullable = false)
-    private Integer idCal1;
-
-    @NotNull
-    @ColumnDefault("'BLANCO'")
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "color", nullable = false)
-    private String color;
+    private ColorTarea color;
 
-    @ManyToMany
-    @JoinTable(name = "logroTarea",
-            joinColumns = @JoinColumn(name = "idTarea"),
-            inverseJoinColumns = @JoinColumn(name = "idLogro"))
-    private Set<Logro> logroes = new LinkedHashSet<>();
+    /* ========= RELACIÓN CON LOGRO (VÍA TABLA INTERMEDIA) ========= */
+
+    @OneToMany(
+            mappedBy = "idTarea",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<LogroTarea> logroTareas = new HashSet<>();
+
+    /* ================= GETTERS / SETTERS ================= */
 
     public Integer getId() {
         return id;
@@ -68,12 +66,12 @@ public class Tarea {
         this.id = id;
     }
 
-    public Calendario getIdCal() {
-        return idCal;
+    public Calendario getCalendario() {
+        return calendario;
     }
 
-    public void setIdCal(Calendario idCal) {
-        this.idCal = idCal;
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
     }
 
     public String getNombre() {
@@ -92,19 +90,19 @@ public class Tarea {
         this.fecha = fecha;
     }
 
-    public String getTipo() {
+    public TipoTarea getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoTarea tipo) {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public EstadoTarea getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoTarea estado) {
         this.estado = estado;
     }
 
@@ -116,28 +114,19 @@ public class Tarea {
         this.fechaLim = fechaLim;
     }
 
-    public Integer getIdCal1() {
-        return idCal1;
-    }
-
-    public void setIdCal1(Integer idCal1) {
-        this.idCal1 = idCal1;
-    }
-
-    public String getColor() {
+    public ColorTarea getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(ColorTarea color) {
         this.color = color;
     }
 
-    public Set<Logro> getLogroes() {
-        return logroes;
+    public Set<LogroTarea> getLogroTareas() {
+        return logroTareas;
     }
 
-    public void setLogroes(Set<Logro> logroes) {
-        this.logroes = logroes;
+    public void setLogroTareas(Set<LogroTarea> logroTareas) {
+        this.logroTareas = logroTareas;
     }
-
 }

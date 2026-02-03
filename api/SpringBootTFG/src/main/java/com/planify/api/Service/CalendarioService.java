@@ -5,6 +5,7 @@ import com.planify.api.POJOs.RelUserCal;
 import com.planify.api.POJOs.Usuario;
 import com.planify.api.dto.CalendarioSimpleDTO;
 import com.planify.api.dto.CrearCalendarioRequestDTO;
+import com.planify.api.enums.RolUsuarioCalendario;
 import com.planify.api.repository.CalendarioRepository;
 import com.planify.api.repository.RelUserCalRepository;
 import com.planify.api.repository.UsuarioRepository;
@@ -49,11 +50,11 @@ public class CalendarioService {
      RelUserCal rel = new RelUserCal();
      rel.setIdCal(cal);
      rel.setIdUser(usuario);
-     rel.setRol("owner");
+     rel.setRol(RolUsuarioCalendario.owner);
      /*Guardamos la relación en la bd*/
      relUserCalRepository.save(rel);
      /*Devolvemos el calendario*/
-     return new CalendarioSimpleDTO(cal.getId(),cal.getNombre(),cal.getCodigo(),"owner");
+     return new CalendarioSimpleDTO(cal.getId(),cal.getNombre(),cal.getCodigo(),RolUsuarioCalendario.owner);
 
  }
 
