@@ -19,7 +19,7 @@ import com.example.planify.data.dto.CalendarioRequestDTO;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.CalendarioApi;
 import com.example.planify.data.session.SessionManager;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,7 +41,8 @@ public class VentanaGeneral extends AppCompatActivity {
 
         inicializarVistas();
         cargarCalendarios();
-        Button btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
+        //Button btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
+        FloatingActionButton btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
         btnCrearCalendario.setOnClickListener(v -> {
             mostrarDialogCrearCalendario();
         });

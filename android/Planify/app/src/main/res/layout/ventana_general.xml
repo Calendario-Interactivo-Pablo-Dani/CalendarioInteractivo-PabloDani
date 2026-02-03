@@ -35,16 +35,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BOTÓN CREAR CALENDARIO -->
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnCrearCalendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ Crear calendario"
-        android:padding="16dp"
-        android:layout_margin="16dp"
+
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/black"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="16dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
