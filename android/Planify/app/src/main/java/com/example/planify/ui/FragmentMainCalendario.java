@@ -57,7 +57,8 @@ public class FragmentMainCalendario extends Fragment {
         //NOMBRE CALENDARIO
         View tituloView = view.findViewById(R.id.titulo);
         TextView titulo = tituloView.findViewById(R.id.textNombreCalendario);
-        titulo.setText("Calendario");
+
+        titulo.setText(CalendarioSeleccionado.nombre);
 
         View mesView = view.findViewById(R.id.mes);
 

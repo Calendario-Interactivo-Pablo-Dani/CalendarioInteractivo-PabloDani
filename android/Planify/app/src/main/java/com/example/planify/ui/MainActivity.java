@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                                 "Bienvenido " + usuario.getNombre(),
                                 Toast.LENGTH_SHORT).show();
                         //PASAMOS A LA PANTALLA GENERAL
-                        Intent i = new Intent(getApplicationContext(), MarcoGeneral.class);
+                        Intent i = new Intent(getApplicationContext(), VentanaGeneral.class);
                         startActivity(i);
                         finish();
                     } else if (response.code() == 401) {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         /*MANEJO DE SESION*/
         SessionManager session = new SessionManager(this);
         if (session.isLogged()) {
-            Intent intent = new Intent(MainActivity.this, MarcoGeneral.class);
+            Intent intent = new Intent(MainActivity.this, VentanaGeneral.class);
             startActivity(intent);
             finish();
             return;

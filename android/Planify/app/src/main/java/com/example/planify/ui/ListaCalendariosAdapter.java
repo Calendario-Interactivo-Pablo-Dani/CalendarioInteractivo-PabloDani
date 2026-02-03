@@ -56,8 +56,10 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
                     v.getContext(),
                     MarcoGeneral.class
             );
-
-            intent.putExtra("ID_CAL", calendario.getIdCal());
+            CalendarioSeleccionado.idCal = calendario.getIdCal();
+            CalendarioSeleccionado.nombre = calendario.getNombre();
+            CalendarioSeleccionado.rol = calendario.getRol();
+            CalendarioSeleccionado.codigo = calendario.getCodigo();
 
             v.getContext().startActivity(intent);
         });

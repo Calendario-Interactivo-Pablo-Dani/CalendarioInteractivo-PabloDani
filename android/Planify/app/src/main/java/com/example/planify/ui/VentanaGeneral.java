@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -32,6 +33,12 @@ public class VentanaGeneral extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ventana_general);
+        TextView txtBienvenida = findViewById(R.id.txtBienvenida);
+        SessionManager sessionManager = new SessionManager(this);
+        String nombre = sessionManager.getName();
+        txtBienvenida.setText("¡Bienvenido " + nombre +  "!");
+
+
         inicializarVistas();
         cargarCalendarios();
         Button btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
