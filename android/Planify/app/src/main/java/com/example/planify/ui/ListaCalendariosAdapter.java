@@ -47,15 +47,18 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
         // Texto del botón: Nombre (rol)
         String texto = calendario.getNombre()
                 + " (" + calendario.getRol() + ")";
-
+        //tras la referencia al boton, le damos un valor, el texto, que será el nombre del calendar
         holder.btnCalendario.setText(texto);
-
+        //Le damos también un listener que abrirá el activity marcoGeneral
         holder.btnCalendario.setOnClickListener(v -> {
 
             Intent intent = new Intent(
                     v.getContext(),
                     MarcoGeneral.class
             );
+
+            //Crear y establecer los daros del calendario seleccionado awuí permite sber exactamente
+            //el calendario que se ha pulsado, actua como un calendario "activo"
             CalendarioSeleccionado.idCal = calendario.getIdCal();
             CalendarioSeleccionado.nombre = calendario.getNombre();
             CalendarioSeleccionado.rol = calendario.getRol();
