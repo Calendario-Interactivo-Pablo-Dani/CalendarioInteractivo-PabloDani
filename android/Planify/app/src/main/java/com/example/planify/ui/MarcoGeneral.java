@@ -140,8 +140,11 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //calendarios y demás
         if (id == R.id.nav_home) {
             // cargar fragment Home
-            Intent i = new Intent(getApplicationContext(), VentanaGeneral.class);
+            Intent i = new Intent(MarcoGeneral.this, VentanaGeneral.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_logros) {
             Intent i= new Intent(getApplicationContext(), Logros.class);
             startActivity(i);

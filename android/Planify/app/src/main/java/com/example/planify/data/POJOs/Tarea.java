@@ -12,7 +12,11 @@ public class Tarea {
     private String tipo;
     private String estado;
     private Instant fechaLim;
-    private Set<Logro> logroes;
+    private Set<Logro> logros;
+
+    private String color;
+
+
 
     // Constructor vacío (OBLIGATORIO para Retrofit/Gson)
     public Tarea() {
@@ -75,12 +79,20 @@ public class Tarea {
         this.fechaLim = fechaLim;
     }
 
-    public Set<Logro> getLogroes() {
-        return logroes;
+    public Set<Logro> getLogros() {
+        return logros;
     }
 
-    public void setLogroes(Set<Logro> logroes) {
-        this.logroes = logroes;
+    public void setLogros(Set<Logro> logros) {
+        this.logros = logros;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
 

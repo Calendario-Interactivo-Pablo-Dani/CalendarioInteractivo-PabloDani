@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="5"
+    android:background="#1B1B1B"
+    android:padding="12dp">
+
+    <View
+        android:id="@+id/color_rojo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#E53935"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_azul"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#1E88E5"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_verde"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#43A047"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_amarillo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#EBB847"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_morado"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#6910B3"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_rosa"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#C11CB2"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_blanco"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#E9E4E4"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_gris"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#6A6A6A"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_naranja"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#FF5722"
+        android:layout_margin="6dp"/>
+
+    <View
+        android:id="@+id/color_negro"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="#0F0F0F"
+        android:layout_margin="6dp"/>
+
+</GridLayout>

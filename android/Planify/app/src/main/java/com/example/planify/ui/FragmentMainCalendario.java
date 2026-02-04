@@ -86,10 +86,17 @@ public class FragmentMainCalendario extends Fragment {
         calendarioActual.set(Calendar.DAY_OF_MONTH, 1);
         actualizarTituloMes();
 
+        int mesActual = calendarioActual.get(Calendar.MONTH) + 1; // Calendar va de 0 a 11
+        int anioActual = calendarioActual.get(Calendar.YEAR);
+        int idCalendario = CalendarioSeleccionado.idCal;
+
         // generar días del mes actual
         calendarDays = generarDiasDelMes(calendarioActual);
 
-        calendarAdapter = new CalendarAdapter(calendarDays);
+        calendarAdapter = new CalendarAdapter(calendarDays, v -> {
+            int dayNumber = (int) v.getTag();
+            abrirVentanaDia(dayNumber);
+        });
 
         recyclerViewCalendar.setAdapter(calendarAdapter);
 
@@ -121,6 +128,11 @@ public class FragmentMainCalendario extends Fragment {
         tareas.add(t2);
         tareas.add(t3);
         tareas.add(t4);
+
+
+
+
+
 
         // 4️⃣ Creamos el adapter
         eventAdapter = new EventAdapter(tareas);
@@ -176,8 +188,37 @@ public class FragmentMainCalendario extends Fragment {
         calendarDays.clear();
         calendarDays.addAll(generarDiasDelMes(calendarioActual));
 
+        int mesActual = calendarioActual.get(Calendar.MONTH) + 1;
+        int anioActual = calendarioActual.get(Calendar.YEAR);
+
         calendarAdapter.notifyDataSetChanged();
         actualizarTituloMes();
+    }
+
+    private void abrirVentanaDia(int dayNumber) {
+
+        Calendar fecha = Calendar.getInstance();
+        fecha.set(Calendar.YEAR, calendarioActual.get(Calendar.YEAR));
+        fecha.set(Calendar.MONTH, calendarioActual.get(Calendar.MONTH));
+        fecha.set(Calendar.DAY_OF_MONTH, dayNumber);
+
+        SimpleDateFormat sdf =
+                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        String fechaString = sdf.format(fecha.getTime());
+
+        Bundle bundle = new Bundle();
+        bundle.putString("FECHA", fechaString);
+        bundle.putInt("ID_CAL", CalendarioSeleccionado.idCal);
+
+        VentanaDia ventanaDia = new VentanaDia();
+        ventanaDia.setArguments(bundle);
+
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, ventanaDia)
+                .addToBackStack(null)
+                .commit();
     }
 
 

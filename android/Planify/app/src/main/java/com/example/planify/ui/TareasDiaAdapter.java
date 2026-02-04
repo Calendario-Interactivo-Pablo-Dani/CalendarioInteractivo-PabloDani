@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,20 +61,20 @@ public class TareasDiaAdapter
      * Aquí se asignan los datos reales de la Tarea a los TextView.
      */
     @Override
-    public void onBindViewHolder(
-            @NonNull TareaDiaViewHolder holder,
-            int position
-    ) {
+    public void onBindViewHolder(@NonNull TareaDiaViewHolder holder, int position) {
 
         Tarea tarea = tareas.get(position);
 
         holder.tituloTarea.setText(tarea.getNombre());
-
-        // De momento valores fijos, igual que en EventAdapter
         holder.horaTarea.setText("18:30");
 
-        /*holder.indicadorColor.setBackgroundTintList(
-                ColorStateList.valueOf(getColorFromTarea(tarea)));*/
+        holder.indicadorColor.setBackgroundTintList(
+                ColorStateList.valueOf(getColorFromTarea(tarea))
+        );
+
+        holder.indicadorColor.setOnClickListener(v -> {
+            mostrarSelectorColor(v, tarea, holder);
+        });
     }
     // ---------------------------------------------------------------------------------------
 
@@ -110,21 +111,77 @@ public class TareasDiaAdapter
     //que estuviese seleccionado
 
     //*Hay que añadir el enum a la BD, con algunos colores, 6 por lo menos*
-    /*private int getColorFromTarea(Tarea tarea) {
+    private int getColorFromTarea(Tarea tarea) {
+
+        if (tarea.getColor() == null) return Color.parseColor("#FFFFFF");
 
         switch (tarea.getColor()) {
-            case ROJO:
+            case "ROJO":
                 return Color.parseColor("#E53935");
-            case AZUL:
+            case "AZUL":
                 return Color.parseColor("#1E88E5");
-            case VERDE:
+            case "VERDE":
                 return Color.parseColor("#43A047");
-            case AMARILLO:
+            case "AMARILLO":
                 return Color.parseColor("#FDD835");
+            case "MORADO":
+                return Color.parseColor("#8E24AA");
             default:
                 return Color.parseColor("#FFFFFF");
         }
-    }*/
+    }
     // ---------------------------------------------------------------------------------------
+
+    private void mostrarSelectorColor(View anchor, Tarea tarea, TareaDiaViewHolder holder) {
+
+        View popupView = LayoutInflater.from(anchor.getContext())
+                .inflate(R.layout.popup_selector_color, null);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        popupView.findViewById(R.id.color_rojo).setOnClickListener(v -> {
+            aplicarColor(tarea, "ROJO", holder);
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_azul).setOnClickListener(v -> {
+            aplicarColor(tarea, "AZUL", holder);
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_verde).setOnClickListener(v -> {
+            aplicarColor(tarea, "VERDE", holder);
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_amarillo).setOnClickListener(v -> {
+            aplicarColor(tarea, "AMARILLO", holder);
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_morado).setOnClickListener(v -> {
+            aplicarColor(tarea, "MORADO", holder);
+            popupWindow.dismiss();
+        });
+
+        popupWindow.showAsDropDown(anchor);
+    }
+
+    private void aplicarColor(Tarea tarea, String color, TareaDiaViewHolder holder) {
+
+        tarea.setColor(color); // por ahora String, luego enum
+
+        holder.indicadorColor.setBackgroundTintList(
+                ColorStateList.valueOf(getColorFromTarea(tarea))
+        );
+
+        // Aquí luego: llamada a backend para guardar
+    }
+
 }
 

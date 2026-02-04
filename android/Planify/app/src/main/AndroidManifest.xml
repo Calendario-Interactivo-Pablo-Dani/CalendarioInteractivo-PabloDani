@@ -30,8 +30,6 @@
         <activity android:name="com.example.planify.ui.Logros"></activity>
         <activity android:name="com.example.planify.ui.VentanaGeneral"></activity>
 
-
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
