@@ -20,12 +20,22 @@ android {
     }
 
     buildTypes {
-        /*Configuracion ip del api*/
-        debug{
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
+
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://planify-api-lphm.onrender.com/\""
+            )
         }
+
         release {
             isMinifyEnabled = false
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://planify-api-lphm.onrender.com/\""
+            )
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
