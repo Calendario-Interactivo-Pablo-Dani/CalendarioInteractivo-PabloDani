@@ -72,8 +72,8 @@ public class TareasDiaAdapter
         // De momento valores fijos, igual que en EventAdapter
         holder.horaTarea.setText("18:30");
 
-        holder.indicadorColor.setBackgroundTintList(
-                ColorStateList.valueOf(getColorFromTarea(tarea)));
+        /*holder.indicadorColor.setBackgroundTintList(
+                ColorStateList.valueOf(getColorFromTarea(tarea)));*/
     }
     // ---------------------------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ public class TareasDiaAdapter
     //que estuviese seleccionado
 
     //*Hay que añadir el enum a la BD, con algunos colores, 6 por lo menos*
-    private int getColorFromTarea(Tarea tarea) {
+    /*private int getColorFromTarea(Tarea tarea) {
 
         switch (tarea.getColor()) {
             case ROJO:
@@ -124,7 +124,7 @@ public class TareasDiaAdapter
             default:
                 return Color.parseColor("#FFFFFF");
         }
-    }
+    }*/
     // ---------------------------------------------------------------------------------------
 }
 

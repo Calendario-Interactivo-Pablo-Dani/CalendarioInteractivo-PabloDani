@@ -22,9 +22,13 @@ public class Calendario {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-    @NotNull
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fechaCreacion", nullable = false)
+
+    @Column(
+            name = "fechaCreacion",
+            nullable = false,
+            insertable = false,
+            updatable = false
+    )
     private Instant fechaCreacion;
 
     @NotNull
