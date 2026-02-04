@@ -13,7 +13,7 @@
     android:fontFamily="@font/anton"
     android:textSize="16sp"
     android:textColor="#857F7F"
-    android:drawableEnd="@drawable/tres_puntos"
+
 
     app:backgroundTint="@color/black"
     app:cornerRadius="24dp"
