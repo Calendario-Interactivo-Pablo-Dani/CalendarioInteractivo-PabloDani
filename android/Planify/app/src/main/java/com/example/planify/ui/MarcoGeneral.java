@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -18,17 +19,25 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.CalendarioApi;
 import com.example.planify.data.session.SessionManager;
 
 
 import com.example.planify.R;
 import com.google.android.material.navigation.NavigationView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MarcoGeneral extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    int idUser;
 
 
     @Override
@@ -49,7 +58,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         TextView tvUsername = headerView.findViewById(R.id.username);
 
 
-        int idUser = session.getIdUser();
+         idUser = session.getIdUser();
         String username = session.getUsername();
         String email = session.getEmail();
 
@@ -76,8 +85,8 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //por ejemplo, si estamos verificados y hubiese un menu de verificación, pues ocultarlo.
         //las lineas de abajo son solo ejemplos
         Menu menu=navigationView.getMenu();
-        menu.findItem(R.id.nav_logout).setVisible(true);
-        menu.findItem(R.id.nav_profile).setVisible(false);
+        menu.findItem(R.id.nav_salir).setVisible(true);
+        menu.findItem(R.id.nav_miembros).setVisible(false);
 
 
         navigationView.bringToFront();//para q se superponga al frente
@@ -125,6 +134,8 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
         int id = menuItem.getItemId();
+        CalendarioApi calendarioApi = ApiCliente.getRetrofit().create(CalendarioApi.class);
+
         //aqui de momento ponemos esto pero podremos poner lo que queramos más adelante, osea pondremos
         //calendarios y demás
         if (id == R.id.nav_home) {
@@ -134,21 +145,32 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_logros) {
             Intent i= new Intent(getApplicationContext(), Logros.class);
             startActivity(i);
-        }else if (id == R.id.nav_logout) {
-            SessionManager session = new SessionManager(this);
-            session.logout();
-            Intent i= new Intent(getApplicationContext(), MainActivity.class);
+        }else if (id == R.id.nav_salir) {
+            //SALIR CALENDARIO
+            int idCal = CalendarioSeleccionado.idCal;
+            Call<Void> call = calendarioApi.eliminarCalendario(idCal, idUser);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(MarcoGeneral.this, "Calendario eliminado correctamente", Toast.LENGTH_SHORT).show();
+                        Intent i= new Intent(getApplicationContext(), VentanaGeneral.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
 
-
-            //esta linea borra todas las pestañas abiertas q hubiese de esa app y vuelves al punto
-            //inicial, es decir, al login, sin ella si le dieses a la flecha de atrás despues de
-            //logout, volverías a la app logueado.
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    }else {
+                        Toast.makeText(MarcoGeneral.this, "Error al eliminar calendario", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(MarcoGeneral.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else if(id == R.id.nav_perfil){
+            Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
             startActivity(i);
-
-            finish();
         }
-
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -27,6 +27,11 @@ public class CalendarioController {
     public ResponseEntity<CalendarioSimpleDTO> crearCalendario (@RequestBody@Valid CrearCalendarioRequestDTO request, @PathVariable Integer idUser){
         return ResponseEntity.ok(calendarioService.crearCalendario(request,idUser));
     }
+    @DeleteMapping("/eliminar/{idCal}/{idUser}")
+    public ResponseEntity<Void> eliminarCalendario (@PathVariable Integer idCal,@PathVariable Integer idUser){
+        calendarioService.salirOeliminarCalendario(idCal, idUser);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

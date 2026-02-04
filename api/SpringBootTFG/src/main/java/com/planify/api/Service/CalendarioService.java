@@ -10,6 +10,7 @@ import com.planify.api.repository.CalendarioRepository;
 import com.planify.api.repository.RelUserCalRepository;
 import com.planify.api.repository.UsuarioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,7 +33,7 @@ public class CalendarioService {
  * o se hacen los dos insert bien o no se hace ninguno*/
  @Transactional
  /*Le pasamos el calendario y el usuario*/
-    public CalendarioSimpleDTO crearCalendario(CrearCalendarioRequestDTO request, Integer idUser){
+ public CalendarioSimpleDTO crearCalendario(CrearCalendarioRequestDTO request, Integer idUser){
      /*Buscamos el usuario con el id que nos llega por parametro(idUser)*/
      Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Usuario no existe"));
      /*Creamos el calendario*/
@@ -58,4 +59,26 @@ public class CalendarioService {
 
  }
 
+ @Transactional
+ public void salirOeliminarCalendario(Integer idCal, Integer idUser){
+     //Comprobamos que el calendario existe
+     Calendario calendario = calendarioRepository.findById(idCal).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Calendario no existe"));
+     //Comprobamos que el usuario pertenece al calendario
+     //Ponemos FORBIDDEN y no NOT_FOUND pq el calendario si existe, pero el usuario no tiene permiso
+     RelUserCal relacion = relUserCalRepository.findByIdUser_IdAndIdCal_Id(idUser,idCal).orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN,"Usuario no pertenece al calendario"));
+     if(relacion.getRol() == RolUsuarioCalendario.owner){
+         //CASO OWNER
+         //Borramos las relaciones del calendario
+         relUserCalRepository.deleteByIdCal_Id(idCal);
+         //Borramos el calendario
+         calendarioRepository.delete(calendario);
+
+     }else{
+         //CASO MIEMBRO
+         //Salimos del calendario
+         relUserCalRepository.delete(relacion);
+
+     }
+
+ }
 }

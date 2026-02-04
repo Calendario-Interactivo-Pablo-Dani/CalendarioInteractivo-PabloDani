@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -18,5 +19,7 @@ public interface CalendarioApi {
     //Crear calendario
     @POST("calendario/crear/{idUser}")
     Call<CalendarioResponseDTO> crearCalendario(@Path("idUser") int idUser, @Body CalendarioRequestDTO request);
+    @DELETE("calendario/eliminar/{idCal}/{idUser}")
+    Call<Void> eliminarCalendario(@Path("idCal") int idCal, @Path("idUser") int idUser);
 
 }
