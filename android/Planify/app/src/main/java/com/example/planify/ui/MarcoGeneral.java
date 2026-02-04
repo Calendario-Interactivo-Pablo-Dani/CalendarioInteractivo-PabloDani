@@ -86,7 +86,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //las lineas de abajo son solo ejemplos
         Menu menu=navigationView.getMenu();
         menu.findItem(R.id.nav_salir).setVisible(true);
-        menu.findItem(R.id.nav_miembros).setVisible(false);
+        menu.findItem(R.id.nav_miembros).setVisible(true);
 
 
         navigationView.bringToFront();//para q se superponga al frente
@@ -172,6 +172,9 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             });
         }else if(id == R.id.nav_perfil){
             Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
+            startActivity(i);
+        }else if(id == R.id.nav_miembros){
+            Intent i= new Intent(getApplicationContext(), VerMiembros.class);
             startActivity(i);
         }
         drawerLayout.closeDrawer(GravityCompat.START);

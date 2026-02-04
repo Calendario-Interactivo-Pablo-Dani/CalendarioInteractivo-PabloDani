@@ -100,7 +100,8 @@ public class Register extends AppCompatActivity {
                                 usuario.getId(),
                                 usuario.getNombre(),
                                 usuario.getUsername(),
-                                usuario.getEmail()
+                                usuario.getEmail(),
+                                usuario.getTelefono()
                         );
                         //TEXTO CONFIRMACIÓN
                         Toast.makeText(Register.this,

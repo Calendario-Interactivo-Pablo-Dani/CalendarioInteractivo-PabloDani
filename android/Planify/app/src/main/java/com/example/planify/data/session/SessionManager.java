@@ -14,6 +14,10 @@ public class SessionManager {
 
     private static final String KEY_EMAIL = "email";
     private static final String PREF_NAME = "planify_session";
+    private static final String KEY_TELEFONO = "telefono";
+
+
+
 
     //Objeto para leer los atributos que guardemos en shared preferences
     private SharedPreferences prefs;
@@ -31,7 +35,7 @@ public class SessionManager {
     }
     //GUARDAR SESIÓN
     /*Cuando el login sea correcto, guardamos los datos*/
-    public void saveSession(int id,String nombre, String username, String email) {
+    public void saveSession(int id,String nombre, String username, String email, String telefono) {
         /*Ponemos el is_logged como true y eso es lo que va ha hacer que
         * no tengamos que iniciar sesion cada vez que entremos*/
         editor.putBoolean(KEY_IS_LOGGED, true);
@@ -39,6 +43,7 @@ public class SessionManager {
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_NAME, nombre);
         editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_TELEFONO, telefono);
         editor.apply();
     }
     public boolean isLogged() {
@@ -58,6 +63,9 @@ public class SessionManager {
 
     public String getEmail() {
         return prefs.getString(KEY_EMAIL, null);
+    }
+    public String getTelefono() {
+        return prefs.getString(KEY_TELEFONO, null);
     }
     // Cerrar sesión
     /*Esto nos servira cuando el usuario cierre sesion*/

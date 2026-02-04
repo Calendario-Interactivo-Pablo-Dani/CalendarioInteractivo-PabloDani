@@ -29,6 +29,9 @@
         <activity android:name="com.example.planify.ui.MarcoGeneral"></activity>
         <activity android:name="com.example.planify.ui.Logros"></activity>
         <activity android:name="com.example.planify.ui.VentanaGeneral"></activity>
+        <activity android:name="com.example.planify.ui.PerfilUsuario"></activity>
+        <activity android:name="com.example.planify.ui.VerMiembros"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

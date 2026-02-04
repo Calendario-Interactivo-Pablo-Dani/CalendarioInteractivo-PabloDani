@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                                 usuario.getId(),
                                 usuario.getNombre(),
                                 usuario.getUsername(),
-                                usuario.getEmail()
+                                usuario.getEmail(),
+                                usuario.getTelefono()
                         );
                         //TEXTO CONFIRMACIÓN
                         Toast.makeText(MainActivity.this,
