@@ -24,10 +24,12 @@ public class PerfilUsuario extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtUsuario = findViewById(R.id.txtUsuario);
         TextView txtTelefono = findViewById(R.id.txtTelefono);
+        TextView txtNumeroCalendarios = findViewById(R.id.txtCalendarios);
         txtNombre.setText("Nombre: " + nombre);
         txtEmail.setText("Email: " + email);
-        txtUsuario.setText("Nombre de Usuario" + usuario);
+        txtUsuario.setText("Nombre de Usuario: " + usuario);
         txtTelefono.setText("Teléfono: " + telefono);
+        txtNumeroCalendarios.setText("Número de calendarios: " );
     }
     public void logout(View view) {
         SessionManager session = new SessionManager(this);

@@ -100,10 +100,11 @@
 
     </LinearLayout>
 
+
     <Button
         android:id="@+id/btnCerrarSesion"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
+        android:layout_width="330dp"
+        android:layout_height="51dp"
         android:layout_marginBottom="88dp"
         android:backgroundTint="#E53935"
         android:onClick="logout"
@@ -113,8 +114,9 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent" />
+
     <!-- BOTÓN VOLVER ATRÁS -->
     <ImageButton
         android:id="@+id/btnAtras"
