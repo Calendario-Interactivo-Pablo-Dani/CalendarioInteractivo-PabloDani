@@ -16,11 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class VentanaDia extends Fragment {
 
@@ -31,7 +35,7 @@ public class VentanaDia extends Fragment {
     private TareasDiaAdapter tareasDiaAdapter;
     private List<Tarea> listaTareasDia;
 
-    private TextView titulo_calendario_dia;
+    private TextView fecha_calendario_dia;
 
     // Datos del día seleccionado
     private LocalDate fechaSeleccionada;
@@ -50,15 +54,42 @@ public class VentanaDia extends Fragment {
         // 1️⃣ Inflamos el layout del fragment
         View view = inflater.inflate(R.layout.view_dia, container, false);
 
-        // 2️⃣ Recuperamos los datos que nos llegan (fecha, idCalendario, etc.)
-        //recogerDatos();
 
         // 3️⃣ Inicializamos las vistas
         inicializarVistas(view);
 
-        titulo_calendario_dia=view.findViewById(R.id.textoTituloCalendarioDia);
-        titulo_calendario_dia.setText("TAREAS DEL DÍA");
 
+
+
+        fecha_calendario_dia=view.findViewById(R.id.textoFechaCalendarioDia);
+        fecha_calendario_dia.setText("TAREAS DEL DÍA");
+
+
+        Bundle args = getArguments();
+        if (args != null) {
+
+            String fechaString = args.getString("FECHA"); // "2026-03-05"
+
+            try {
+                // 1️⃣ Parseamos la fecha recibida
+                SimpleDateFormat parser =
+                        new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                Date fecha = parser.parse(fechaString);
+
+                // 2️⃣ Formateamos como queremos mostrarla
+                SimpleDateFormat formatter =
+                        new SimpleDateFormat("EEEE d 'de' MMMM", new Locale("es", "ES"));
+
+                String fechaFormateada = formatter.format(fecha).toUpperCase();
+
+                fecha_calendario_dia.setText(fechaFormateada);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                fecha_calendario_dia.setText("TAREAS DEL DÍA");
+            }
+        }
 
         // 4️⃣ Configuramos el RecyclerView
         configurarRecycler();

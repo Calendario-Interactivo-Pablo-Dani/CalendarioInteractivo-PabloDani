@@ -34,7 +34,7 @@
         android:fontFamily="@font/anton"
         android:text="Perfil"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.143"

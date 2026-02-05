@@ -17,9 +17,10 @@
         <TextView
             android:id="@+id/eventos_dia_titulo"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Tareas"
+            android:layout_height="50dp"
+            android:text="Tareas/Eventos"
             android:textSize="18dp"
+            android:fontFamily="@font/anton"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"/>
 
