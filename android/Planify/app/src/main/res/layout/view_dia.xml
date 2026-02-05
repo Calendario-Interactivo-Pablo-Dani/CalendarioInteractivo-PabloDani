@@ -6,20 +6,20 @@
     android:background="#1B1B1B">
 
 
-        <TextView
-            android:id="@+id/textNombreCalendario"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="a"
-            android:gravity="center"
-            android:textSize="24dp"
+        <include
+            android:id="@+id/textoTituloCalendarioDia"
+            layout="@layout/calendario_barra_superior"
+
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/includeEventosDia"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <include
+            android:id="@+id/includeEventosDia"
             layout="@layout/scroll_eventos_dia"
-            app:layout_constraintTop_toBottomOf="@id/textNombreCalendario"
+            app:layout_constraintTop_toBottomOf="@+id/textoTituloCalendarioDia"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

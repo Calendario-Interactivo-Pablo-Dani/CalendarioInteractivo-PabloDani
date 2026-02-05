@@ -17,6 +17,7 @@ import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,6 +30,8 @@ public class VentanaDia extends Fragment {
     private RecyclerView recyclerViewTareasDia;
     private TareasDiaAdapter tareasDiaAdapter;
     private List<Tarea> listaTareasDia;
+
+    private TextView titulo_calendario_dia;
 
     // Datos del día seleccionado
     private LocalDate fechaSeleccionada;
@@ -53,6 +56,10 @@ public class VentanaDia extends Fragment {
         // 3️⃣ Inicializamos las vistas
         inicializarVistas(view);
 
+        titulo_calendario_dia=view.findViewById(R.id.textNombreCalendario);
+        titulo_calendario_dia.setText("TAREAS DEL DÍA");
+
+
         // 4️⃣ Configuramos el RecyclerView
         configurarRecycler();
 
@@ -72,11 +79,13 @@ public class VentanaDia extends Fragment {
 
         if (getArguments() != null) {
 
-            // TODO: esto vendrá del calendario
             String fecha = getArguments().getString("FECHA");
             idCalendario = getArguments().getInt("ID_CAL");
 
-            fechaSeleccionada = LocalDate.parse(fecha);
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            fechaSeleccionada = LocalDate.parse(fecha, formatter);
         }
     }*/
 
@@ -136,4 +145,6 @@ public class VentanaDia extends Fragment {
 
         tareasDiaAdapter.notifyDataSetChanged();
     }
+
+
 }

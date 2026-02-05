@@ -52,8 +52,8 @@ public class CalendarAdapter
     /*
      * Constructor del adapter.
      *
-     * @param dias Lista de días del mes, generada por el fragment
-     * @param clickListener Acción a ejecutar cuando se pulsa un día válido
+     * dias Lista de días del mes, generada por el fragment
+     * clickListener Acción a ejecutar cuando se pulsa un día válido
      */
     public CalendarAdapter(List<CalendarDay> dias,
                            View.OnClickListener clickListener) {

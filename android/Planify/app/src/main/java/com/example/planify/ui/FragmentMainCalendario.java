@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-/**
+/*
  * FRAGMENT MAIN CALENDARIO
  *
  * Este fragment representa la vista PRINCIPAL del calendario seleccionado.
