@@ -56,7 +56,7 @@ public class VentanaDia extends Fragment {
         // 3️⃣ Inicializamos las vistas
         inicializarVistas(view);
 
-        titulo_calendario_dia=view.findViewById(R.id.textNombreCalendario);
+        titulo_calendario_dia=view.findViewById(R.id.textoTituloCalendarioDia);
         titulo_calendario_dia.setText("TAREAS DEL DÍA");
 
 
