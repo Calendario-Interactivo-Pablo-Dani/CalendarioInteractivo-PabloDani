@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class VentanaDia extends Fragment {
 
@@ -37,9 +40,9 @@ public class VentanaDia extends Fragment {
 
     private TextView fecha_calendario_dia;
 
-    // Datos del día seleccionado
-    private LocalDate fechaSeleccionada;
-    private int idCalendario;
+    private Button btnAtrasDia;
+
+    private FloatingActionButton btnCrearTarea;
 
     // --------------------- CICLO DE VIDA --------------------------------------------------
 
@@ -63,6 +66,15 @@ public class VentanaDia extends Fragment {
 
         fecha_calendario_dia=view.findViewById(R.id.textoFechaCalendarioDia);
         fecha_calendario_dia.setText("TAREAS DEL DÍA");
+
+
+        btnAtrasDia=view.findViewById(R.id.btnatrasDia);
+        btnAtrasDia.setOnClickListener(listenerAtras);
+
+
+        btnCrearTarea=view.findViewById(R.id.btnCrearTarea);
+        btnCrearTarea.setOnClickListener(listenerCrearTarea);
+
 
 
         Bundle args = getArguments();
@@ -176,6 +188,34 @@ public class VentanaDia extends Fragment {
 
         tareasDiaAdapter.notifyDataSetChanged();
     }
+
+    private View.OnClickListener listenerAtras=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FragmentMainCalendario fragmentCal = new FragmentMainCalendario();
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragmentCal)
+                    .commit();
+        }
+    };
+
+    private View.OnClickListener listenerCrearTarea=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            VentanaTarea fragmentTarea = new VentanaTarea();
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragmentTarea)
+                    .commit();
+        }
+    };
+
+
 
 
 }

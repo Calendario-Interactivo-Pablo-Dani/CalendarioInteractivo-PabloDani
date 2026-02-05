@@ -6,44 +6,51 @@
     android:background="#1B1B1B"
     android:paddingTop="20dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnatrasDia"
-            app:layout_constraintBottom_toTopOf="@id/includeEventosDia"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/calendar_title"
-            android:backgroundTint="#1B1B1B"
-            android:gravity="center"
-            android:drawableStart="@drawable/flecha_atras"
-            android:fontFamily="@font/anton"
-            android:textSize="16dp"
-            android:textColor="#8A8A8A"
-            />
+    <TextView
+        android:id="@+id/menu_lateral_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/menu_treslineas"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnatrasDia"
+        />
 
-        <TextView
-            android:id="@+id/menu_lateral_dia"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toStartOf="@id/textoFechaCalendarioDia"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:id="@+id/textoFechaCalendarioDia"
-            android:text=""
-            android:fontFamily="@font/anton"
-            android:textSize="24dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/calendar_title"
-            android:backgroundTint="#1B1B1B"
-            app:layout_constraintStart_toEndOf="@id/menu_lateral_dia"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnatrasDia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/menu_lateral_dia"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/textoFechaCalendarioDia"
+
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#1B1B1B"
+        android:gravity="center"
+        android:drawableStart="@drawable/flecha_atras"
+        android:fontFamily="@font/anton"
+        android:textSize="16dp"
+        android:textColor="#8A8A8A"
+        />
+
+    <TextView
+        android:id="@+id/textoFechaCalendarioDia"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        app:layout_constraintStart_toEndOf="@id/btnatrasDia"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:text=""
+        android:fontFamily="@font/anton"
+        android:textSize="24dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#1B1B1B"
+        />
 
         <include
             android:id="@+id/includeEventosDia"

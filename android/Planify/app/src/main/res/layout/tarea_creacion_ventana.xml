@@ -1,6 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1B1B1B"
+    android:padding="24dp"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCampos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35"/>
+
+    <!-- NOMBRE -->
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/anton"
+        android:textSize="12dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2e2e2e"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvNombre"
+        android:layout_marginStart="16dp"
+
+        />
+
+    <!-- DESCRIPCIÓN -->
+    <TextView
+        android:id="@+id/tvDescripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNombre"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/anton"
+        android:textSize="12dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2e2e2e"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDescripcion"
+        android:layout_marginStart="16dp"/>
+
+    <!-- HORA -->
+    <TextView
+        android:id="@+id/tvHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hora:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescripcion"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/etHora"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Hora"
+        android:focusable="false"
+        android:clickable="true"
+
+        android:fontFamily="@font/anton"
+        android:textSize="12dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2e2e2e"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvHora"
+        android:layout_marginStart="16dp"/>
+
+    <!-- TIPO -->
+    <TextView
+        android:id="@+id/tvTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHora"
+        android:layout_marginTop="24dp"
+        android:paddingTop="10dp"
+        />
+
+    <RadioGroup
+        android:id="@+id/rgTipo"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/anton"
+        android:textSize="12dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2e2e2e"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintTop_toTopOf="@id/tvTipo"
+        android:layout_marginStart="16dp">
+
+        <RadioButton
+            android:id="@+id/rbTipoPersonal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarea"/>
+
+        <RadioButton
+            android:id="@+id/rbTipoTrabajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Evento"/>
+    </RadioGroup>
+
+    <!-- ESTADO -->
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTipo"
+        android:layout_marginTop="40dp"
+        android:paddingTop="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgEstado"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/anton"
+        android:textSize="12dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2e2e2e"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintTop_toTopOf="@id/tvEstado"
+        android:layout_marginStart="16dp">
+
+        <RadioButton
+            android:id="@+id/rbPendiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendiente"/>
+
+        <RadioButton
+            android:id="@+id/rbEnProceso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proceso"/>
+
+        <RadioButton
+            android:id="@+id/rbFinalizada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finalizada"/>
+    </RadioGroup>
+
+    <!-- COLOR -->
+    <TextView
+        android:id="@+id/tvColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Color:"
+
+        android:fontFamily="@font/anton"
+        android:textSize="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEstado"
+        android:layout_marginTop="36dp"
+        android:paddingTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvColorCasilla"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/casilla_color"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_marginTop="20dp"
+
+        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
+        app:layout_constraintTop_toTopOf="@id/tvColor"
+        android:layout_marginStart="16dp"/>
+
+    <!-- BOTÓN CONFIRMAR -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirmarCrearTarea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/calendar_title"
+        android:backgroundTint="#2E2E2E"
+        android:fontFamily="@font/anton"
+        android:textSize="16dp"
+        android:textColor="#8A8A8A"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
