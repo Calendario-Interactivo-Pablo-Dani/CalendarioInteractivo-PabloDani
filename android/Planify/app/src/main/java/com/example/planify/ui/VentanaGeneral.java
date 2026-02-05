@@ -1,5 +1,6 @@
 package com.example.planify.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -263,6 +264,10 @@ public class VentanaGeneral extends AppCompatActivity {
     private void mostrarCalendarios(List<CalendarioResponseDTO> calendarios) {
         ListaCalendariosAdapter = new ListaCalendariosAdapter(calendarios);
         recyclerCalendarios.setAdapter(ListaCalendariosAdapter);
+    }
+    public void menu(View view){
+        Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
+        startActivity(i);
     }
 
 }

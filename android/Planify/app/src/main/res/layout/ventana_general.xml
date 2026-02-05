@@ -7,9 +7,24 @@
     android:layout_height="match_parent"
     android:background="#1B1B1B">
 
-    <!-- TEXTO DE BIENVENIDA -->
 
-    <!-- LISTA DE CALENDARIOS -->
+    <!-- BOTÓN VOLVER ATRÁS -->
+    <!-- TEXTO BIENVENIDA -->
+
+    <ImageButton
+        android:id="@+id/btnAtras"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Volver atrás"
+        android:onClick="menu"
+        android:src="@drawable/icono_perfil_home"
+        app:layout_constraintEnd_toStartOf="@+id/txtBienvenida"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtBienvenida"
@@ -26,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- LISTA DE CALENDARIOS -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendarios"
         android:layout_width="0dp"
