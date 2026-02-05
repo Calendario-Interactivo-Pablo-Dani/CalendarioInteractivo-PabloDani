@@ -8,22 +8,25 @@
     android:background="#1B1B1B">
 
     <!-- TEXTO DE BIENVENIDA -->
+
+    <!-- LISTA DE CALENDARIOS -->
+
     <TextView
         android:id="@+id/txtBienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="35dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/anton"
         android:text=""
         android:textColor="@android:color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/anton"
 
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- LISTA DE CALENDARIOS -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendarios"
         android:layout_width="0dp"
