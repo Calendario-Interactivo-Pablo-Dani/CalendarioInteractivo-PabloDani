@@ -1,0 +1,28 @@
+VISUAL:
+
+-pestaña de miembros
+-confirmación eliminar calendario
+-entrada desde las tarjetas a la tarea
+-botón añadir/unierse calendario
+-apartado ver código(owner)
+-estadísticas con valla en obras
+-estadística única tareas completadas
+-Lineas de tareas en los días
+
+EXTRAS NO TAN EXTRAS
+-ponerlo bonito
+-mensaje crear primer calendario
+-cambair la selección de hora
+
+
+SPRING/BACKEND:
+
+-ver miembros
+-colores barras tareas(numero y color(max 3 barras)
+-total de calendarios en perfil
+-que las tareas se guarden en próximos eventos
+-que las tareas se guarden en el dia
+-crear tarea
+-modificar tarea
+-eliminar tarea
+-gestionar bien las horas

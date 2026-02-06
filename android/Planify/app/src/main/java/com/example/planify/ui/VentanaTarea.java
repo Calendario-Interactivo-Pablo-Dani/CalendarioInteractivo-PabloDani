@@ -105,9 +105,13 @@ public class VentanaTarea extends Fragment {
 
             if (checkedId == R.id.rbFinalizada) {
                 // Cerrar el fragment
+                FragmentMainCalendario fragmentMainDesdeTarea = new FragmentMainCalendario();
+
                 requireActivity()
                         .getSupportFragmentManager()
-                        .popBackStack();
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragmentMainDesdeTarea)
+                        .commit();
             }
         });
     }
@@ -147,9 +151,13 @@ public class VentanaTarea extends Fragment {
             ).show();
 
             // cerrar ventana
+            FragmentMainCalendario fragmentMainDesdeTarea = new FragmentMainCalendario();
+
             requireActivity()
                     .getSupportFragmentManager()
-                    .popBackStack();
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragmentMainDesdeTarea)
+                    .commit();
         });
     }
 }
