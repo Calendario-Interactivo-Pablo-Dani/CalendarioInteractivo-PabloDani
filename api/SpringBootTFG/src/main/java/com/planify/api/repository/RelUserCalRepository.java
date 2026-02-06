@@ -20,4 +20,7 @@ public interface RelUserCalRepository extends JpaRepository<RelUserCal, Integer>
     Optional<RelUserCal> findByIdUser_IdAndIdCal_Id(Integer idUser, Integer idCal);
     //Elimina las relaciones de un calendario
     void deleteByIdCal_Id(Integer idCal);
+    List<RelUserCal> findByIdCal_Id(Integer idCal);
+    int countByIdUser_Id(Integer idUser);
+
 }

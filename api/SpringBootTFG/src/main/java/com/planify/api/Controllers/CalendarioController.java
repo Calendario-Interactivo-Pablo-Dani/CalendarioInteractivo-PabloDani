@@ -4,6 +4,7 @@ import com.planify.api.Service.CalendarioService;
 import com.planify.api.Service.ReluserCalService;
 import com.planify.api.dto.CalendarioSimpleDTO;
 import com.planify.api.dto.CrearCalendarioRequestDTO;
+import com.planify.api.dto.UsuarioCalendarioDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,14 @@ public class CalendarioController {
     public ResponseEntity<Void> eliminarCalendario (@PathVariable Integer idCal,@PathVariable Integer idUser){
         calendarioService.salirOeliminarCalendario(idCal, idUser);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/unirse/{Codigo}/{idUser}")
+    public ResponseEntity<CalendarioSimpleDTO> unirseCalendario(@PathVariable String Codigo, @PathVariable Integer idUser){
+        return ResponseEntity.ok(calendarioService.unirseCalendario(Codigo, idUser));
+    }
+    @GetMapping("/verMiembros/{idCal}")
+    public ResponseEntity<List<UsuarioCalendarioDTO>> obtenerMiembros(@PathVariable Integer idCal){
+        return ResponseEntity.ok(relUserCalService.obtenerMiembros(idCal));
     }
 
 

@@ -5,6 +5,7 @@ import com.planify.api.POJOs.RelUserCal;
 import com.planify.api.POJOs.Usuario;
 import com.planify.api.dto.CalendarioSimpleDTO;
 import com.planify.api.dto.CrearCalendarioRequestDTO;
+import com.planify.api.dto.UsuarioCalendarioDTO;
 import com.planify.api.enums.RolUsuarioCalendario;
 import com.planify.api.repository.CalendarioRepository;
 import com.planify.api.repository.RelUserCalRepository;
@@ -14,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -81,4 +85,19 @@ public class CalendarioService {
      }
 
  }
+
+ @Transactional
+ public CalendarioSimpleDTO unirseCalendario(String Codigo, Integer idUser){
+     Calendario calendario = calendarioRepository.findByCodigo(Integer.parseInt(Codigo)).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Calendario no existe"));
+
+     Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Usuario no existe"));
+
+     RelUserCal rel = new RelUserCal();
+     rel.setIdCal(calendario);
+     rel.setIdUser(usuario);
+     rel.setRol(RolUsuarioCalendario.member);
+     relUserCalRepository.save(rel);
+     return new CalendarioSimpleDTO(calendario.getId(),calendario.getNombre(),calendario.getCodigo(),RolUsuarioCalendario.member);
+ }
+
 }
