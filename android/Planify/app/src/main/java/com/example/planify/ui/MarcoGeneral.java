@@ -193,13 +193,11 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             textoBoton = "Salir";
         }
 
-        new AlertDialog.Builder(MarcoGeneral.this)
+        new AlertDialog.Builder(MarcoGeneral.this, R.style.DialogPlanify)
                 .setTitle(titulo)
                 .setMessage(mensaje)
-                .setPositiveButton(textoBoton, (dialog, which) -> {
-                    eliminarOSalirCalendario(idCal, idUser);
-                })
-                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton(textoBoton, (d, w) -> eliminarOSalirCalendario(idCal, idUser))
+                .setNegativeButton("Cancelar", null)
                 .show();
     }
 
