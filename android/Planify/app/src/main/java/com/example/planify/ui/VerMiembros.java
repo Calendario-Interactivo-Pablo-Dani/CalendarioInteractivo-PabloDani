@@ -136,7 +136,7 @@ public class VerMiembros  extends Fragment {
 
                                 // tú quieres mostrar "username", pero Spring manda "nombre"
                                 // así que lo usamos como texto visible
-                                m.setUsername(dto.getNombre());
+                                m.setUsername(dto.getUsername());
 
                                 listaMiembros.add(m);
                             }

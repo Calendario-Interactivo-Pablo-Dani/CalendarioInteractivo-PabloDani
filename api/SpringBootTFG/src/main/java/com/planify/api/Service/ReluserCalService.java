@@ -57,7 +57,8 @@ public class ReluserCalService {
                     r.getIdUser().getId(),
                     r.getIdUser().getNombre(),
                     r.getIdUser().getEmail(),
-                    r.getRol().toString()
+                    r.getRol().toString(),
+                    r.getIdUser().getUsername()
             );
             resultado.add(dto);
         }
