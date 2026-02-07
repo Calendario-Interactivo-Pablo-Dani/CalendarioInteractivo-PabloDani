@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -152,25 +153,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.nav_salir) {
             //SALIR CALENDARIO
             int idCal = CalendarioSeleccionado.idCal;
-            Call<Void> call = calendarioApi.eliminarCalendario(idCal, idUser);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(MarcoGeneral.this, "Calendario eliminado correctamente", Toast.LENGTH_SHORT).show();
-                        Intent i= new Intent(getApplicationContext(), VentanaGeneral.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-
-                    }else {
-                        Toast.makeText(MarcoGeneral.this, "Error al eliminar calendario", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(MarcoGeneral.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-                }
-            });
+            mostrarConfirmacionSalirOEliminar(idCal, idUser);
         }else if(id == R.id.nav_perfil){
             Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
             startActivity(i);
@@ -190,5 +173,72 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         return true;
     }
     //----------------------------------------------------------------------------------------------------
+    private void mostrarConfirmacionSalirOEliminar(int idCal, int idUser) {
+
+        boolean esOwner = "owner".equals(CalendarioSeleccionado.rol);
+
+        String titulo;
+        String mensaje;
+        String textoBoton;
+
+        if (esOwner) {
+            titulo = "Eliminar calendario";
+            mensaje = "Eres el propietario del calendario.\n\n" +
+                    "Si lo eliminas, todos los usuarios perderán el acceso y esta acción no se puede deshacer.";
+            textoBoton = "Eliminar";
+        } else {
+            titulo = "Salir del calendario";
+            mensaje = "¿Quieres salir de este calendario?\n\n" +
+                    "Seguirá existiendo para el resto de usuarios.";
+            textoBoton = "Salir";
+        }
+
+        new AlertDialog.Builder(MarcoGeneral.this)
+                .setTitle(titulo)
+                .setMessage(mensaje)
+                .setPositiveButton(textoBoton, (dialog, which) -> {
+                    eliminarOSalirCalendario(idCal, idUser);
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void eliminarOSalirCalendario(int idCal, int idUser) {
+
+        CalendarioApi calendarioApi =
+                ApiCliente.getRetrofit().create(CalendarioApi.class);
+
+        Call<Void> call = calendarioApi.eliminarCalendario(idCal, idUser);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+
+                    String toast = "OWNER".equals(CalendarioSeleccionado.rol)
+                            ? "Calendario eliminado correctamente"
+                            : "Has salido del calendario";
+
+                    Toast.makeText(MarcoGeneral.this, toast, Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(getApplicationContext(), VentanaGeneral.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+
+                } else {
+                    Toast.makeText(MarcoGeneral.this,
+                            "No se pudo completar la operación",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MarcoGeneral.this,
+                        "Error de conexión",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }
