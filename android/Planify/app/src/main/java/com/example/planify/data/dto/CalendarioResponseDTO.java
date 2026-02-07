@@ -3,7 +3,7 @@ package com.example.planify.data.dto;
 public class CalendarioResponseDTO {
     private int idCal;
     private String nombre;
-    private int codigo;
+    private String codigo;
     private String rol;
 
     public int getIdCal() {
@@ -14,7 +14,7 @@ public class CalendarioResponseDTO {
         return nombre;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 

@@ -92,7 +92,7 @@ public class VentanaGeneral extends AppCompatActivity {
 
         // 1) Referencias a los EditText del diálogo (IMPORTANTE: usando "view")
         EditText etNombre = view.findViewById(R.id.etNombreCalendario);
-        EditText etCodigo = view.findViewById(R.id.etCodigoCalendario);
+
 
         // 2) Referencia al botón "Crear" que está dentro del diálogo
         Button btnConfirmar = view.findViewById(R.id.btnConfirmarCrearCalendario);
@@ -108,28 +108,21 @@ public class VentanaGeneral extends AppCompatActivity {
         btnConfirmar.setOnClickListener(v -> {
 
             String nombre = etNombre.getText().toString().trim();
-            String codigoTexto = etCodigo.getText().toString().trim();
 
             // Validación básica
-            if (nombre.isEmpty() || codigoTexto.isEmpty()) {
+            if (nombre.isEmpty()) {
                 Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int codigo;
-            try {
-                codigo = Integer.parseInt(codigoTexto);
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "El código debe ser un número", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            añadirCalendarioBD(nombre, codigo);
+
+            añadirCalendarioBD(nombre);
             // (Opcional) Cerrar el diálogo después de pulsar crear
             dialog.dismiss();
         });
     }
     //Llamamos a la consulta del API para crear el calendario
-    private void añadirCalendarioBD(String nombre, int codigo) {
+    private void añadirCalendarioBD(String nombre) {
         // DTO request
         /*
         * Por q va el request solo con los datos del calendario y sin el id del usuario?-->
@@ -141,7 +134,7 @@ public class VentanaGeneral extends AppCompatActivity {
         * -Se hace la request
         * */
         CalendarioRequestDTO request =
-                new CalendarioRequestDTO(nombre, codigo);
+                new CalendarioRequestDTO(nombre);
 
         // Usuario logueado, se coge el id
         SessionManager sessionManager = new SessionManager(this);

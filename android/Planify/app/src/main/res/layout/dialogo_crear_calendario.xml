@@ -15,16 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
-        android:id="@+id/etCodigoCalendario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Código del calendario"
-        android:inputType="number"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etNombreCalendario"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/btnConfirmarCrearCalendario"
@@ -32,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Crear calendario"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/etCodigoCalendario"
+        app:layout_constraintTop_toBottomOf="@id/etNombreCalendario"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
