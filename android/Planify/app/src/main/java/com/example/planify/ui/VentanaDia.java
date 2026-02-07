@@ -189,30 +189,19 @@ public class VentanaDia extends Fragment {
         tareasDiaAdapter.notifyDataSetChanged();
     }
 
-    private View.OnClickListener listenerAtras=new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FragmentMainCalendario fragmentCal = new FragmentMainCalendario();
-
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragmentCal)
-                    .commit();
-        }
+    private View.OnClickListener listenerAtras = view -> {
+        getParentFragmentManager().popBackStack();
     };
 
-    private View.OnClickListener listenerCrearTarea=new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            VentanaTarea fragmentTarea = new VentanaTarea();
+    private View.OnClickListener listenerCrearTarea = view -> {
 
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragmentTarea)
-                    .commit();
-        }
+        VentanaTarea fragmentTarea = new VentanaTarea();
+
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragmentTarea)
+                .addToBackStack(null)
+                .commit();
     };
 
 

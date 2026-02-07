@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35"/>
+        app:layout_constraintGuide_percent="0.25"/>
 
     <!-- NOMBRE -->
     <TextView
@@ -45,34 +45,7 @@
 
         />
 
-    <!-- DESCRIPCIÓN -->
-    <TextView
-        android:id="@+id/tvDescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción:"
 
-        android:fontFamily="@font/anton"
-        android:textSize="20dp"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvNombre"
-        android:layout_marginTop="16dp"/>
-
-    <EditText
-        android:id="@+id/etDescripcion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="@font/anton"
-        android:textSize="12dp"
-        android:background="@drawable/calendar_title"
-        android:backgroundTint="#2e2e2e"
-
-        app:layout_constraintStart_toStartOf="@id/guidelineCampos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvDescripcion"
-        android:layout_marginStart="16dp"/>
 
     <!-- HORA -->
     <TextView
@@ -85,7 +58,7 @@
         android:textSize="20dp"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDescripcion"
+        app:layout_constraintTop_toBottomOf="@id/tvNombre"
         android:layout_marginTop="16dp"/>
 
     <EditText
@@ -125,7 +98,7 @@
     <RadioGroup
         android:id="@+id/rgTipo"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
 
         android:fontFamily="@font/anton"
@@ -139,13 +112,13 @@
 
         <RadioButton
             android:id="@+id/rbTipoPersonal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tarea"/>
 
         <RadioButton
             android:id="@+id/rbTipoTrabajo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Evento"/>
     </RadioGroup>
@@ -185,12 +158,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pendiente"/>
-
-        <RadioButton
-            android:id="@+id/rbEnProceso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Proceso"/>
 
         <RadioButton
             android:id="@+id/rbFinalizada"

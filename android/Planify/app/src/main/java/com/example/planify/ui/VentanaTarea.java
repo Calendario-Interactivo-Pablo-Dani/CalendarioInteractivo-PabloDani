@@ -51,7 +51,6 @@ public class VentanaTarea extends Fragment {
 
         // REFERENCIAS
         etNombre = view.findViewById(R.id.etNombre);
-        etDescripcion = view.findViewById(R.id.etDescripcion);
         etHora = view.findViewById(R.id.etHora);
 
         rgTipo = view.findViewById(R.id.rgTipo);
@@ -105,13 +104,7 @@ public class VentanaTarea extends Fragment {
 
             if (checkedId == R.id.rbFinalizada) {
                 // Cerrar el fragment
-                FragmentMainCalendario fragmentMainDesdeTarea = new FragmentMainCalendario();
-
-                requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, fragmentMainDesdeTarea)
-                        .commit();
+                getParentFragmentManager().popBackStack();
             }
         });
     }
@@ -151,13 +144,7 @@ public class VentanaTarea extends Fragment {
             ).show();
 
             // cerrar ventana
-            FragmentMainCalendario fragmentMainDesdeTarea = new FragmentMainCalendario();
-
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragmentMainDesdeTarea)
-                    .commit();
+            getParentFragmentManager().popBackStack();
         });
     }
 }

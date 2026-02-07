@@ -19,6 +19,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.CalendarioApi;
@@ -174,8 +175,13 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
             startActivity(i);
         }else if(id == R.id.nav_miembros){
-            Intent i= new Intent(getApplicationContext(), VerMiembros.class);
-            startActivity(i);
+            Fragment fragment = new VerMiembros();
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
