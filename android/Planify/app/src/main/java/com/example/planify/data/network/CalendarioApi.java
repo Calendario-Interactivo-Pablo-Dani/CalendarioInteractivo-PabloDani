@@ -2,6 +2,7 @@ package com.example.planify.data.network;
 
 import com.example.planify.data.dto.CalendarioRequestDTO;
 import com.example.planify.data.dto.CalendarioResponseDTO;
+import com.example.planify.data.dto.UsuarioCalendarioDTO;
 
 import java.util.List;
 
@@ -21,5 +22,10 @@ public interface CalendarioApi {
     Call<CalendarioResponseDTO> crearCalendario(@Path("idUser") int idUser, @Body CalendarioRequestDTO request);
     @DELETE("calendario/eliminar/{idCal}/{idUser}")
     Call<Void> eliminarCalendario(@Path("idCal") int idCal, @Path("idUser") int idUser);
+
+    @GET("calendario/verMiembros/{idCal}")
+    Call<List<UsuarioCalendarioDTO>> obtenerMiembros(
+            @Path("idCal") int idCal
+    );
 
 }

@@ -175,6 +175,9 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
             startActivity(i);
         }else if(id == R.id.nav_miembros){
+
+
+
             Fragment fragment = new VerMiembros();
 
             getSupportFragmentManager()

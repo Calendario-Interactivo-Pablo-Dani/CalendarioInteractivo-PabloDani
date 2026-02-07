@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.dto.UsuarioCalendarioDTO;
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.CalendarioApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +27,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerMiembros  extends Fragment {
 
@@ -106,21 +114,52 @@ public class VerMiembros  extends Fragment {
      */
     private void cargarMiembros() {
 
-        // TODO: llamada a backend / ViewModel
+        int idCal = CalendarioSeleccionado.idCal;
 
-        Miembro m1=new Miembro();
-        Miembro m2=new Miembro();
-        Miembro m3=new Miembro();
+        CalendarioApi calendarioApi =
+                ApiCliente.getRetrofit().create(CalendarioApi.class);
 
-        m1.setUsername("danielito");
-        m2.setUsername("pablito");
-        m3.setUsername("h4astyy");
-        listaMiembros.add(m1);
-        listaMiembros.add(m2);
-        listaMiembros.add(m3);
+        calendarioApi.obtenerMiembros(idCal)
+                .enqueue(new Callback<List<UsuarioCalendarioDTO>>() {
+                    @Override
+                    public void onResponse(Call<List<UsuarioCalendarioDTO>> call,
+                                           Response<List<UsuarioCalendarioDTO>> response) {
 
-        miembroAdapter.notifyDataSetChanged();
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            // 1) limpiamos lista por si ya había datos
+                            listaMiembros.clear();
+
+                            // 2) convertimos DTO -> Miembro (modelo de tu Recycler)
+                            for (UsuarioCalendarioDTO dto : response.body()) {
+                                Miembro m = new Miembro();
+
+                                // tú quieres mostrar "username", pero Spring manda "nombre"
+                                // así que lo usamos como texto visible
+                                m.setUsername(dto.getNombre());
+
+                                listaMiembros.add(m);
+                            }
+
+                            // 3) avisamos al adapter
+                            miembroAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "Error al cargar miembros",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<UsuarioCalendarioDTO>> call, Throwable t) {
+                        Toast.makeText(getContext(),
+                                "Error de conexión",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
+
 
     private View.OnClickListener listenerAtras = view -> {
         getParentFragmentManager().popBackStack();
