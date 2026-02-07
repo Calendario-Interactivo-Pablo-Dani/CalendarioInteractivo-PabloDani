@@ -31,9 +31,8 @@ public class Calendario {
     )
     private Instant fechaCreacion;
 
-    @NotNull
     @Column(name = "codigo", nullable = false)
-    private Integer codigo;
+    private String codigo;
 
     @OneToMany(mappedBy = "idCal")
     private Set<RelUserCal> relUserCals = new LinkedHashSet<>();
@@ -65,11 +64,11 @@ public class Calendario {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Integer getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

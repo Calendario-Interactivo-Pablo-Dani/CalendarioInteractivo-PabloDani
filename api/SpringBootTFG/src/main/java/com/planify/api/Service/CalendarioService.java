@@ -43,7 +43,6 @@ public class CalendarioService {
      /*Creamos el calendario*/
      Calendario cal = new Calendario();
      cal.setNombre(request.getNombre());
-     cal.setCodigo(request.getCodigo());
 
      try{
          /*Insertamos el calendario en la bd*/
@@ -88,7 +87,7 @@ public class CalendarioService {
 
  @Transactional
  public CalendarioSimpleDTO unirseCalendario(String Codigo, Integer idUser){
-     Calendario calendario = calendarioRepository.findByCodigo(Integer.parseInt(Codigo)).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Calendario no existe"));
+     Calendario calendario = calendarioRepository.findByCodigo(Codigo).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Calendario no existe"));
 
      Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Usuario no existe"));
 

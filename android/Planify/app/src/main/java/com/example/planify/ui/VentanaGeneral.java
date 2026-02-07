@@ -269,5 +269,8 @@ public class VentanaGeneral extends AppCompatActivity {
         Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
         startActivity(i);
     }
+    public void crearUnirCalendario(View view){
+
+    }
 
 }
