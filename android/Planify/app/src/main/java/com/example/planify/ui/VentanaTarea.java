@@ -24,7 +24,6 @@ public class VentanaTarea extends Fragment {
 
     // TEXTOS
     private EditText etNombre;
-    private EditText etDescripcion;
     private EditText etHora;
 
     // RADIO GROUPS
@@ -116,7 +115,6 @@ public class VentanaTarea extends Fragment {
         btnConfirmar.setOnClickListener(v -> {
 
             String nombre = etNombre.getText().toString().trim();
-            String descripcion = etDescripcion.getText().toString().trim();
             String hora = etHora.getText().toString().trim();
 
             int tipoSeleccionado = rgTipo.getCheckedRadioButtonId();

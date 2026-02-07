@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,8 @@ public class VerMiembros  extends Fragment {
     private MiembroAdapter miembroAdapter;
     private List<Miembro> listaMiembros;
 
-    private TextView UsernameMiembro;
+    private Button btnAtras;
+
 
     @Nullable
     @Override
@@ -46,12 +48,17 @@ public class VerMiembros  extends Fragment {
         // 3️⃣ Inicializamos las vistas
         inicializarVistas(view);
 
+        btnAtras=view.findViewById(R.id.btnAtrasMiembros);
+        btnAtras.setOnClickListener(listenerAtras);
+
 
         // 4️⃣ Configuramos el RecyclerView
         configurarRecycler();
 
         // 5️⃣ Cargamos las tareas del día (de momento mock)
         cargarMiembros();
+
+
 
         return view;
     }
@@ -110,14 +117,14 @@ public class VerMiembros  extends Fragment {
         m3.setUsername("h4astyy");
         listaMiembros.add(m1);
         listaMiembros.add(m2);
+        listaMiembros.add(m3);
 
         miembroAdapter.notifyDataSetChanged();
     }
 
-
-
-
-
+    private View.OnClickListener listenerAtras = view -> {
+        getParentFragmentManager().popBackStack();
+    };
 
 }
 

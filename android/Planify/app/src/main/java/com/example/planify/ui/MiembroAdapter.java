@@ -3,6 +3,7 @@ package com.example.planify.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,11 +66,8 @@ public class MiembroAdapter extends RecyclerView.Adapter<MiembroAdapter.MiembroV
     @Override
     public void onBindViewHolder(@NonNull MiembroViewHolder holder, int position) {
 
-        Miembro miembro= miembros.get(position);
-
+        Miembro miembro = miembros.get(position);
         holder.nombreMiembro.setText(miembro.getUsername());
-        //de momento fijo
-        holder.nombreMiembro.setText("Miembro Dani");
     }
     //-----------------------------------------------------------------------------------------------------
 
@@ -84,11 +82,12 @@ public class MiembroAdapter extends RecyclerView.Adapter<MiembroAdapter.MiembroV
     // ViewHolder: guarda las vistas del item_miembro.xml
     static class MiembroViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvIconoMiembro, nombreMiembro;
+        TextView nombreMiembro;
+        ImageView iconoMiembro;
 
         MiembroViewHolder(View itemView) {
             super(itemView);
-            tvIconoMiembro=itemView.findViewById(R.id.tvIconoMiembro);
+            iconoMiembro=itemView.findViewById(R.id.tvIconoMiembro);
             nombreMiembro=itemView.findViewById(R.id.NombreMiembro);
         }
     }

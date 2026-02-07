@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="6dp"
-    android:backgroundTint="#1B1B1B"
+    android:backgroundTint="#2E2E2E"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
     app:strokeWidth="0dp"
@@ -18,26 +18,24 @@
 
         <!-- Hora -->
 
-        <TextView
+        <ImageView
             android:id="@+id/tvIconoMiembro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="6dp"
-            android:drawableStart="@drawable/miembro"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/miembro"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/NombreMiembro"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <!-- Título -->
         <TextView
             android:id="@+id/NombreMiembro"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="username miembro"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:maxLines="1"
             android:ellipsize="end"
