@@ -22,6 +22,10 @@
             android:id="@+id/nav_miembros"
             android:title="Ver miembros"
             />
+        <item
+            android:id="@+id/nav_verCodigo"
+            android:title="Ver codigo"
+            />
 
         <item
             android:id="@+id/nav_salir"

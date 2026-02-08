@@ -75,7 +75,7 @@ public class VentanaGeneral extends AppCompatActivity {
         //Button btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
         FloatingActionButton btnCrearCalendario = findViewById(R.id.btnCrearCalendario);
         btnCrearCalendario.setOnClickListener(v -> {
-            mostrarDialogCrearCalendario();
+            mostrarDialogoUnirseCrearCalendario();
         });
     }
 
@@ -121,9 +121,74 @@ public class VentanaGeneral extends AppCompatActivity {
             dialog.dismiss();
         });
     }
+    private void mostrarDialogUnirseCalendario() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater()
+                .inflate(R.layout.dialogo_unirse_calendario, null);
+
+        // 1) Referencias a los EditText del diálogo (IMPORTANTE: usando "view")
+        EditText etCodigo = view.findViewById(R.id.etCodigoCalendario);
+
+
+        // 2) Referencia al botón "Crear" que está dentro del diálogo
+        Button btnConfirmar = view.findViewById(R.id.btnConfirmarUnirseCalendario);
+
+        //se le pone la vista al alterdialog
+        builder.setView(view);
+        //se crea
+        AlertDialog dialog = builder.create();
+        //se pinta
+        dialog.show();
+
+        // 3) Click del botón "Crear" (dentro del diálogo)
+        btnConfirmar.setOnClickListener(v -> {
+
+            String codigo = etCodigo.getText().toString().trim();
+
+            // Validación básica
+            if (codigo.isEmpty()) {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            unirseCalendarioBD(codigo);
+            // (Opcional) Cerrar el diálogo después de pulsar crear
+            dialog.dismiss();
+        });
+
+    }
+    private void mostrarDialogoUnirseCrearCalendario(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater()
+                .inflate(R.layout.dialogo_crear_unirse, null);
+
+        // 1) Referencias a los EditText del diálogo (IMPORTANTE: usando "view")
+        Button btnUnirse = view.findViewById(R.id.btnUnirseCalendario);
+
+
+        // 2) Referencia al botón "Crear" que está dentro del diálogo
+        Button btnCrear = view.findViewById(R.id.btnCrearCalendario);
+
+        //se le pone la vista al alterdialog
+        builder.setView(view);
+        //se crea
+        AlertDialog dialog = builder.create();
+        //se pinta
+        dialog.show();
+        //BOTON DE CREAR CALENDARIO
+        btnCrear.setOnClickListener(v -> {
+            mostrarDialogCrearCalendario();
+
+        });
+        //BOTON UNIRSE CALENDARIO
+        btnUnirse.setOnClickListener(v -> {
+            mostrarDialogUnirseCalendario();
+        });
+
+
+    }
+
     //Llamamos a la consulta del API para crear el calendario
     private void añadirCalendarioBD(String nombre) {
-        // DTO request
         /*
         * Por q va el request solo con los datos del calendario y sin el id del usuario?-->
         * pues por q así separamos el body que tiene solo datos del calendario del idUser que va
@@ -141,13 +206,11 @@ public class VentanaGeneral extends AppCompatActivity {
         int idUser = sessionManager.getIdUser();
 
         // API
-        CalendarioApi calendarioApi =
-                ApiCliente.getRetrofit().create(CalendarioApi.class);
+        CalendarioApi calendarioApi = ApiCliente.getRetrofit().create(CalendarioApi.class);
 
         //aquí finalmente se crear el calendario con el idUser y la request que tiene en el body
         // el nombre y codigo
-        Call<CalendarioResponseDTO> call =
-                calendarioApi.crearCalendario(idUser, request);
+        Call<CalendarioResponseDTO> call = calendarioApi.crearCalendario(idUser, request);
 
         // a la cola, hacemos la peticion
         call.enqueue(new Callback<CalendarioResponseDTO>() {
@@ -173,6 +236,52 @@ public class VentanaGeneral extends AppCompatActivity {
                 Toast.makeText(VentanaGeneral.this,
                         "Error de conexión",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void unirseCalendarioBD(String codigo) {
+        // Usuario logueado, se coge el id
+        SessionManager sessionManager = new SessionManager(this);
+        int idUser = sessionManager.getIdUser();
+        // API
+        CalendarioApi calendarioApi = ApiCliente.getRetrofit().create(CalendarioApi.class);
+        Call<CalendarioResponseDTO> call = calendarioApi.unirseCalendario(codigo, idUser);
+
+        call.enqueue(new Callback<CalendarioResponseDTO>() {
+            @Override
+            public void onResponse(
+                    Call<CalendarioResponseDTO> call,
+                    Response<CalendarioResponseDTO> response
+            ) {
+                if (response.isSuccessful()) {
+                    CalendarioResponseDTO cal = response.body();
+
+                    Toast.makeText(
+                            VentanaGeneral.this,
+                            "Te has unido a " + cal.getNombre(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    cargarCalendarios();
+                } else {
+                    Toast.makeText(
+                            VentanaGeneral.this,
+                            "Error al unirse al calendario",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                    Call<CalendarioResponseDTO> call,
+                    Throwable t
+            ) {
+                Toast.makeText(
+                        VentanaGeneral.this,
+                        "Error técnico: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
     }

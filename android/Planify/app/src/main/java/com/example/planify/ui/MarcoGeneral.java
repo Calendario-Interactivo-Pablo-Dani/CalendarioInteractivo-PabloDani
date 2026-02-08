@@ -1,5 +1,8 @@
 package com.example.planify.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -7,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -168,11 +172,13 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
                     .replace(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit();
+        }else if(id == R.id.nav_verCodigo){
+            mostrarDialogVerCodigo(CalendarioSeleccionado.codigo);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    //----------------------------------------------------------------------------------------------------
+
     private void mostrarConfirmacionSalirOEliminar(int idCal, int idUser) {
 
         boolean esOwner = "owner".equals(CalendarioSeleccionado.rol);
@@ -238,5 +244,39 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
+    private void mostrarDialogVerCodigo(String codigo) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View view = getLayoutInflater()
+                .inflate(R.layout.dialogo_ver_codigo, null);
+
+        //  Referencias (SIEMPRE desde view)
+        TextView txtCodigo = view.findViewById(R.id.etNombreCalendario);
+        ImageButton btnCopiar = view.findViewById(R.id.btnCopiar);
+
+        // Seteamos el texto del código
+        txtCodigo.setText(codigo);
+
+        //  Copiar al portapapeles
+        btnCopiar.setOnClickListener(v -> {
+            ClipboardManager clipboard =
+                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+            ClipData clip = ClipData.newPlainText("codigo", codigo);
+            clipboard.setPrimaryClip(clip);
+
+            Toast.makeText(this, "Código copiado", Toast.LENGTH_SHORT).show();
+        });
+
+        //  Montamos el diálogo
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
 
 }

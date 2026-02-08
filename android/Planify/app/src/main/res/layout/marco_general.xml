@@ -16,7 +16,8 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header"
         app:menu="@menu/side_bar_menu"
-        />
+        >
+    </com.google.android.material.navigation.NavigationView>
 
 
     <!--contenido dentro, en un layout-->

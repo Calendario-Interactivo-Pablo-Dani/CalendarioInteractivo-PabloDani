@@ -24,8 +24,9 @@ public interface CalendarioApi {
     Call<Void> eliminarCalendario(@Path("idCal") int idCal, @Path("idUser") int idUser);
 
     @GET("calendario/verMiembros/{idCal}")
-    Call<List<UsuarioCalendarioDTO>> obtenerMiembros(
-            @Path("idCal") int idCal
-    );
+    Call<List<UsuarioCalendarioDTO>> obtenerMiembros(@Path("idCal") int idCal);
+    @POST("calendario/unirse/{Codigo}/{idUser}")
+    Call<CalendarioResponseDTO> unirseCalendario(@Path("Codigo") String Codigo, @Path("idUser") int idUser);
+
 
 }
