@@ -96,16 +96,76 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="#CCCCCC"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/TituloLogros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logros:"
+        android:textSize="24dp"
+        android:fontFamily="@font/anton"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="@id/layoutInfoPerfil"
+        app:layout_constraintTop_toBottomOf="@id/layoutInfoPerfil"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/layoutLogros"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:background="#1C1C1C"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTituloPerfil">
+        <!--<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Calendarios en Activo:"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/anton"
+                />
+            <TextView
+                android:id="@+id/numeroCalendarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:fontFamily="@font/anton"/>
+
+        </LinearLayout>-->
+        <ImageView
+            android:layout_width="188dp"
+            android:layout_height="170dp"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/under_construction_foreground"
+            android:padding="0dp"
+            android:scaleType="fitCenter" />
+            />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnCerrarSesion"
         android:layout_width="330dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="38dp"
         android:backgroundTint="#E53935"
         android:onClick="logout"
         android:padding="14dp"

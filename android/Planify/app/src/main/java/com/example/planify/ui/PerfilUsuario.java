@@ -8,14 +8,27 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planify.R;
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.UsuarioApi;
 import com.example.planify.data.session.SessionManager;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PerfilUsuario extends AppCompatActivity {
+
+    private TextView txtNumeroCalendarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_usuario);
         SessionManager sessionManager = new SessionManager(this);
+
+        int idUser = sessionManager.getIdUser();
+
+
         String nombre = sessionManager.getName();
         String email = sessionManager.getEmail();
         String usuario = sessionManager.getUsername();
@@ -24,12 +37,14 @@ public class PerfilUsuario extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtUsuario = findViewById(R.id.txtUsuario);
         TextView txtTelefono = findViewById(R.id.txtTelefono);
-        TextView txtNumeroCalendarios = findViewById(R.id.txtCalendarios);
+        txtNumeroCalendarios = findViewById(R.id.txtCalendarios);
         txtNombre.setText("Nombre: " + nombre);
         txtEmail.setText("Email: " + email);
         txtUsuario.setText("Nombre de Usuario: " + usuario);
         txtTelefono.setText("Teléfono: " + telefono);
         txtNumeroCalendarios.setText("Número de calendarios: " );
+
+        cargarNumeroCalendarios(idUser);
     }
     public void logout(View view) {
         SessionManager session = new SessionManager(this);
@@ -46,5 +61,40 @@ public class PerfilUsuario extends AppCompatActivity {
         finish();
     }
 
+    private void cargarNumeroCalendarios(int idUser) {
+
+        UsuarioApi usuarioApi =
+                ApiCliente.getRetrofit().create(UsuarioApi.class);
+
+        Call<Integer> call = usuarioApi.obtenerTotalCalendarios(idUser);
+
+        call.enqueue(new Callback<Integer>() {
+
+            // ✔ Respuesta del servidor (HTTP)
+            @Override
+            public void onResponse(Call<Integer> call,
+                                   Response<Integer> response) {
+
+                if (response.isSuccessful()) {
+                    Integer total = response.body();
+
+                    txtNumeroCalendarios.setText(
+                            "Número de calendarios: " + total
+                    );
+                } else {
+                    txtNumeroCalendarios.setText(
+                            "Número de calendarios: error servidor"
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                txtNumeroCalendarios.setText(
+                        "Número de calendarios: error conexión"
+                );
+            }
+        });
+    }
 
 }

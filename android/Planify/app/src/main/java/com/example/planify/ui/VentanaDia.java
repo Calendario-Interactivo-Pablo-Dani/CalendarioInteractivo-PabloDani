@@ -38,11 +38,15 @@ public class VentanaDia extends Fragment {
     private TareasDiaAdapter tareasDiaAdapter;
     private List<Tarea> listaTareasDia;
 
+
     private TextView fecha_calendario_dia;
 
     private Button btnAtrasDia;
 
     private FloatingActionButton btnCrearTarea;
+
+
+    private String fechaDia;
 
     // --------------------- CICLO DE VIDA --------------------------------------------------
 
@@ -80,14 +84,14 @@ public class VentanaDia extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
 
-            String fechaString = args.getString("FECHA"); // "2026-03-05"
+            fechaDia = args.getString("FECHA"); // "2026-03-05"
 
             try {
                 // 1️⃣ Parseamos la fecha recibida
                 SimpleDateFormat parser =
                         new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-                Date fecha = parser.parse(fechaString);
+                Date fecha = parser.parse(fechaDia);
 
                 // 2️⃣ Formateamos como queremos mostrarla
                 SimpleDateFormat formatter =
@@ -175,13 +179,15 @@ public class VentanaDia extends Fragment {
         // TODO: llamada a backend / ViewModel
 
         // Datos de prueba
+
         Tarea t1 = new Tarea();
         t1.setNombre("Presentación proyecto");
-
+        t1.setId(1);
 
         Tarea t2 = new Tarea();
         t2.setNombre("Entrenar");
         t2.setColor("VERDE");
+        t2.setId(2);
 
         listaTareasDia.add(t1);
         listaTareasDia.add(t2);
@@ -195,7 +201,12 @@ public class VentanaDia extends Fragment {
 
     private View.OnClickListener listenerCrearTarea = view -> {
 
+        Bundle bundle = new Bundle();
+        bundle.putString("FECHA_DIA", fechaDia);
+        bundle.putInt("ID_CAL", CalendarioSeleccionado.idCal);
+
         VentanaTarea fragmentTarea = new VentanaTarea();
+        fragmentTarea.setArguments(bundle);
 
         getParentFragmentManager()
                 .beginTransaction()
@@ -203,7 +214,6 @@ public class VentanaDia extends Fragment {
                 .addToBackStack(null)
                 .commit();
     };
-
 
 
 

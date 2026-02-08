@@ -111,13 +111,13 @@
         android:layout_marginStart="16dp">
 
         <RadioButton
-            android:id="@+id/rbTipoPersonal"
+            android:id="@+id/rbTarea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tarea"/>
 
         <RadioButton
-            android:id="@+id/rbTipoTrabajo"
+            android:id="@+id/rbEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Evento"/>

@@ -11,7 +11,7 @@ public class Tarea {
     private Instant fecha;
     private String tipo;
     private String estado;
-    private Instant fechaLim;
+    private String hora;
     private Set<Logro> logros;
 
     private String color;
@@ -71,12 +71,12 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public Instant getFechaLim() {
-        return fechaLim;
+    public String getHora() {
+        return hora;
     }
 
-    public void setFechaLim(Instant fechaLim) {
-        this.fechaLim = fechaLim;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Set<Logro> getLogros() {

@@ -9,6 +9,9 @@
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
     app:strokeWidth="0dp"
+    android:id="@+id/btnTareaInspection"
+    android:clickable="true"
+    android:focusable="true">
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

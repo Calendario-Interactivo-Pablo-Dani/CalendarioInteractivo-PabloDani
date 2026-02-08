@@ -2,6 +2,7 @@ package com.example.planify.ui;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,23 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
+import com.google.android.material.card.MaterialCardView;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TareasDiaAdapter
         extends RecyclerView.Adapter<TareasDiaAdapter.TareaDiaViewHolder> {
@@ -75,6 +87,10 @@ public class TareasDiaAdapter
         holder.indicadorColor.setOnClickListener(v -> {
             mostrarSelectorColor(v, tarea, holder);
         });
+
+        holder.cardTarea.setOnClickListener(v -> {
+            abrirEditarTarea(v, tarea);
+        });
     }
     // ---------------------------------------------------------------------------------------
 
@@ -96,12 +112,14 @@ public class TareasDiaAdapter
         TextView horaTarea;
         View indicadorColor;
 
+        MaterialCardView cardTarea;
         TareaDiaViewHolder(View itemView) {
             super(itemView);
 
             tituloTarea = itemView.findViewById(R.id.titulo_tarea_dia);
             horaTarea = itemView.findViewById(R.id.hora_tarea_dia);
             indicadorColor = itemView.findViewById(R.id.indicador_color);
+            cardTarea = itemView.findViewById(R.id.btnTareaInspection);
         }
     }
 
@@ -182,6 +200,38 @@ public class TareasDiaAdapter
 
         // Aquí luego: llamada a backend para guardar
     }
+
+    private void abrirEditarTarea(View view, Tarea tarea) {
+
+        VentanaTarea fragmentEditarTarea = new VentanaTarea();
+
+        Bundle bundle = new Bundle();
+
+        // marcar que es edición
+        bundle.putBoolean("ES_EDICION", true);
+
+        // datos actuales de la tarea
+        bundle.putInt("ID_TAREA", tarea.getId());
+        bundle.putString("NOMBRE", tarea.getNombre());
+        bundle.putString("TIPO", tarea.getTipo());
+        bundle.putString("ESTADO", tarea.getEstado());
+        bundle.putString("COLOR", tarea.getColor());
+        bundle.putString("HORA", tarea.getHora());
+
+
+        fragmentEditarTarea.setArguments(bundle);
+
+        FragmentActivity activity = (FragmentActivity) view.getContext();
+
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragmentEditarTarea)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
+
 
 }
 

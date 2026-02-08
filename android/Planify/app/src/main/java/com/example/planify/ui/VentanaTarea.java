@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.planify.R;
+import com.example.planify.data.POJOs.Tarea;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -33,6 +34,7 @@ public class VentanaTarea extends Fragment {
     // BOTÓN
     private AppCompatButton btnConfirmar;
 
+    private String fechaDia;
     // COLOR
     private TextView tvColorCasilla;
 
@@ -57,6 +59,18 @@ public class VentanaTarea extends Fragment {
 
         tvColorCasilla = view.findViewById(R.id.tvColorCasilla);
         btnConfirmar = view.findViewById(R.id.btnConfirmarCrearTarea);
+
+
+        Bundle args = getArguments();
+        if (args != null) {
+
+            fechaDia = args.getString("FECHA_DIA");
+
+            if (args.getBoolean("ES_EDICION", false)) {
+                etNombre.setText(args.getString("NOMBRE"));
+                etHora.setText(args.getString("HORA"));
+            }
+        }
 
         configurarHora();
         configurarEstado();
@@ -129,6 +143,27 @@ public class VentanaTarea extends Fragment {
                 etHora.setError("Selecciona una hora");
                 return;
             }
+
+            Tarea tarea = new Tarea();
+            tarea.setNombre(nombre);
+            tarea.setHora(hora);
+
+            // tipo
+            if (tipoSeleccionado == R.id.rbTarea) {
+                tarea.setTipo("TAREA");
+            } else if (tipoSeleccionado == R.id.rbEvento) {
+                tarea.setTipo("EVENTO");
+            }
+
+            // estado
+            if (estadoSeleccionado == R.id.rbPendiente) {
+                tarea.setEstado("PENDIENTE");
+            } else if (estadoSeleccionado == R.id.rbFinalizada) {
+                tarea.setEstado("FINALIZADA");
+            }
+
+            // color (si ya lo tienes guardado en alguna variable)
+            tarea.setColor(tvColorCasilla.getText().toString());
 
             // AQUÍ luego:
             // - crear objeto Tarea
