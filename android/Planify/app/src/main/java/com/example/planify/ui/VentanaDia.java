@@ -17,10 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,22 +86,20 @@ public class VentanaDia extends Fragment {
             fechaDia = args.getString("FECHA"); // "2026-03-05"
 
             try {
-                // 1️⃣ Parseamos la fecha recibida
-                SimpleDateFormat parser =
-                        new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                LocalDate fecha = LocalDate.parse(fechaDia);
 
-                Date fecha = parser.parse(fechaDia);
+                DateTimeFormatter formatter =
+                        DateTimeFormatter.ofPattern(
+                                "EEEE d 'de' MMMM",
+                                new Locale("es", "ES")
+                        );
 
-                // 2️⃣ Formateamos como queremos mostrarla
-                SimpleDateFormat formatter =
-                        new SimpleDateFormat("EEEE d 'de' MMMM", new Locale("es", "ES"));
-
-                String fechaFormateada = formatter.format(fecha).toUpperCase();
+                String fechaFormateada =
+                        fecha.format(formatter).toUpperCase();
 
                 fecha_calendario_dia.setText(fechaFormateada);
 
-            } catch (ParseException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
                 fecha_calendario_dia.setText("TAREAS DEL DÍA");
             }
         }

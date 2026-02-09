@@ -1,42 +1,22 @@
-package com.example.planify.data.POJOs;
+package com.example.planify.data.dto;
 
-import java.time.Instant;
-import java.util.Set;
+public class TareaNuevaRequestDTO {
 
-public class Tarea {
-
-    private Integer id;
-    private Calendario idCal;
+    private Integer idCal;
     private String nombre;
-    private Instant fecha;
     private String tipo;
     private String estado;
-    private String fechaLim; // "yyyy-MM-ddTHH:mm"
-
-    private Set<Logro> logros;
-
+    private String fechaLim;   // "18:30"
     private String color;
 
+    // getters y setters
 
 
-    // Constructor vacío (OBLIGATORIO para Retrofit/Gson)
-    public Tarea() {
-    }
-
-    // Getters y setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Calendario getIdCal() {
+    public Integer getIdCal() {
         return idCal;
     }
 
-    public void setIdCal(Calendario idCal) {
+    public void setIdCal(Integer idCal) {
         this.idCal = idCal;
     }
 
@@ -46,14 +26,6 @@ public class Tarea {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Instant getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Instant fecha) {
-        this.fecha = fecha;
     }
 
     public String getTipo() {
@@ -71,20 +43,13 @@ public class Tarea {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
     public String getFechaLim() {
         return fechaLim;
     }
+
     public void setFechaLim(String fechaLim) {
         this.fechaLim = fechaLim;
-    }
-
-
-    public Set<Logro> getLogros() {
-        return logros;
-    }
-
-    public void setLogros(Set<Logro> logros) {
-        this.logros = logros;
     }
 
     public String getColor() {
@@ -95,5 +60,4 @@ public class Tarea {
         this.color = color;
     }
 }
-
 

@@ -27,7 +27,4 @@ public class TareaController {
     public ResponseEntity<List<TareaNuevaResponseDTO>> verTarea(){
     }*/
 
-
-
-
 }

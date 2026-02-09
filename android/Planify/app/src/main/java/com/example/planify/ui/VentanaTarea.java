@@ -2,12 +2,15 @@ package com.example.planify.ui;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,14 +18,28 @@ import android.widget.Toast;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.dto.TareaNuevaRequestDTO;
+import com.example.planify.data.dto.TareaNuevaResponseDTO;
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.TareaApi;
 
 import java.util.Calendar;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class VentanaTarea extends Fragment {
 
+    private String colorSeleccionado = "BLANCO";
     // TEXTOS
     private EditText etNombre;
     private EditText etHora;
@@ -36,6 +53,9 @@ public class VentanaTarea extends Fragment {
 
     private String fechaDia;
     // COLOR
+    private LocalDate fechaSeleccionada;
+    private LocalTime horaSeleccionada;
+
     private TextView tvColorCasilla;
 
     public VentanaTarea() {
@@ -60,15 +80,29 @@ public class VentanaTarea extends Fragment {
         tvColorCasilla = view.findViewById(R.id.tvColorCasilla);
         btnConfirmar = view.findViewById(R.id.btnConfirmarCrearTarea);
 
+        tvColorCasilla.setOnClickListener(v -> {
+            mostrarSelectorColor(v);
+        });
+
 
         Bundle args = getArguments();
         if (args != null) {
 
             fechaDia = args.getString("FECHA_DIA");
+            fechaSeleccionada = LocalDate.parse(fechaDia);
 
             if (args.getBoolean("ES_EDICION", false)) {
+
                 etNombre.setText(args.getString("NOMBRE"));
-                etHora.setText(args.getString("HORA"));
+
+                String fechaLimStr = args.getString("FECHA_LIM");
+                if (fechaLimStr != null) {
+                    LocalDateTime fechaLim =
+                            LocalDateTime.parse(fechaLimStr);
+
+                    horaSeleccionada = fechaLim.toLocalTime();
+                    etHora.setText(horaSeleccionada.toString());
+                }
             }
         }
 
@@ -92,13 +126,8 @@ public class VentanaTarea extends Fragment {
             TimePickerDialog dialog = new TimePickerDialog(
                     getContext(),
                     (view, hourOfDay, minute) -> {
-                        String horaFormateada = String.format(
-                                Locale.getDefault(),
-                                "%02d:%02d",
-                                hourOfDay,
-                                minute
-                        );
-                        etHora.setText(horaFormateada);
+                        horaSeleccionada = LocalTime.of(hourOfDay, minute);
+                        etHora.setText(horaSeleccionada.toString());
                     },
                     horaActual,
                     minutoActual,
@@ -129,7 +158,6 @@ public class VentanaTarea extends Fragment {
         btnConfirmar.setOnClickListener(v -> {
 
             String nombre = etNombre.getText().toString().trim();
-            String hora = etHora.getText().toString().trim();
 
             int tipoSeleccionado = rgTipo.getCheckedRadioButtonId();
             int estadoSeleccionado = rgEstado.getCheckedRadioButtonId();
@@ -139,45 +167,165 @@ public class VentanaTarea extends Fragment {
                 return;
             }
 
-            if (hora.isEmpty()) {
+            if (horaSeleccionada == null) {
                 etHora.setError("Selecciona una hora");
                 return;
             }
 
-            Tarea tarea = new Tarea();
-            tarea.setNombre(nombre);
-            tarea.setHora(hora);
+            // ===============================
+            // DTO PARA SPRING
+            // ===============================
+            TareaNuevaRequestDTO request = new TareaNuevaRequestDTO();
+
+            request.setIdCal(CalendarioSeleccionado.idCal);
+            request.setNombre(nombre);
+
+            if (fechaSeleccionada == null) {
+                Toast.makeText(
+                        getContext(),
+                        "Fecha no válida",
+                        Toast.LENGTH_SHORT
+                ).show();
+                return;
+            }
+
+            LocalDateTime fechaLim =
+                    LocalDateTime.of(fechaSeleccionada, horaSeleccionada);
+
+            request.setFechaLim(fechaLim.toString());
 
             // tipo
             if (tipoSeleccionado == R.id.rbTarea) {
-                tarea.setTipo("TAREA");
+                request.setTipo("tarea");
             } else if (tipoSeleccionado == R.id.rbEvento) {
-                tarea.setTipo("EVENTO");
+                request.setTipo("evento");
             }
 
             // estado
             if (estadoSeleccionado == R.id.rbPendiente) {
-                tarea.setEstado("PENDIENTE");
+                request.setEstado("pendiente");
             } else if (estadoSeleccionado == R.id.rbFinalizada) {
-                tarea.setEstado("FINALIZADA");
+                request.setEstado("finalizada");
             }
 
-            // color (si ya lo tienes guardado en alguna variable)
-            tarea.setColor(tvColorCasilla.getText().toString());
+            // color
+            request.setColor(colorSeleccionado);
 
-            // AQUÍ luego:
-            // - crear objeto Tarea
-            // - enviar al backend
-            // - refrescar calendario
+            // ===============================
+            // LLAMADA A SPRING
+            // ===============================
+            TareaApi tareaApi =
+                    ApiCliente.getRetrofit().create(TareaApi.class);
 
-            Toast.makeText(
-                    getContext(),
-                    "Tarea creada correctamente",
-                    Toast.LENGTH_SHORT
-            ).show();
+            tareaApi.crearTarea(request).enqueue(new Callback<TareaNuevaResponseDTO>() {
+                @Override
+                public void onResponse(
+                        Call<TareaNuevaResponseDTO> call,
+                        Response<TareaNuevaResponseDTO> response
+                ) {
+                    if (response.isSuccessful()) {
 
-            // cerrar ventana
-            getParentFragmentManager().popBackStack();
+                        Toast.makeText(
+                                getContext(),
+                                "Tarea creada correctamente",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        getParentFragmentManager().popBackStack();
+
+                    } else {
+                        Toast.makeText(
+                                getContext(),
+                                "Error al crear la tarea",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(
+                        Call<TareaNuevaResponseDTO> call,
+                        Throwable t
+                ) {
+                    Toast.makeText(
+                            getContext(),
+                            "Error de conexión",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            });
         });
     }
+
+    private void mostrarSelectorColor(View anchor) {
+
+        View popupView = LayoutInflater.from(getContext())
+                .inflate(R.layout.popup_selector_color, null);
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        popupView.findViewById(R.id.color_rojo).setOnClickListener(v -> {
+            aplicarColor("ROJO");
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_azul).setOnClickListener(v -> {
+            aplicarColor("AZUL");
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_verde).setOnClickListener(v -> {
+            aplicarColor("VERDE");
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_amarillo).setOnClickListener(v -> {
+            aplicarColor("AMARILLO");
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_morado).setOnClickListener(v -> {
+            aplicarColor("MORADO");
+            popupWindow.dismiss();
+        });
+
+        popupWindow.showAsDropDown(anchor);
+    }
+
+    private void aplicarColor(String color) {
+
+        colorSeleccionado = color;
+
+        int colorInt;
+
+        switch (color) {
+            case "ROJO":
+                colorInt = Color.parseColor("#E53935");
+                break;
+            case "AZUL":
+                colorInt = Color.parseColor("#1E88E5");
+                break;
+            case "VERDE":
+                colorInt = Color.parseColor("#43A047");
+                break;
+            case "AMARILLO":
+                colorInt = Color.parseColor("#FDD835");
+                break;
+            case "MORADO":
+                colorInt = Color.parseColor("#8E24AA");
+                break;
+            default:
+                colorInt = Color.WHITE;
+        }
+
+        tvColorCasilla.setBackgroundTintList(
+                ColorStateList.valueOf(colorInt)
+        );
+    }
+
 }

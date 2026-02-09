@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
@@ -39,6 +40,7 @@ public class TareaService {
         tarea.setNombre(request.getNombre());
         tarea.setCalendario(cal);
         tarea.setTipo(request.getTipo());
+        tarea.setFecha(Instant.now());
         tarea.setEstado(request.getEstado());
         tarea.setFechaLim(request.getFechaLim());
         tarea.setColor(request.getColor());

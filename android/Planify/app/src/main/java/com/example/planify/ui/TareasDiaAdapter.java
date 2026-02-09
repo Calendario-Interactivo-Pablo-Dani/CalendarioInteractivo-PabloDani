@@ -78,15 +78,29 @@ public class TareasDiaAdapter
         Tarea tarea = tareas.get(position);
 
         holder.tituloTarea.setText(tarea.getNombre());
-        holder.horaTarea.setText("18:30");
+
+
+        if (tarea.getFechaLim() != null) {
+
+            LocalDateTime fechaLim =
+                    LocalDateTime.parse(tarea.getFechaLim());
+
+            holder.horaTarea.setText(
+                    String.format(
+                            Locale.getDefault(),
+                            "%02d:%02d",
+                            fechaLim.getHour(),
+                            fechaLim.getMinute()
+                    )
+            );
+
+        } else {
+            holder.horaTarea.setText("--:--");
+        }
 
         holder.indicadorColor.setBackgroundTintList(
                 ColorStateList.valueOf(getColorFromTarea(tarea))
         );
-
-        holder.indicadorColor.setOnClickListener(v -> {
-            mostrarSelectorColor(v, tarea, holder);
-        });
 
         holder.cardTarea.setOnClickListener(v -> {
             abrirEditarTarea(v, tarea);
@@ -150,56 +164,6 @@ public class TareasDiaAdapter
     }
     // ---------------------------------------------------------------------------------------
 
-    private void mostrarSelectorColor(View anchor, Tarea tarea, TareaDiaViewHolder holder) {
-
-        View popupView = LayoutInflater.from(anchor.getContext())
-                .inflate(R.layout.popup_selector_color, null);
-
-        PopupWindow popupWindow = new PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-        );
-
-        popupView.findViewById(R.id.color_rojo).setOnClickListener(v -> {
-            aplicarColor(tarea, "ROJO", holder);
-            popupWindow.dismiss();
-        });
-
-        popupView.findViewById(R.id.color_azul).setOnClickListener(v -> {
-            aplicarColor(tarea, "AZUL", holder);
-            popupWindow.dismiss();
-        });
-
-        popupView.findViewById(R.id.color_verde).setOnClickListener(v -> {
-            aplicarColor(tarea, "VERDE", holder);
-            popupWindow.dismiss();
-        });
-
-        popupView.findViewById(R.id.color_amarillo).setOnClickListener(v -> {
-            aplicarColor(tarea, "AMARILLO", holder);
-            popupWindow.dismiss();
-        });
-
-        popupView.findViewById(R.id.color_morado).setOnClickListener(v -> {
-            aplicarColor(tarea, "MORADO", holder);
-            popupWindow.dismiss();
-        });
-
-        popupWindow.showAsDropDown(anchor);
-    }
-
-    private void aplicarColor(Tarea tarea, String color, TareaDiaViewHolder holder) {
-
-        tarea.setColor(color); // por ahora String, luego enum
-
-        holder.indicadorColor.setBackgroundTintList(
-                ColorStateList.valueOf(getColorFromTarea(tarea))
-        );
-
-        // Aquí luego: llamada a backend para guardar
-    }
 
     private void abrirEditarTarea(View view, Tarea tarea) {
 
@@ -216,8 +180,7 @@ public class TareasDiaAdapter
         bundle.putString("TIPO", tarea.getTipo());
         bundle.putString("ESTADO", tarea.getEstado());
         bundle.putString("COLOR", tarea.getColor());
-        bundle.putString("HORA", tarea.getHora());
-
+        bundle.putString("FECHA_LIM", tarea.getFechaLim());
 
         fragmentEditarTarea.setArguments(bundle);
 
