@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -29,8 +31,8 @@ public class Tarea {
     @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @Column(name = "fecha", nullable = false)
-    private Instant fecha;
+    @Column(name = "fecha", insertable = false, updatable = false)
+    private LocalDateTime fecha;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
@@ -41,7 +43,7 @@ public class Tarea {
     private EstadoTarea estado;
 
     @Column(name = "fechaLim")
-    private Instant fechaLim;
+    private LocalDateTime fechaLim;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "color", nullable = false)
@@ -82,11 +84,11 @@ public class Tarea {
         this.nombre = nombre;
     }
 
-    public Instant getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Instant fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -106,11 +108,11 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public Instant getFechaLim() {
+    public LocalDateTime getFechaLim() {
         return fechaLim;
     }
 
-    public void setFechaLim(Instant fechaLim) {
+    public void setFechaLim(LocalDateTime fechaLim) {
         this.fechaLim = fechaLim;
     }
 

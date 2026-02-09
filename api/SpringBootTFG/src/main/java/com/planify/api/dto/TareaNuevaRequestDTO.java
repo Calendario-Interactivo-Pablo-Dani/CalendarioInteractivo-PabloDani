@@ -5,13 +5,14 @@ import com.planify.api.enums.EstadoTarea;
 import com.planify.api.enums.TipoTarea;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class TareaNuevaRequestDTO {
     Integer idCal;
     String nombre;
     TipoTarea tipo;
     EstadoTarea estado;
-    Instant fechaLim;
+    LocalDateTime fechaLim;
     ColorTarea color;
 
     public Integer getIdCal() {return idCal;}
@@ -22,8 +23,8 @@ public class TareaNuevaRequestDTO {
     public void setTipo(TipoTarea tipo) {this.tipo = tipo;}
     public EstadoTarea getEstado() {return estado;}
     public void setEstado(EstadoTarea estado) {this.estado = estado;}
-    public Instant getFechaLim() {return fechaLim;}
-    public void setFechaLim(Instant fechaLim) {this.fechaLim = fechaLim;}
+    public LocalDateTime getFechaLim() {return fechaLim;}
+    public void setFechaLim(LocalDateTime fechaLim) {this.fechaLim = fechaLim;}
     public ColorTarea getColor() {return color;}
     public void setColor(ColorTarea color) {this.color = color;}
 }
