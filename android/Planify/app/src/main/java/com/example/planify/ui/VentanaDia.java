@@ -178,6 +178,7 @@ public class VentanaDia extends Fragment {
         // Datos de prueba
 
         Tarea t1 = new Tarea();
+        t1.setFechaLim("2026-02-09T18:30");
         t1.setNombre("Presentación proyecto");
         t1.setId(1);
 
