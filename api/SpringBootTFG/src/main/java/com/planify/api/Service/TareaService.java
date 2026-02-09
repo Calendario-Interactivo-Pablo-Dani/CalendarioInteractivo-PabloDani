@@ -2,6 +2,7 @@ package com.planify.api.Service;
 
 import com.planify.api.POJOs.Calendario;
 import com.planify.api.POJOs.Tarea;
+import com.planify.api.dto.DiasConTareaDTO;
 import com.planify.api.dto.TareaNuevaRequestDTO;
 import com.planify.api.dto.TareaNuevaResponseDTO;
 import com.planify.api.repository.CalendarioRepository;
@@ -13,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -103,5 +104,39 @@ public class TareaService {
                         t.getFechaLim(),
                         t.getColor()
                 )).toList();
+    }
+    @Transactional
+    public List<DiasConTareaDTO> eventosMes(Integer idCal, Integer anio, Integer mes){
+        /*CALCULAMOS EL RANGO DE FECHAS DEL MES*/
+        LocalDate inicioMes = LocalDate.of(anio, mes, 1);
+        LocalDate inicioMesSiguiente = inicioMes.plusMonths(1);
+
+        LocalDateTime inicio = inicioMes.atStartOfDay();
+        LocalDateTime fin = inicioMesSiguiente.atStartOfDay();
+        List<Tarea> tareasDelMes = tareaRepository.findByCalendario_IdAndFechaLimBetween(idCal, inicio, fin);
+
+        /*AGRUPAR LAS TARES POR DIA Y QUEDARONS CON LOS COLORES*/
+        Map<LocalDate, Set<String>> mapa = new HashMap<>();
+        for(Tarea t : tareasDelMes){
+            LocalDate dia = t.getFechaLim().toLocalDate();
+            String color = t.getColor().toString();
+
+            mapa.computeIfAbsent(dia, k -> new HashSet<>()).add(color);
+        }
+        /*CONVERTIR EL MAPA A LISTA DE LOS DTOS QUE VAMOS A DEVOLVER*/
+        List<DiasConTareaDTO> resultado = new ArrayList<>();
+
+        for (Map.Entry<LocalDate, Set<String>> entry : mapa.entrySet()) {
+            LocalDate fecha = entry.getKey();
+            List<String> colores = new ArrayList<>(entry.getValue());
+
+            resultado.add(new DiasConTareaDTO(fecha, colores));
+        }
+
+        return resultado;
+
+
+
+
     }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface TareaRepository extends JpaRepository<Tarea, Integer> {
     List<Tarea> findByCalendario_IdAndFechaLimBetweenOrderByFechaLimAsc(Integer idCal, LocalDateTime inicio, LocalDateTime fin);
     List<Tarea> findByCalendario_IdOrderByFechaLimAsc(Integer idCal);
+    List<Tarea> findByCalendario_IdAndFechaLimBetween(Integer idCal, LocalDateTime inicio, LocalDateTime fin);
+
 }
