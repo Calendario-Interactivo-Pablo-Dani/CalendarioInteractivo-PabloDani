@@ -3,6 +3,7 @@ package com.planify.api.Controllers;
 import com.planify.api.POJOs.Tarea;
 import com.planify.api.Service.TareaService;
 import com.planify.api.Service.UsuarioService;
+import com.planify.api.dto.DiasConTareaDTO;
 import com.planify.api.dto.TareaNuevaRequestDTO;
 import com.planify.api.dto.TareaNuevaResponseDTO;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,6 +42,10 @@ public class TareaController {
     public ResponseEntity<Void> eliminarTarea(@PathVariable Integer idTarea){
         tareaService.eliminarTarea(idTarea);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/verEventosMes/{idCal}/{anio}/{mes}")
+    public ResponseEntity<List<DiasConTareaDTO>> obtenerEventosMes(@PathVariable Integer idCal, @PathVariable Integer anio, @PathVariable Integer mes){
+        return ResponseEntity.ok(tareaService.eventosMes(idCal,anio,mes));
     }
 
 
