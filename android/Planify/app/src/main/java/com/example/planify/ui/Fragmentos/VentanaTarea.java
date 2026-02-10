@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
@@ -58,6 +59,7 @@ public class VentanaTarea extends Fragment {
     private LocalTime horaSeleccionada;
 
     private TextView tvColorCasilla;
+    private AppCompatButton btnEliminarTarea;
 
     public VentanaTarea() {
         // Required empty public constructor
@@ -82,8 +84,12 @@ public class VentanaTarea extends Fragment {
 
         tvColorCasilla = view.findViewById(R.id.tvColorCasilla);
         btnConfirmar = view.findViewById(R.id.btnConfirmarCrearTarea);
+        btnEliminarTarea = view.findViewById(R.id.btnEliminarTarea);
+
+        btnEliminarTarea.setOnClickListener(v -> borrarTarea());
 
         tvColorCasilla.setOnClickListener(v -> mostrarSelectorColor(v));
+
 
         // ===============================
         // ESTADO INICIAL
@@ -417,6 +423,86 @@ public class VentanaTarea extends Fragment {
         tvColorCasilla.setBackgroundTintList(
                 ColorStateList.valueOf(colorInt)
         );
+    }
+    public void borrarTarea(){
+        // ===============================
+        // CASO 1: NO ES EDICIÓN
+        // ===============================
+        if (!esEdicion) {
+            Toast.makeText(
+                    getContext(),
+                    "Primero tienes que crear la tarea para poder eliminarla",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        // Seguridad extra
+        if (idTareaEdicion == -1) {
+            Toast.makeText(
+                    getContext(),
+                    "No se puede eliminar esta tarea",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        // ===============================
+        // CONFIRMACIÓN
+        // ===============================
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Eliminar tarea")
+                .setMessage("¿Estás seguro de que quieres eliminar esta tarea?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+
+                    // ===============================
+                    // LLAMADA A SPRING
+                    // ===============================
+                    TareaApi tareaApi =
+                            ApiCliente.getRetrofit().create(TareaApi.class);
+
+                    tareaApi.eliminarTarea(idTareaEdicion)
+                            .enqueue(new Callback<Void>() {
+
+                                @Override
+                                public void onResponse(
+                                        Call<Void> call,
+                                        Response<Void> response
+                                ) {
+                                    if (response.isSuccessful()) {
+
+                                        Toast.makeText(
+                                                getContext(),
+                                                "Tarea eliminada correctamente",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+
+                                        getParentFragmentManager().popBackStack();
+
+                                    } else {
+                                        Toast.makeText(
+                                                getContext(),
+                                                "Error al eliminar la tarea",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(
+                                        Call<Void> call,
+                                        Throwable t
+                                ) {
+                                    Toast.makeText(
+                                            getContext(),
+                                            "Error de conexión",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                            });
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
 }
