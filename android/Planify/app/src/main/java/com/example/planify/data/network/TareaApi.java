@@ -1,5 +1,6 @@
 package com.example.planify.data.network;
 
+import com.example.planify.data.POJOs.Tarea;
 import com.example.planify.data.dto.CalendarioRequestDTO;
 import com.example.planify.data.dto.CalendarioResponseDTO;
 import com.example.planify.data.dto.DiasConTareaDTO;
@@ -27,7 +28,7 @@ public interface TareaApi {
     Call<Void> eliminarTarea(@Path("idTarea") int idTarea);
 
     @GET("tarea/verTareasDia/{idCal}/{fecha}")
-    Call<List<TareaNuevaResponseDTO>> verTareasDia(@Path("idCal") int idCal, @Path("fecha") String fecha);
+    Call<List<Tarea>> verTareasDia(@Path("idCal") int idCal, @Path("fecha") String fecha);
 
     @GET("tarea/verTareas/{idCal}")
     Call<List<TareaNuevaResponseDTO>> verTareas(@Path("idCal") int idCal);

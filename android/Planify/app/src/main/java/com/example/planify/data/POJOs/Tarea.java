@@ -1,14 +1,15 @@
 package com.example.planify.data.POJOs;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Instant;
 import java.util.Set;
 
 public class Tarea {
 
+    @SerializedName("idTarea")
     private Integer id;
-    private Calendario idCal;
     private String nombre;
-    private Instant fecha;
     private String tipo;
     private String estado;
     private String fechaLim; // "yyyy-MM-ddTHH:mm"
@@ -32,13 +33,6 @@ public class Tarea {
         this.id = id;
     }
 
-    public Calendario getIdCal() {
-        return idCal;
-    }
-
-    public void setIdCal(Calendario idCal) {
-        this.idCal = idCal;
-    }
 
     public String getNombre() {
         return nombre;
@@ -46,14 +40,6 @@ public class Tarea {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Instant getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Instant fecha) {
-        this.fecha = fecha;
     }
 
     public String getTipo() {

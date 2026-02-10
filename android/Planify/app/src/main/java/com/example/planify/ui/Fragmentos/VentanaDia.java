@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +24,14 @@ import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.TareaApi;
 import com.example.planify.ui.Adapter.TareasDiaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class VentanaDia extends Fragment {
@@ -120,6 +127,14 @@ public class VentanaDia extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (fechaDia != null) {
+            cargarTareasDelDia();
+        }
+    }
+
     // --------------------------------------------------------------------------------------
 
     /*
@@ -180,24 +195,43 @@ public class VentanaDia extends Fragment {
      */
     private void cargarTareasDelDia() {
 
-        // TODO: llamada a backend / ViewModel
+        if (fechaDia == null) {
+            return;
+        }
+        TareaApi tareaApi =
+                ApiCliente.getRetrofit().create(TareaApi.class);
 
-        // Datos de prueba
+        tareaApi.verTareasDia(
+                CalendarioSeleccionado.idCal,
+                fechaDia // yyyy-MM-dd
+        ).enqueue(new Callback<List<Tarea>>() {
+            @Override
+            public void onResponse(
+                    Call<List<Tarea>> call,
+                    Response<List<Tarea>> response
+            ) {
+                listaTareasDia.clear();
 
-        Tarea t1 = new Tarea();
-        t1.setFechaLim("2026-02-09T18:30");
-        t1.setNombre("Presentación proyecto");
-        t1.setId(1);
+                if (response.isSuccessful() && response.body() != null) {
+                    listaTareasDia.addAll(response.body());
+                }
 
-        Tarea t2 = new Tarea();
-        t2.setNombre("Entrenar");
-        t2.setColor("VERDE");
-        t2.setId(2);
+                tareasDiaAdapter.notifyDataSetChanged();
+            }
 
-        listaTareasDia.add(t1);
-        listaTareasDia.add(t2);
+            @Override
+            public void onFailure(Call<List<Tarea>> call, Throwable t) {
+                Toast.makeText(
+                        getContext(),
+                        "Error al cargar tareas del día",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
 
-        tareasDiaAdapter.notifyDataSetChanged();
+
+
+
     }
 
     private View.OnClickListener listenerAtras = view -> {
