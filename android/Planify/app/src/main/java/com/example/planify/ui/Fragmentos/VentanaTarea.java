@@ -29,6 +29,7 @@ import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.TareaApi;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +71,9 @@ public class VentanaTarea extends Fragment {
     ) {
         View view = inflater.inflate(R.layout.tarea_creacion_ventana, container, false);
 
-        // REFERENCIAS
+        // ===============================
+        // REFERENCIAS UI
+        // ===============================
         etNombre = view.findViewById(R.id.etNombre);
         etHora = view.findViewById(R.id.etHora);
 
@@ -80,48 +83,98 @@ public class VentanaTarea extends Fragment {
         tvColorCasilla = view.findViewById(R.id.tvColorCasilla);
         btnConfirmar = view.findViewById(R.id.btnConfirmarCrearTarea);
 
-        tvColorCasilla.setOnClickListener(v -> {
-            mostrarSelectorColor(v);
-        });
+        tvColorCasilla.setOnClickListener(v -> mostrarSelectorColor(v));
 
-
-        Bundle args = getArguments();
+        // ===============================
+        // ESTADO INICIAL
+        // ===============================
         fechaSeleccionada = null;
+        horaSeleccionada = null;
+        esEdicion = false;
+        idTareaEdicion = -1;
+
+        // ===============================
+        // ARGUMENTOS
+        // ===============================
+        Bundle args = getArguments();
         if (args != null) {
+
             esEdicion = args.getBoolean("ES_EDICION", false);
 
             if (esEdicion) {
                 idTareaEdicion = args.getInt("ID_TAREA", -1);
             }
 
-            // Caso 1: crear tarea desde un día concreto
+            // --------
+            // FECHA
+            // --------
+
+            // Crear tarea desde día concreto
             if (args.containsKey("FECHA_DIA") && args.getString("FECHA_DIA") != null) {
                 fechaSeleccionada = LocalDate.parse(args.getString("FECHA_DIA"));
             }
 
-            // Caso 2: editar tarea existente
+            // Editar tarea existente
             else if (args.containsKey("FECHA_LIM") && args.getString("FECHA_LIM") != null) {
                 LocalDateTime fechaLim =
                         LocalDateTime.parse(args.getString("FECHA_LIM"));
-                fechaSeleccionada = fechaLim.toLocalDate();
 
-                // además, precargar la hora
+                fechaSeleccionada = fechaLim.toLocalDate();
                 horaSeleccionada = fechaLim.toLocalTime();
-                etHora.setText(horaSeleccionada.toString());
+
+                etHora.setText(
+                        String.format(
+                                Locale.getDefault(),
+                                "%02d:%02d",
+                                horaSeleccionada.getHour(),
+                                horaSeleccionada.getMinute()
+                        )
+                );
             }
 
-            // Campos comunes de edición
-            if (args.getBoolean("ES_EDICION", false)) {
+            // --------
+            // CAMPOS DE EDICIÓN
+            // --------
+            if (esEdicion) {
+
                 etNombre.setText(args.getString("NOMBRE"));
+
+                // TIPO
+                String tipo = args.getString("TIPO");
+                if ("tarea".equalsIgnoreCase(tipo)) {
+                    rgTipo.check(R.id.rbTarea);
+                } else if ("evento".equalsIgnoreCase(tipo)) {
+                    rgTipo.check(R.id.rbEvento);
+                }
+
+                // ESTADO
+                String estado = args.getString("ESTADO");
+                if ("pendiente".equalsIgnoreCase(estado)) {
+                    rgEstado.check(R.id.rbPendiente);
+                } else if ("finalizada".equalsIgnoreCase(estado)) {
+                    rgEstado.check(R.id.rbFinalizada);
+                }
+
+                // COLOR
+                String color = args.getString("COLOR");
+                if (color != null) {
+                    aplicarColor(color);
+                }
+
+                btnConfirmar.setText("Modificar tarea");
             }
         }
 
+        // ===============================
+        // CONFIGURACIONES
+        // ===============================
         configurarHora();
         configurarEstado();
         configurarConfirmar();
 
         return view;
     }
+
 
     // =========================
     // HORA (TimePicker)
