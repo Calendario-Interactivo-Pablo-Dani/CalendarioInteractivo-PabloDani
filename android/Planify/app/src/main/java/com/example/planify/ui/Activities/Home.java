@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.example.planify.data.dto.CalendarioRequestDTO;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.CalendarioApi;
 import com.example.planify.data.session.SessionManager;
+import com.example.planify.ui.Adapter.ListaCalendariosAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import retrofit2.Response;
 *
 * Se delega la navegacion al Adapter
 * */
-public class VentanaGeneral extends AppCompatActivity {
+public class Home extends AppCompatActivity {
     private RecyclerView recyclerCalendarios;
     private ListaCalendariosAdapter ListaCalendariosAdapter;
     @Override
@@ -220,12 +221,12 @@ public class VentanaGeneral extends AppCompatActivity {
 
                 //si fue exitosa, sale un popUp de creado correctamente
                 if (response.isSuccessful()) {
-                    Toast.makeText(VentanaGeneral.this,
+                    Toast.makeText(Home.this,
                             "Calendario creado correctamente",
                             Toast.LENGTH_SHORT).show();
                     cargarCalendarios();
                 } else {
-                    Toast.makeText(VentanaGeneral.this,
+                    Toast.makeText(Home.this,
                             "Error al crear calendario",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -233,7 +234,7 @@ public class VentanaGeneral extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CalendarioResponseDTO> call, Throwable t) {
-                Toast.makeText(VentanaGeneral.this,
+                Toast.makeText(Home.this,
                         "Error de conexión",
                         Toast.LENGTH_SHORT).show();
             }
@@ -257,7 +258,7 @@ public class VentanaGeneral extends AppCompatActivity {
                     CalendarioResponseDTO cal = response.body();
 
                     Toast.makeText(
-                            VentanaGeneral.this,
+                            Home.this,
                             "Te has unido a " + cal.getNombre(),
                             Toast.LENGTH_SHORT
                     ).show();
@@ -265,7 +266,7 @@ public class VentanaGeneral extends AppCompatActivity {
                     cargarCalendarios();
                 } else {
                     Toast.makeText(
-                            VentanaGeneral.this,
+                            Home.this,
                             "Error al unirse al calendario",
                             Toast.LENGTH_SHORT
                     ).show();
@@ -278,7 +279,7 @@ public class VentanaGeneral extends AppCompatActivity {
                     Throwable t
             ) {
                 Toast.makeText(
-                        VentanaGeneral.this,
+                        Home.this,
                         "Error técnico: " + t.getMessage(),
                         Toast.LENGTH_LONG
                 ).show();
@@ -344,7 +345,7 @@ public class VentanaGeneral extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<CalendarioResponseDTO>> call, Throwable t) {
                 Log.e("CALENDARIO", "Error conexión", t);
-                Toast.makeText(VentanaGeneral.this,
+                Toast.makeText(Home.this,
                         "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

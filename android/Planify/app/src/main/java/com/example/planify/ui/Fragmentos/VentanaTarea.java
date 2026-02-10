@@ -1,14 +1,12 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Fragmentos;
 
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
@@ -24,14 +22,13 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 
 import com.example.planify.R;
-import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.dto.TareaNuevaRequestDTO;
 import com.example.planify.data.dto.TareaNuevaResponseDTO;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.TareaApi;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;

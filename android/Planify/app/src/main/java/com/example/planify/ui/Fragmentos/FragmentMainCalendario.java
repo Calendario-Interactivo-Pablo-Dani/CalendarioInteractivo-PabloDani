@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Fragmentos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.ui.Adapter.CalendarAdapter;
+import com.example.planify.ui.Adapter.EventAdapter;
+import com.example.planify.data.POJOs.CalendarDay;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

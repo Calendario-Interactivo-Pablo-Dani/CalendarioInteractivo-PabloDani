@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Adapter;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -6,25 +6,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.ui.Fragmentos.VentanaTarea;
 import com.google.android.material.card.MaterialCardView;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 

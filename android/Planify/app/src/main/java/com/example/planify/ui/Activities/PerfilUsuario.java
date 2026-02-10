@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +49,7 @@ public class PerfilUsuario extends AppCompatActivity {
     public void logout(View view) {
         SessionManager session = new SessionManager(this);
         session.logout();
-        Intent i= new Intent(getApplicationContext(), MainActivity.class);
+        Intent i= new Intent(getApplicationContext(), Login.class);
         //esta linea borra todas las pestañas abiertas q hubiese de esa app y vuelves al punto
         //inicial, es decir, al login, sin ella si le dieses a la flecha de atrás despues de
         //logout, volverías a la app logueado.

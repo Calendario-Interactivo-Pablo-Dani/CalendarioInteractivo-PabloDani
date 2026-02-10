@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.data.POJOs;
 
 public class CalendarioSeleccionado {
     public static int idCal;

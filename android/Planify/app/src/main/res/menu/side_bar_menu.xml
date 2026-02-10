@@ -14,10 +14,6 @@
             />
     </group>
     <group>
-      <item
-          android:id="@+id/nav_logros"
-          android:title="Logros"
-          />
         <item
             android:id="@+id/nav_miembros"
             android:title="Ver miembros"

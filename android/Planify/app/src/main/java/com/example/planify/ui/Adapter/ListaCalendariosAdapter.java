@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,21 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.dto.CalendarioResponseDTO;
+import com.example.planify.ui.Activities.MarcoGeneral;
 
 import java.util.List;
 
 /**/
 public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendariosAdapter.CalendarioViewHolder> {
-    // 1️⃣ Lista de calendarios que vienen del backend
+    // Lista de calendarios que vienen del backend
     private List<CalendarioResponseDTO> calendarios;
 
-    // 2️⃣ Constructor: recibe la lista
+    // Constructor: recibe la lista
     public ListaCalendariosAdapter(List<CalendarioResponseDTO> calendarios) {
         this.calendarios = calendarios;
     }
 
-    // 3️⃣ Se llama cuando Android necesita crear una "fila"
+    //  Se llama cuando Android necesita crear una "fila"
     @NonNull
     @Override
     public CalendarioViewHolder onCreateViewHolder(
@@ -37,7 +39,7 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
         return new CalendarioViewHolder(view);
     }
 
-    // 4️⃣ Se llama para rellenar cada fila con datos
+    //  Se llama para rellenar cada fila con datos
     @Override
     public void onBindViewHolder(
             @NonNull CalendarioViewHolder holder, int position) {
@@ -68,13 +70,13 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
         });
     }
 
-    // 5️⃣ Cuántos elementos hay
+    //  Cuántos elementos hay
     @Override
     public int getItemCount() {
         return calendarios.size();
     }
 
-    // 6️⃣ ViewHolder: referencia al botón
+    //  ViewHolder: referencia al botón
     static class CalendarioViewHolder extends RecyclerView.ViewHolder {
 
         Button btnCalendario;

@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
     /*Datos login*/
     private EditText txEmail;
     private  EditText txPassword;
@@ -45,21 +45,21 @@ public class MainActivity extends AppCompatActivity {
             /*COMPROBAMOS QUE LOS CAMPOS NO ESTAN VACIOS*/
             if (email.isEmpty() || password.isEmpty()) {
 
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(Login.this,
                         "Rellena todos los campos",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
             // COMPROBAMOS FORMATO DE EMAIL VALIDO
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(Login.this,
                         "Email no válido",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
             //CONTRASEÑA MINIMA
             if (password.length() < 3) {
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(Login.this,
                         "La contraseña debe tener al menos 3 caracteres",
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         //CREAMOS DTO
                         LoginResponseDTO usuario = response.body();
                         //GUARDAR SESIÓN
-                        SessionManager session = new SessionManager(MainActivity.this);
+                        SessionManager session = new SessionManager(Login.this);
                         session.saveSession(
                                 usuario.getId(),
                                 usuario.getNombre(),
@@ -83,22 +83,22 @@ public class MainActivity extends AppCompatActivity {
                                 usuario.getTelefono()
                         );
                         //TEXTO CONFIRMACIÓN
-                        Toast.makeText(MainActivity.this,
+                        Toast.makeText(Login.this,
                                 "Bienvenido " + usuario.getNombre(),
                                 Toast.LENGTH_SHORT).show();
                         //PASAMOS A LA PANTALLA GENERAL
-                        Intent i = new Intent(getApplicationContext(), VentanaGeneral.class);
+                        Intent i = new Intent(getApplicationContext(), Home.class);
                         startActivity(i);
                         finish();
                     } else if (response.code() == 401) {
-                        Toast.makeText(MainActivity.this,
+                        Toast.makeText(Login.this,
                                 "Email o contraseña incorrectos",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
                 @Override
                 public void onFailure(Call<LoginResponseDTO> call, Throwable t) {
-                    Toast.makeText(MainActivity.this,
+                    Toast.makeText(Login.this,
                             "Error de conexión",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         /*MANEJO DE SESION*/
         SessionManager session = new SessionManager(this);
         if (session.isLogged()) {
-            Intent intent = new Intent(MainActivity.this, VentanaGeneral.class);
+            Intent intent = new Intent(Login.this, Home.class);
             startActivity(intent);
             finish();
             return;

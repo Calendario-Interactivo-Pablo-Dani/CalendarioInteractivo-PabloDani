@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Planify"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.Activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +25,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.planify.ui.Register"></activity>
-        <activity android:name="com.example.planify.ui.MarcoGeneral"></activity>
-        <activity android:name="com.example.planify.ui.Logros"></activity>
-        <activity android:name="com.example.planify.ui.VentanaGeneral"></activity>
-        <activity android:name="com.example.planify.ui.PerfilUsuario"></activity>
-        <activity android:name="com.example.planify.ui.VerMiembros"></activity>
+        <activity android:name="com.example.planify.ui.Activities.Register"></activity>
+        <activity android:name="com.example.planify.ui.Activities.MarcoGeneral"></activity>
+        <activity android:name="com.example.planify.ui.Activities.Home"></activity>
+        <activity android:name="com.example.planify.ui.Activities.PerfilUsuario"></activity>
+
 
 
         <meta-data

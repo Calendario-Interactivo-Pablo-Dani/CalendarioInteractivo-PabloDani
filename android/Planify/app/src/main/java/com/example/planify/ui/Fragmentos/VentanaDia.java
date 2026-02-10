@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Fragmentos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,21 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.POJOs.Tarea;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
+import com.example.planify.ui.Adapter.TareasDiaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -83,24 +82,32 @@ public class VentanaDia extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
 
-            fechaDia = args.getString("FECHA"); // "2026-03-05"
+            String fechaStr = args.getString("FECHA");
+            if (fechaStr != null) {
 
-            try {
-                LocalDate fecha = LocalDate.parse(fechaDia);
+                fechaDia = fechaStr; // ✅ CLAVE: guardar la fecha para pasarla a VentanaTarea
 
-                DateTimeFormatter formatter =
-                        DateTimeFormatter.ofPattern(
-                                "EEEE d 'de' MMMM",
-                                new Locale("es", "ES")
-                        );
+                try {
+                    LocalDate fecha = LocalDate.parse(fechaStr);
 
-                String fechaFormateada =
-                        fecha.format(formatter).toUpperCase();
+                    DateTimeFormatter formatter =
+                            DateTimeFormatter.ofPattern(
+                                    "EEEE d 'de' MMMM",
+                                    new Locale("es", "ES")
+                            );
 
-                fecha_calendario_dia.setText(fechaFormateada);
+                    String fechaFormateada =
+                            fecha.format(formatter).toUpperCase();
 
-            } catch (Exception e) {
+                    fecha_calendario_dia.setText(fechaFormateada);
+
+                } catch (Exception e) {
+                    fecha_calendario_dia.setText("TAREAS DEL DÍA");
+                }
+
+            } else {
                 fecha_calendario_dia.setText("TAREAS DEL DÍA");
+                fechaDia = null; // explícito
             }
         }
 

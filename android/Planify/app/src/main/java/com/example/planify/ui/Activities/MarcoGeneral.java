@@ -1,11 +1,9 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Activities;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,19 +17,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.CalendarioApi;
 import com.example.planify.data.session.SessionManager;
 
 
 import com.example.planify.R;
+import com.example.planify.ui.Fragmentos.FragmentMainCalendario;
+import com.example.planify.ui.Fragmentos.VerMiembros;
 import com.google.android.material.navigation.NavigationView;
 
 import retrofit2.Call;
@@ -146,14 +145,11 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
         //calendarios y demás
         if (id == R.id.nav_home) {
             // cargar fragment Home
-            Intent i = new Intent(MarcoGeneral.this, VentanaGeneral.class);
+            Intent i = new Intent(MarcoGeneral.this, Home.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             startActivity(i);
             finish();
-        } else if (id == R.id.nav_logros) {
-            Intent i= new Intent(getApplicationContext(), Logros.class);
-            startActivity(i);
         }else if (id == R.id.nav_salir) {
             //SALIR CALENDARIO
             int idCal = CalendarioSeleccionado.idCal;
@@ -225,7 +221,7 @@ public class MarcoGeneral extends AppCompatActivity implements NavigationView.On
 
                     Toast.makeText(MarcoGeneral.this, toast, Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(getApplicationContext(), VentanaGeneral.class);
+                    Intent i = new Intent(getApplicationContext(), Home.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
 

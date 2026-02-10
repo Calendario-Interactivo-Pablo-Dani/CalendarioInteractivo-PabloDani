@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

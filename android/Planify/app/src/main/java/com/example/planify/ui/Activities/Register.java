@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planify.R;
-import com.example.planify.data.dto.LoginRequestDTO;
-import com.example.planify.data.dto.LoginResponseDTO;
 import com.example.planify.data.dto.RegisterRequestDTO;
 import com.example.planify.data.dto.RegisterResponseDTO;
 import com.example.planify.data.network.ApiCliente;
@@ -42,7 +40,7 @@ public class Register extends AppCompatActivity {
     private View.OnClickListener listenerLogin=new View.OnClickListener() {
 
         public void onClick(View view) {
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(getApplicationContext(), Login.class);
             startActivity(i);
         }
     };

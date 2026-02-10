@@ -1,4 +1,4 @@
-package com.example.planify.ui;
+package com.example.planify.data.POJOs;
 
 /*
  * Esta clase representa LA UNIDAD MÁS PEQUEÑA del sistema de calendario.

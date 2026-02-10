@@ -1,32 +1,28 @@
-package com.example.planify.ui;
+package com.example.planify.ui.Fragmentos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
-import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.POJOs.CalendarioSeleccionado;
+import com.example.planify.data.POJOs.Miembro;
 import com.example.planify.data.dto.UsuarioCalendarioDTO;
 import com.example.planify.data.network.ApiCliente;
 import com.example.planify.data.network.CalendarioApi;
+import com.example.planify.ui.Adapter.MiembroAdapter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
