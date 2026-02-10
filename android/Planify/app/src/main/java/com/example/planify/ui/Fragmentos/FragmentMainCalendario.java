@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +18,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.planify.R;
 import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.dto.DiasConTareaDTO;
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.TareaApi;
 import com.example.planify.ui.Adapter.CalendarAdapter;
 import com.example.planify.ui.Adapter.EventAdapter;
 import com.example.planify.data.POJOs.CalendarDay;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
  * FRAGMENT MAIN CALENDARIO
@@ -47,7 +58,7 @@ import java.util.Locale;
 public class FragmentMainCalendario extends Fragment {
 
     // --------------------- CALENDARIO MENSUAL ---------------------
-
+    private Map<LocalDate, List<String>> coloresPorDia = new HashMap<>();
     private RecyclerView recyclerViewCalendar;
     private CalendarAdapter calendarAdapter;
     private List<CalendarDay> calendarDays;
@@ -92,6 +103,9 @@ public class FragmentMainCalendario extends Fragment {
 
         // Configuramos el RecyclerView del calendario mensual
         configurarCalendarioMensual(view);
+
+        //cargamos las barras
+        cargarEventosDelMes();
 
         // Configuramos la lista de tareas (de momento mock)
         configurarListaTareas(view);
@@ -152,14 +166,14 @@ public class FragmentMainCalendario extends Fragment {
         calendarDays = generarDiasDelMes(calendarioActual);
 
         // Creamos el adapter del calendario
-        calendarAdapter = new CalendarAdapter(calendarDays, v -> {
-
-            // El adapter guarda el número del día en el tag
-            int dayNumber = (int) v.getTag();
-
-            // El fragment decide qué hacer con el click
-            abrirVentanaDia(dayNumber);
-        });
+        calendarAdapter = new CalendarAdapter(
+                calendarDays,
+                coloresPorDia,
+                v -> {
+                    int dayNumber = (int) v.getTag();
+                    abrirVentanaDia(dayNumber);
+                }
+        );
 
         recyclerViewCalendar.setAdapter(calendarAdapter);
     }
@@ -186,18 +200,23 @@ public class FragmentMainCalendario extends Fragment {
         int firstDayOfWeek = temp.get(Calendar.DAY_OF_WEEK);
         int daysInMonth = temp.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        // Ajuste para que lunes sea 1 y domingo 7, cosas de los ingleses q sus semanas empiezan en domingo
+        // Ajuste para que lunes sea 1 y domingo 7
         int adjustedFirstDay =
                 (firstDayOfWeek == Calendar.SUNDAY) ? 7 : firstDayOfWeek - 1;
 
+        // Año y mes actuales (necesarios para LocalDate)
+        int year = temp.get(Calendar.YEAR);
+        int month = temp.get(Calendar.MONTH) + 1; // Calendar empieza en 0
+
         // Huecos antes del día 1
         for (int i = 1; i < adjustedFirstDay; i++) {
-            days.add(new CalendarDay(null));
+            days.add(new CalendarDay(null, null));
         }
 
         // Días reales
         for (int day = 1; day <= daysInMonth; day++) {
-            days.add(new CalendarDay(day));
+            LocalDate fecha = LocalDate.of(year, month, day);
+            days.add(new CalendarDay(day, fecha));
         }
 
         return days;
@@ -225,6 +244,8 @@ public class FragmentMainCalendario extends Fragment {
 
         calendarAdapter.notifyDataSetChanged();
         actualizarTituloMes();
+
+        cargarEventosDelMes();
     }
 
 
@@ -291,5 +312,55 @@ public class FragmentMainCalendario extends Fragment {
         );
 
         recyclerViewTareas.setAdapter(eventAdapter);
+    }
+
+    private void cargarEventosDelMes() {
+
+        int anioActual = calendarioActual.get(Calendar.YEAR);
+        int mesActual = calendarioActual.get(Calendar.MONTH) + 1; // Calendar empieza en 0
+
+        TareaApi tareaApi =
+                ApiCliente.getRetrofit().create(TareaApi.class);
+
+        tareaApi.verEventosMes(
+                CalendarioSeleccionado.idCal,
+                anioActual,
+                mesActual
+        ).enqueue(new Callback<List<DiasConTareaDTO>>() {
+
+            @Override
+            public void onResponse(
+                    Call<List<DiasConTareaDTO>> call,
+                    Response<List<DiasConTareaDTO>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    coloresPorDia.clear();
+
+                    for (DiasConTareaDTO dto : response.body()) {
+
+                        LocalDate fecha =
+                                LocalDate.parse(dto.getFecha()); // yyyy-MM-dd
+
+                        coloresPorDia.put(fecha, dto.getColores());
+                    }
+
+                    //AVISAMOS AL ADAPTER DE QUE HAY DATOS NUEVOS
+                    calendarAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                    Call<List<DiasConTareaDTO>> call,
+                    Throwable t
+            ) {
+                Toast.makeText(
+                        getContext(),
+                        "Error al cargar eventos del mes",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 }

@@ -20,14 +20,18 @@ package com.example.planify.data.POJOs;
  *  - huecos del calendario (null), cuando el mes no empieza en lunes
  */
 
+import java.time.LocalDate;
+
 public class CalendarDay {
 
     // Número del día del mes
     // Si es null, significa que esta casilla es un hueco vacío
     private Integer dayNumber;
+    private LocalDate fecha;
+    public CalendarDay(Integer dayNumber, LocalDate fecha) {
 
-    public CalendarDay(Integer dayNumber) {
         this.dayNumber = dayNumber;
+        this.fecha = fecha;
     }
 
     /*
@@ -46,5 +50,9 @@ public class CalendarDay {
      */
     public Integer getDayNumber() {
         return dayNumber;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
     }
 }
