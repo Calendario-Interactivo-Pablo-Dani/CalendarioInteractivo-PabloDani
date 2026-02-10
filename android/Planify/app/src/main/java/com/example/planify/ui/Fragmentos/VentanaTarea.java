@@ -35,6 +35,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VentanaTarea extends Fragment {
+    private boolean esEdicion = false;
+    private int idTareaEdicion = -1;
+
 
     private String colorSeleccionado = "BLANCO";
     // TEXTOS
@@ -84,8 +87,12 @@ public class VentanaTarea extends Fragment {
 
         Bundle args = getArguments();
         fechaSeleccionada = null;
-
         if (args != null) {
+            esEdicion = args.getBoolean("ES_EDICION", false);
+
+            if (esEdicion) {
+                idTareaEdicion = args.getInt("ID_TAREA", -1);
+            }
 
             // Caso 1: crear tarea desde un día concreto
             if (args.containsKey("FECHA_DIA") && args.getString("FECHA_DIA") != null) {
@@ -158,8 +165,12 @@ public class VentanaTarea extends Fragment {
     // CONFIRMAR
     // =========================
     private void configurarConfirmar() {
+
         btnConfirmar.setOnClickListener(v -> {
 
+            // ===============================
+            // VALIDACIONES
+            // ===============================
             String nombre = etNombre.getText().toString().trim();
 
             int tipoSeleccionado = rgTipo.getCheckedRadioButtonId();
@@ -175,14 +186,6 @@ public class VentanaTarea extends Fragment {
                 return;
             }
 
-            // ===============================
-            // DTO PARA SPRING
-            // ===============================
-            TareaNuevaRequestDTO request = new TareaNuevaRequestDTO();
-
-            request.setIdCal(CalendarioSeleccionado.idCal);
-            request.setNombre(nombre);
-
             if (fechaSeleccionada == null) {
                 Toast.makeText(
                         getContext(),
@@ -191,6 +194,13 @@ public class VentanaTarea extends Fragment {
                 ).show();
                 return;
             }
+
+            // ===============================
+            // DTO PARA SPRING
+            // ===============================
+            TareaNuevaRequestDTO request = new TareaNuevaRequestDTO();
+            request.setIdCal(CalendarioSeleccionado.idCal);
+            request.setNombre(nombre);
 
             LocalDateTime fechaLim =
                     LocalDateTime.of(fechaSeleccionada, horaSeleccionada);
@@ -220,7 +230,27 @@ public class VentanaTarea extends Fragment {
             TareaApi tareaApi =
                     ApiCliente.getRetrofit().create(TareaApi.class);
 
-            tareaApi.crearTarea(request).enqueue(new Callback<TareaNuevaResponseDTO>() {
+            Call<TareaNuevaResponseDTO> call;
+
+            if (esEdicion) {
+
+                if (idTareaEdicion == -1) {
+                    Toast.makeText(
+                            getContext(),
+                            "ID de tarea no válido",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return;
+                }
+
+                call = tareaApi.modificarTarea(idTareaEdicion, request);
+
+            } else {
+                call = tareaApi.crearTarea(request);
+            }
+
+            call.enqueue(new Callback<TareaNuevaResponseDTO>() {
+
                 @Override
                 public void onResponse(
                         Call<TareaNuevaResponseDTO> call,
@@ -230,7 +260,9 @@ public class VentanaTarea extends Fragment {
 
                         Toast.makeText(
                                 getContext(),
-                                "Tarea creada correctamente",
+                                esEdicion
+                                        ? "Tarea modificada correctamente"
+                                        : "Tarea creada correctamente",
                                 Toast.LENGTH_SHORT
                         ).show();
 
@@ -239,7 +271,9 @@ public class VentanaTarea extends Fragment {
                     } else {
                         Toast.makeText(
                                 getContext(),
-                                "Error al crear la tarea",
+                                esEdicion
+                                        ? "Error al modificar la tarea"
+                                        : "Error al crear la tarea",
                                 Toast.LENGTH_SHORT
                         ).show();
                     }
@@ -259,6 +293,7 @@ public class VentanaTarea extends Fragment {
             });
         });
     }
+
 
     private void mostrarSelectorColor(View anchor) {
 

@@ -16,8 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 public class TareaService {
@@ -58,6 +57,12 @@ public class TareaService {
     public TareaNuevaResponseDTO modificarTarea (TareaNuevaRequestDTO request, Integer idTarea){
         Calendario cal = calendarioRepository.findById(request.getIdCal()).orElseThrow(() ->  new ResponseStatusException(NOT_FOUND,"Calendario no encontrado"));
         Tarea tarea = tareaRepository.findById(idTarea).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Tarea no existe"));
+        if (!tarea.getCalendario().getId().equals(request.getIdCal())) {
+            throw new ResponseStatusException(
+                    FORBIDDEN,
+                    "La tarea no pertenece a este calendario"
+            );
+        }
         tarea.setNombre(request.getNombre());
         tarea.setTipo(request.getTipo());
         tarea.setEstado(request.getEstado());
