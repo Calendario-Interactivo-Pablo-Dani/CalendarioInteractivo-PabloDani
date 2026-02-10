@@ -83,23 +83,29 @@ public class VentanaTarea extends Fragment {
 
 
         Bundle args = getArguments();
+        fechaSeleccionada = null;
+
         if (args != null) {
 
-            fechaDia = args.getString("FECHA_DIA");
-            fechaSeleccionada = LocalDate.parse(fechaDia);
+            // Caso 1: crear tarea desde un día concreto
+            if (args.containsKey("FECHA_DIA") && args.getString("FECHA_DIA") != null) {
+                fechaSeleccionada = LocalDate.parse(args.getString("FECHA_DIA"));
+            }
 
+            // Caso 2: editar tarea existente
+            else if (args.containsKey("FECHA_LIM") && args.getString("FECHA_LIM") != null) {
+                LocalDateTime fechaLim =
+                        LocalDateTime.parse(args.getString("FECHA_LIM"));
+                fechaSeleccionada = fechaLim.toLocalDate();
+
+                // además, precargar la hora
+                horaSeleccionada = fechaLim.toLocalTime();
+                etHora.setText(horaSeleccionada.toString());
+            }
+
+            // Campos comunes de edición
             if (args.getBoolean("ES_EDICION", false)) {
-
                 etNombre.setText(args.getString("NOMBRE"));
-
-                String fechaLimStr = args.getString("FECHA_LIM");
-                if (fechaLimStr != null) {
-                    LocalDateTime fechaLim =
-                            LocalDateTime.parse(fechaLimStr);
-
-                    horaSeleccionada = fechaLim.toLocalTime();
-                    etHora.setText(horaSeleccionada.toString());
-                }
             }
         }
 
