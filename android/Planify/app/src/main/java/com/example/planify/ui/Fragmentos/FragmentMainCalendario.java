@@ -20,6 +20,10 @@ import com.example.planify.data.POJOs.CalendarioSeleccionado;
 import com.example.planify.data.POJOs.Tarea;
 import com.example.planify.data.dto.DiasConTareaDTO;
 import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.dto.TareaNuevaResponseDTO;
+import com.example.planify.data.network.ApiCliente;
+import com.example.planify.data.network.CalendarioApi;
+
 import com.example.planify.data.network.TareaApi;
 import com.example.planify.ui.Adapter.CalendarAdapter;
 import com.example.planify.ui.Adapter.EventAdapter;
@@ -75,8 +79,9 @@ public class FragmentMainCalendario extends Fragment {
     // --------------------- LISTA DE TAREAS (SECUNDARIA) ---------------------
 
     private RecyclerView recyclerViewTareas;
+    private TextView txtEmptyTareas;
     private EventAdapter eventAdapter;
-    private List<Tarea> tareas;
+    private List<TareaNuevaResponseDTO> tareas;
 
 
     // --------------------- CICLO DE VIDA ---------------------
@@ -293,31 +298,66 @@ public class FragmentMainCalendario extends Fragment {
     private void configurarListaTareas(View view) {
 
         recyclerViewTareas = view.findViewById(R.id.barra_eventos);
+        txtEmptyTareas = view.findViewById(R.id.txtEmptyTareas);
 
-        tareas = new ArrayList<>();
-
-        Tarea t1 = new Tarea();
-        t1.setNombre("Estudiar PDM");
-
-        Tarea t2 = new Tarea();
-        t2.setNombre("Avanzar TFG");
-
-        tareas.add(t1);
-        tareas.add(t2);
+        tareas = new ArrayList<>(); // empieza vacío
 
         eventAdapter = new EventAdapter(tareas);
 
-        recyclerViewTareas.setLayoutManager(
-                new LinearLayoutManager(getContext())
-        );
-
+        recyclerViewTareas.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewTareas.setAdapter(eventAdapter);
-    }
 
+        int idCal = CalendarioSeleccionado.idCal;
+        cargarTareasDesdeApi(idCal);
+
+    }
+    private void cargarTareasDesdeApi(int idCal) {
+
+        TareaApi api = ApiCliente.getRetrofit().create(TareaApi.class);
+
+        api.verTareas(idCal).enqueue(new Callback<List<TareaNuevaResponseDTO>>() {
+
+            @Override
+            public void onResponse(
+                    Call<List<TareaNuevaResponseDTO>> call,
+                    Response<List<TareaNuevaResponseDTO>> response
+            ) {
+
+                if (!response.isSuccessful() || response.body() == null) {
+                    recyclerViewTareas.setVisibility(View.GONE);
+                    txtEmptyTareas.setVisibility(View.VISIBLE);
+                    return;
+                }
+
+                List<TareaNuevaResponseDTO> lista = response.body();
+
+                if (lista.isEmpty()) {
+                    recyclerViewTareas.setVisibility(View.GONE);
+                    txtEmptyTareas.setVisibility(View.VISIBLE);
+                } else {
+                    txtEmptyTareas.setVisibility(View.GONE);
+                    recyclerViewTareas.setVisibility(View.VISIBLE);
+                    eventAdapter.setTareas(lista);
+                }
+            }
+
+            @Override
+            public void onFailure(
+                    Call<List<TareaNuevaResponseDTO>> call,
+                    Throwable t
+            ) {
+                Toast.makeText(
+                        getContext(),
+                        "Error al cargar tareas",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
     private void cargarEventosDelMes() {
 
         int anioActual = calendarioActual.get(Calendar.YEAR);
-        int mesActual = calendarioActual.get(Calendar.MONTH) + 1; // Calendar empieza en 0
+        int mesActual = calendarioActual.get(Calendar.MONTH) + 1;
 
         TareaApi tareaApi =
                 ApiCliente.getRetrofit().create(TareaApi.class);
@@ -338,14 +378,10 @@ public class FragmentMainCalendario extends Fragment {
                     coloresPorDia.clear();
 
                     for (DiasConTareaDTO dto : response.body()) {
-
-                        LocalDate fecha =
-                                LocalDate.parse(dto.getFecha()); // yyyy-MM-dd
-
+                        LocalDate fecha = LocalDate.parse(dto.getFecha());
                         coloresPorDia.put(fecha, dto.getColores());
                     }
 
-                    //AVISAMOS AL ADAPTER DE QUE HAY DATOS NUEVOS
                     calendarAdapter.notifyDataSetChanged();
                 }
             }

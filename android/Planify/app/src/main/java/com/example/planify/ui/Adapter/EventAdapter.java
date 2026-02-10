@@ -1,5 +1,7 @@
 package com.example.planify.ui.Adapter;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planify.R;
 import com.example.planify.data.POJOs.Tarea;
+import com.example.planify.data.dto.TareaNuevaResponseDTO;
 
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
-    private List<Tarea> tareas;
+    private List<TareaNuevaResponseDTO> tareas;
 
-    public EventAdapter(List<Tarea> tareas) {
+    public EventAdapter(List<TareaNuevaResponseDTO> tareas) {
         this.tareas = tareas;
     }
+    public void setTareas(List<TareaNuevaResponseDTO> nuevasTareas) {
+        this.tareas.clear();
+        this.tareas.addAll(nuevasTareas);
+        notifyDataSetChanged();
+    }
+
 
 
     //---------------------ON CREATE VIEW HOLDER----------------------------------------------------------
@@ -98,16 +107,80 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
 
-        Tarea tarea = tareas.get(position);
+        TareaNuevaResponseDTO  tarea = tareas.get(position);
 
         holder.tituloEvento.setText(tarea.getNombre());
 
-        // De momento fijo hasta que parsees fechas
-        holder.diaEvento.setText("27");
-        holder.mesEvento.setText("ENE");
-        holder.horaEvento.setText("18:30");
+        String fecha = tarea.getFechaLim();
+
+        if (fecha != null && fecha.length() >= 16) {
+
+            String dia = fecha.substring(8, 10);
+            String mesNum = fecha.substring(5, 7);
+            String hora = fecha.substring(11, 16);
+
+            holder.diaEvento.setText(dia);
+            holder.mesEvento.setText(mesATexto(mesNum));
+            holder.horaEvento.setText(hora);
+
+        } else {
+            holder.diaEvento.setText("--");
+            holder.mesEvento.setText("---");
+            holder.horaEvento.setText("--:--");
+        }
+        holder.indicadorColor.setBackgroundTintList(
+                ColorStateList.valueOf(
+                        colorDesdeEnum(tarea.getColor())
+                )
+        );
+
     }
-    //-----------------------------------------------------------------------------------------------------
+    private String mesATexto(String mesNum) {
+        switch (mesNum) {
+            case "01": return "ENE";
+            case "02": return "FEB";
+            case "03": return "MAR";
+            case "04": return "ABR";
+            case "05": return "MAY";
+            case "06": return "JUN";
+            case "07": return "JUL";
+            case "08": return "AGO";
+            case "09": return "SEP";
+            case "10": return "OCT";
+            case "11": return "NOV";
+            case "12": return "DIC";
+            default: return "---";
+        }
+    }
+    private int colorDesdeEnum(String color) {
+
+        if (color == null) return Color.GRAY;
+
+        switch (color) {
+            case "ROJO":
+                return Color.parseColor("#FF6B6B");
+            case "AZUL":
+                return Color.parseColor("#4D96FF");
+            case "AMARILLO":
+                return Color.parseColor("#FFD93D");
+            case "NARANJA":
+                return Color.parseColor("#FF9F43");
+            case "VERDE":
+                return Color.parseColor("#6BCF63");
+            case "NEGRO":
+                return Color.parseColor("#2E2E2E");
+            case "MORADO":
+                return Color.parseColor("#9B59B6");
+            case "ROSA":
+                return Color.parseColor("#FF6F91");
+            case "BLANCO":
+                return Color.WHITE;
+            case "GRIS":
+                return Color.GRAY;
+            default:
+                return Color.GRAY;
+        }
+    }
 
 
 
@@ -121,13 +194,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     static class EventViewHolder extends RecyclerView.ViewHolder {
 
         TextView tituloEvento, diaEvento, mesEvento, horaEvento;
+        View indicadorColor;
 
         EventViewHolder(View itemView) {
             super(itemView);
+
+            indicadorColor = itemView.findViewById(R.id.indicador_color);
+
             tituloEvento = itemView.findViewById(R.id.titulo_evento);
             diaEvento = itemView.findViewById(R.id.dia_evento);
             mesEvento = itemView.findViewById(R.id.mes_evento);
-            horaEvento=itemView.findViewById(R.id.hora_evento);
+            horaEvento = itemView.findViewById(R.id.hora_evento);
         }
     }
 }

@@ -8,64 +8,79 @@
     android:backgroundTint="#1B1B1B"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
-    app:strokeWidth="0dp"
-    >
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Hora -->
-
-        <TextView
-            android:id="@+id/mes_evento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="6dp"
+        <!-- INDICADOR DE COLOR -->
+        <View
+            android:id="@+id/indicador_color"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/casilla_color"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/bloque_fecha"
+            app:layout_constraintBottom_toBottomOf="@id/bloque_fecha"/>
 
-        <TextView
-            android:id="@+id/dia_evento"
+        <!-- BLOQUE FECHA + HORA -->
+        <LinearLayout
+            android:id="@+id/bloque_fecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Febrero"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="6dp"
-            app:layout_constraintStart_toEndOf="@id/mes_evento"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/indicador_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/hora_evento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10:00"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="6dp"
-            app:layout_constraintStart_toEndOf="@id/dia_evento"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/dia_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#B0B0B0"/>
 
-        <!-- Título -->
+            <TextView
+                android:id="@+id/mes_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FEB"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#B0B0B0"/>
+
+            <TextView
+                android:id="@+id/hora_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18:30"
+                android:layout_marginStart="8dp"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#B0B0B0"/>
+        </LinearLayout>
+
+        <!-- TÍTULO -->
         <TextView
             android:id="@+id/titulo_evento"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:text="Presentación proyecto"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintStart_toEndOf="@id/hora_evento"
+            app:layout_constraintStart_toEndOf="@id/bloque_fecha"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
