@@ -45,21 +45,21 @@ public class VerMiembros  extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
 
-        // 1️⃣ Inflamos el layout del fragment
+        //Inflamos el layout del fragment
         View view = inflater.inflate(R.layout.ver_miembros, container, false);
 
 
-        // 3️⃣ Inicializamos las vistas
+        //Inicializamos las vistas
         inicializarVistas(view);
 
         btnAtras=view.findViewById(R.id.btnAtrasMiembros);
         btnAtras.setOnClickListener(listenerAtras);
 
 
-        // 4️⃣ Configuramos el RecyclerView
+        //Configuramos el RecyclerView
         configurarRecycler();
 
-        // 5️⃣ Cargamos las tareas del día (de momento mock)
+        //Cargamos las tareas del día (de momento mock)
         cargarMiembros();
 
 
@@ -123,15 +123,13 @@ public class VerMiembros  extends Fragment {
 
                         if (response.isSuccessful() && response.body() != null) {
 
-                            // 1) limpiamos lista por si ya había datos
+                            //limpiamos lista por si ya había datos
                             listaMiembros.clear();
 
-                            // 2) convertimos DTO -> Miembro (modelo de tu Recycler)
+                            //convertimos DTO -> Miembro (modelo de Recycler)
                             for (UsuarioCalendarioDTO dto : response.body()) {
                                 Miembro m = new Miembro();
 
-                                // tú quieres mostrar "username", pero Spring manda "nombre"
-                                // así que lo usamos como texto visible
                                 m.setUsername(dto.getUsername());
 
                                 listaMiembros.add(m);

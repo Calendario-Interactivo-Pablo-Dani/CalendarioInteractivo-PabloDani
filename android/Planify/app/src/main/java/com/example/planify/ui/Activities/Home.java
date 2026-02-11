@@ -154,7 +154,6 @@ public class Home extends AppCompatActivity {
                 return;
             }
             unirseCalendarioBD(codigo);
-            // (Opcional) Cerrar el diálogo después de pulsar crear
             dialog.dismiss();
         });
 
@@ -164,7 +163,7 @@ public class Home extends AppCompatActivity {
         View view = getLayoutInflater()
                 .inflate(R.layout.dialogo_crear_unirse, null);
 
-        // 1) Referencias a los EditText del diálogo (IMPORTANTE: usando "view")
+        // 1) Referencias a los EditText del diálogo
         Button btnUnirse = view.findViewById(R.id.btnUnirseCalendario);
 
 
@@ -380,8 +379,6 @@ public class Home extends AppCompatActivity {
         Intent i= new Intent(getApplicationContext(), PerfilUsuario.class);
         startActivity(i);
     }
-    public void crearUnirCalendario(View view){
 
-    }
 
 }

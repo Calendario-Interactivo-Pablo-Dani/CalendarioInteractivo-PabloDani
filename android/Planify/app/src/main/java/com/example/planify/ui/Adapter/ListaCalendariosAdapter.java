@@ -21,12 +21,11 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
     // Lista de calendarios que vienen del backend
     private List<CalendarioResponseDTO> calendarios;
 
-    // Constructor: recibe la lista
     public ListaCalendariosAdapter(List<CalendarioResponseDTO> calendarios) {
         this.calendarios = calendarios;
     }
 
-    //  Se llama cuando Android necesita crear una "fila"
+    //Se llama cuando Android necesita crear una "fila"
     @NonNull
     @Override
     public CalendarioViewHolder onCreateViewHolder(
@@ -39,7 +38,7 @@ public class ListaCalendariosAdapter  extends RecyclerView.Adapter<ListaCalendar
         return new CalendarioViewHolder(view);
     }
 
-    //  Se llama para rellenar cada fila con datos
+    //Se llama para rellenar cada fila con datos
     @Override
     public void onBindViewHolder(
             @NonNull CalendarioViewHolder holder, int position) {

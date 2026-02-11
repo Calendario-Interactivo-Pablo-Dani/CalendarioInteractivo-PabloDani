@@ -12,9 +12,10 @@ import retrofit2.http.POST;
 public interface AuthApi {
     /*Mandamos en el body el dto con el usuario con el que vamos a hacer el login
     * EJEMPLO:
-    * authApi.login(dto)                    (LO LLAMAS)
+    * authApi.login(dto)
     * POST http://10.0.2.2:8080/auth/login
-      Body: JSON (email + password)         (LO QUE HACE)*/
+      Body: JSON (email + password)         (LO QUE HACE)
+      * */
     @POST("/auth/login")
     Call<LoginResponseDTO> login(@Body LoginRequestDTO request);
     /*Lo mismo que el login*/

@@ -215,7 +215,7 @@ public class VentanaTarea extends Fragment {
 
             if (checkedId == R.id.rbFinalizada) {
                 // Cerrar el fragment
-                getParentFragmentManager().popBackStack();
+                finalizarTarea();
             }
         });
     }
@@ -390,6 +390,27 @@ public class VentanaTarea extends Fragment {
             aplicarColor("MORADO");
             popupWindow.dismiss();
         });
+        popupView.findViewById(R.id.color_naranja).setOnClickListener(v -> {
+            aplicarColor("NARANJA");
+            popupWindow.dismiss();
+        });
+        popupView.findViewById(R.id.color_negro).setOnClickListener(v -> {
+            aplicarColor("NEGRO");
+            popupWindow.dismiss();
+        });
+        popupView.findViewById(R.id.color_rosa).setOnClickListener(v -> {
+            aplicarColor("ROSA");
+            popupWindow.dismiss();
+        });
+        popupView.findViewById(R.id.color_gris).setOnClickListener(v -> {
+            aplicarColor("GRIS");
+            popupWindow.dismiss();
+        });
+
+        popupView.findViewById(R.id.color_blanco).setOnClickListener(v -> {
+            aplicarColor("BLANCO");
+            popupWindow.dismiss();
+        });
 
         popupWindow.showAsDropDown(anchor);
     }
@@ -416,6 +437,22 @@ public class VentanaTarea extends Fragment {
             case "MORADO":
                 colorInt = Color.parseColor("#8E24AA");
                 break;
+            case "NARANJA":
+                colorInt = Color.parseColor("#FF8000");
+                break;
+            case "NEGRO":
+                colorInt = Color.parseColor("#000000");
+                break;
+            case "ROSA":
+                colorInt = Color.parseColor("#C11CB2");
+                break;
+            case "GRIS":
+                colorInt = Color.parseColor("#9B9B9B");
+                break;
+            case "BLANCO":
+                colorInt = Color.parseColor("#FFFFFF");
+                break;
+
             default:
                 colorInt = Color.WHITE;
         }
@@ -483,6 +520,87 @@ public class VentanaTarea extends Fragment {
                                         Toast.makeText(
                                                 getContext(),
                                                 "Error al eliminar la tarea",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(
+                                        Call<Void> call,
+                                        Throwable t
+                                ) {
+                                    Toast.makeText(
+                                            getContext(),
+                                            "Error de conexión",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                            });
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    public void finalizarTarea(){
+        // ===============================
+        // CASO 1: NO ES EDICIÓN
+        // ===============================
+        if (!esEdicion) {
+            Toast.makeText(
+                    getContext(),
+                    "Primero tienes que crear la tarea para poder finalizarla",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        // Seguridad extra
+        if (idTareaEdicion == -1) {
+            Toast.makeText(
+                    getContext(),
+                    "No se puede finalizar esta tarea",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        // ===============================
+        // CONFIRMACIÓN
+        // ===============================
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Finalizar tarea")
+                .setMessage("¿Estás seguro de que quieres finalizar esta tarea?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+
+                    // ===============================
+                    // LLAMADA A SPRING
+                    // ===============================
+                    TareaApi tareaApi =
+                            ApiCliente.getRetrofit().create(TareaApi.class);
+
+                    tareaApi.eliminarTarea(idTareaEdicion)
+                            .enqueue(new Callback<Void>() {
+
+                                @Override
+                                public void onResponse(
+                                        Call<Void> call,
+                                        Response<Void> response
+                                ) {
+                                    if (response.isSuccessful()) {
+
+                                        Toast.makeText(
+                                                getContext(),
+                                                "Tarea finalizada correctamente",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+
+                                        getParentFragmentManager().popBackStack();
+
+                                    } else {
+                                        Toast.makeText(
+                                                getContext(),
+                                                "Error al finalizar la tarea",
                                                 Toast.LENGTH_SHORT
                                         ).show();
                                     }

@@ -10,12 +10,12 @@
 
 
 
-    <!--el putisimo recycler view.
-    a ver, esto es como un molino que gira sobre si mismo, los items que esten viendose ahora mismo,
+    <!--el recycler view.
+    Esto es como un molino que gira sobre si mismo, los items que esten viendose ahora mismo,
     (las cubas que estan fuera del agua del molino) son las que se cargan y demás, pero cuando giras
     (haces scroll) algunas se pierden(entran al agua) entonces se reciclan y se usarán luego para
     mostrar otra tarea.
-    ESO ES EL RECYLCERView.
+    ESO ES EL RECYLCERVIEW.
     -->
     <TextView
         android:id="@+id/titulo_eventos"

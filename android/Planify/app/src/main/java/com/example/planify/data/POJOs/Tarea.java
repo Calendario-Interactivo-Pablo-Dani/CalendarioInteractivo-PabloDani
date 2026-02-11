@@ -12,7 +12,7 @@ public class Tarea {
     private String nombre;
     private String tipo;
     private String estado;
-    private String fechaLim; // "yyyy-MM-ddTHH:mm"
+    private String fechaLim;
 
 
 
@@ -20,7 +20,7 @@ public class Tarea {
 
 
 
-    // Constructor vacío (OBLIGATORIO para Retrofit/Gson)
+    // Constructor vacío (OBLIGATORIO para Retrofit)
     public Tarea() {
     }
 

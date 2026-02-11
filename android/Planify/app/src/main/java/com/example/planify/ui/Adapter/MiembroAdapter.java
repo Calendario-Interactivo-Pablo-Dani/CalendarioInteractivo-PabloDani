@@ -79,7 +79,7 @@ public class MiembroAdapter extends RecyclerView.Adapter<MiembroAdapter.MiembroV
         return miembros.size();
     }
 
-    // ViewHolder: guarda las vistas del item_miembro.xml
+    // guardamos las vistas del item_miembro.xml
     static class MiembroViewHolder extends RecyclerView.ViewHolder {
 
         TextView nombreMiembro;

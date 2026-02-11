@@ -98,7 +98,6 @@ public class FragmentMainCalendario extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_calendario, container, false);
 
         // Mostramos el nombre del calendario seleccionado
-        // Este dato se fijó previamente en ListaCalendariosAdapter
         View tituloView = view.findViewById(R.id.titulo);
         TextView titulo = tituloView.findViewById(R.id.textNombreCalendario);
         titulo.setText(CalendarioSeleccionado.nombre);
@@ -293,7 +292,6 @@ public class FragmentMainCalendario extends Fragment {
 
     /*
      * Configura la lista de tareas del día.
-     * De momento se usan datos falsos.
      */
     private void configurarListaTareas(View view) {
 

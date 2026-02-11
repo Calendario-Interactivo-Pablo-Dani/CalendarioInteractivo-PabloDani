@@ -152,6 +152,16 @@ public class TareasDiaAdapter
                 return Color.parseColor("#FDD835");
             case "MORADO":
                 return Color.parseColor("#8E24AA");
+            case "NARANJA":
+                return Color.parseColor("#FF8000");
+            case "NEGRO":
+                return Color.parseColor("#000000");
+            case "ROSA":
+                return Color.parseColor("#C11CB2");
+            case "BLANCO":
+                return Color.parseColor("#FFFFFF");
+            case "GRIS":
+                return Color.parseColor("#9B9B9B");
             default:
                 return Color.parseColor("#FFFFFF");
         }

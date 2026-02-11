@@ -92,7 +92,7 @@ public class VentanaDia extends Fragment {
             String fechaStr = args.getString("FECHA");
             if (fechaStr != null) {
 
-                fechaDia = fechaStr; // ✅ CLAVE: guardar la fecha para pasarla a VentanaTarea
+                fechaDia = fechaStr; //guardar la fecha para pasarla a VentanaTarea
 
                 try {
                     LocalDate fecha = LocalDate.parse(fechaStr);
@@ -118,10 +118,10 @@ public class VentanaDia extends Fragment {
             }
         }
 
-        // 4️⃣ Configuramos el RecyclerView
+        //Configuramos el RecyclerView
         configurarRecycler();
 
-        // 5️⃣ Cargamos las tareas del día (de momento mock)
+        //Cargamos las tareas del día
         cargarTareasDelDia();
 
         return view;
@@ -138,24 +138,6 @@ public class VentanaDia extends Fragment {
     // --------------------------------------------------------------------------------------
 
     /*
-     * Recoge los datos que llegan a este fragment.
-     * Normalmente vendrán del calendario (día pulsado).
-     */
-    /*private void recogerDatos() {
-
-        if (getArguments() != null) {
-
-            String fecha = getArguments().getString("FECHA");
-            idCalendario = getArguments().getInt("ID_CAL");
-
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            fechaSeleccionada = LocalDate.parse(fecha, formatter);
-        }
-    }*/
-
-    /*
      * Inicializa todas las vistas del layout.
      * Aquí NO se mete lógica, solo findViewById.
      */
@@ -163,11 +145,6 @@ public class VentanaDia extends Fragment {
 
         recyclerViewTareasDia = view.findViewById(R.id.recycler_tareas_dia);
 
-        // TODO FUTURO:
-        // TextView fecha
-        // EditText nueva tarea
-        // Botón añadir tarea
-        // etc.
     }
 
     /*

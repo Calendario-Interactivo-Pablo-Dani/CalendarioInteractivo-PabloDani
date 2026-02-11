@@ -213,10 +213,18 @@ public class CalendarAdapter
                 return Color.parseColor("#FF9800");
             case "AZUL":
                 return Color.parseColor("#4ECDC4");
+            case "MORADO":
+                return Color.parseColor("#7F00FF");
+            case "ROSA":
+                return Color.parseColor("#C11CB2");
+            case "GRIS":
+                return Color.parseColor("#9B9B9B");
+            case "NEGRO":
+                return Color.parseColor("#000000");
             case "BLANCO":
                 return Color.WHITE;
             default:
-                return Color.GRAY; // fallback seguro
+                return Color.GRAY;
         }
     }
 }
