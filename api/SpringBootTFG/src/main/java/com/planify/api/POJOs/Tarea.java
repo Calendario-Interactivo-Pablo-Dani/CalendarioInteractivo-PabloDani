@@ -48,16 +48,6 @@ public class Tarea {
     @Enumerated(EnumType.STRING)
     @Column(name = "color", nullable = false)
     private ColorTarea color;
-
-    /* ========= RELACIÓN CON LOGRO (VÍA TABLA INTERMEDIA) ========= */
-
-    @OneToMany(
-            mappedBy = "idTarea",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<LogroTarea> logroTareas = new HashSet<>();
-
     /* ================= GETTERS / SETTERS ================= */
 
     public Integer getId() {
@@ -124,11 +114,5 @@ public class Tarea {
         this.color = color;
     }
 
-    public Set<LogroTarea> getLogroTareas() {
-        return logroTareas;
-    }
 
-    public void setLogroTareas(Set<LogroTarea> logroTareas) {
-        this.logroTareas = logroTareas;
-    }
 }
