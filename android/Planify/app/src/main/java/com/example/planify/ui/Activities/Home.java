@@ -42,6 +42,7 @@ import retrofit2.Response;
 * */
 public class Home extends AppCompatActivity {
     private RecyclerView recyclerCalendarios;
+    private TextView txtEmptyCalendarios;
     private ListaCalendariosAdapter ListaCalendariosAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class Home extends AppCompatActivity {
 
         setContentView(R.layout.ventana_general);
         TextView txtBienvenida = findViewById(R.id.txtBienvenida);
+        txtEmptyCalendarios = findViewById(R.id.txtEmptyCalendarios);
 
 
         /*
@@ -334,8 +336,14 @@ public class Home extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     //mostramos los calendarios que tienen los datos de ese response
                     List<CalendarioResponseDTO> calendarios = response.body();
-                    mostrarCalendarios(calendarios);
-
+                    if(calendarios.isEmpty()){
+                        recyclerCalendarios.setVisibility(View.GONE);
+                        txtEmptyCalendarios.setVisibility(View.VISIBLE);
+                    }else{
+                        txtEmptyCalendarios.setVisibility(View.GONE);
+                        recyclerCalendarios.setVisibility(View.VISIBLE);
+                        mostrarCalendarios(calendarios);
+                    }
                 } else {
                     Log.e("CALENDARIO", "Error response: " + response.code());
                 }

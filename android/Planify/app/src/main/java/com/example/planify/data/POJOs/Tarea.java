@@ -14,7 +14,7 @@ public class Tarea {
     private String estado;
     private String fechaLim; // "yyyy-MM-ddTHH:mm"
 
-    private Set<Logro> logros;
+
 
     private String color;
 
@@ -65,13 +65,6 @@ public class Tarea {
     }
 
 
-    public Set<Logro> getLogros() {
-        return logros;
-    }
-
-    public void setLogros(Set<Logro> logros) {
-        this.logros = logros;
-    }
 
     public String getColor() {
         return color;

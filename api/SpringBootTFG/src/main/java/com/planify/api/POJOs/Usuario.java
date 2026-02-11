@@ -40,9 +40,6 @@ public class Usuario {
     @Column(name = "telefono", nullable = false, length = 20)
     private String telefono;
 
-    @OneToMany(mappedBy = "usuario")
-    private Set<Logro> logros = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "idUser")
     private Set<RelUserCal> relUserCals = new LinkedHashSet<>();
 
@@ -92,14 +89,6 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public Set<Logro> getLogros() {
-        return logros;
-    }
-
-    public void setLogros(Set<Logro> logros) {
-        this.logros = logros;
     }
 
     public Set<RelUserCal> getRelUserCals() {
