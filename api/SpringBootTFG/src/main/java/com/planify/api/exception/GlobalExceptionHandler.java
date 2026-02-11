@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     * VA A MANEJAR LOS ERRORES DEL REGISTRO
      * pq solo los que pueden dar los fallos que queremos manejar*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    /*Significa que cuando ocurra esta excepción se use el método de abajo
+    /*Significa que cuando ocurra esta excepción se use el mét-odo de abajo
     * Esta excepción se lanza cuando usas el @Valid
     * en un dto y este NO CUMPLE LAS REGLAS QUE LE HEMOS PUESTO
     * */

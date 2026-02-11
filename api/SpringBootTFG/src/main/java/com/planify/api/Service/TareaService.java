@@ -27,14 +27,6 @@ public class TareaService {
         this.tareaRepository = tareaRepository;
         this.calendarioRepository = calendarioRepository;
     }
-
-    public List<Tarea> findAll() {
-        return tareaRepository.findAll();
-    }
-
-    public Tarea findById(Integer id) {
-        return tareaRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarea no encontrado"));
-    }
     @Transactional
     public TareaNuevaResponseDTO crearTarea (TareaNuevaRequestDTO request) {
         Calendario cal = calendarioRepository.findById(request.getIdCal()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND,"Calendario no encontrado"));
@@ -45,13 +37,14 @@ public class TareaService {
         tarea.setEstado(request.getEstado());
         tarea.setFechaLim(request.getFechaLim());
         tarea.setColor(request.getColor());
+        Tarea tareaGuardada;
         try{
             /*Insertamos la tarea en la BD*/
-             tareaRepository.save(tarea);
+             tareaGuardada = tareaRepository.save(tarea);
         }catch(DataIntegrityViolationException e){
             throw new ResponseStatusException(CONFLICT,"La tarea ya existe");
         }
-        return new TareaNuevaResponseDTO(tarea.getId(),tarea.getNombre(),tarea.getTipo(),tarea.getEstado(),tarea.getFechaLim(),tarea.getColor());
+        return new TareaNuevaResponseDTO(tareaGuardada.getId(),tareaGuardada.getNombre(),tareaGuardada.getTipo(),tareaGuardada.getEstado(),tareaGuardada.getFechaLim(),tareaGuardada.getColor());
     }
     @Transactional
     public TareaNuevaResponseDTO modificarTarea (TareaNuevaRequestDTO request, Integer idTarea){

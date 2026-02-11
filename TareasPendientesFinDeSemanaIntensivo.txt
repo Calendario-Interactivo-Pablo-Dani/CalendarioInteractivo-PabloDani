@@ -1,17 +1,19 @@
-VISUAL:
 
 
--entrada desde las tarjetas a la tarea(1/2)
 
--Lineas de tareas en los días
+
+-estadística única tareas completadas
 
 EXTRAS NO TAN EXTRAS
 -ponerlo bonito
--mensaje crear primer calendario
+
 -cambair la selección de hora
 
 
-SPRING/BACKEND:
 
--que las tareas se guarden en próximos eventos
--eliminar tarea
+
+
+
+
+
+
