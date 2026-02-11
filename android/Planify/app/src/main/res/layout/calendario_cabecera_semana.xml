@@ -14,13 +14,12 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
         />
 
     <TextView
@@ -32,13 +31,12 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
         />
 
     <TextView
@@ -50,13 +48,12 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
         />
 
     <TextView
@@ -68,13 +65,12 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
         />
 
     <TextView
@@ -86,13 +82,12 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
         />
 
     <TextView
@@ -104,13 +99,13 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
+
         />
 
     <TextView
@@ -122,13 +117,13 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="18dp"
+        android:textColor="#C7C2C2"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/anton"
-        android:elevation="2dp"
-        android:translationZ="2dp"
+
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -14,8 +14,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+
+        android:background="#1B1B1B"
+        app:itemTextColor="#C7C2C2"
         app:headerLayout="@layout/header"
         app:menu="@menu/side_bar_menu"
+
         >
     </com.google.android.material.navigation.NavigationView>
 

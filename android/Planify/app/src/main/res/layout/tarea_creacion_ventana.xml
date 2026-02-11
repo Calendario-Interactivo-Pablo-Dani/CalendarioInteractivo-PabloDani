@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre:"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="20dp"
 
@@ -33,7 +33,7 @@
         android:id="@+id/etNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="12dp"
         android:background="@drawable/calendar_title"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hora:"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="20dp"
 
@@ -67,9 +67,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Hora"
+        android:textColorHint="#C7C2C2"
         android:focusable="false"
         android:clickable="true"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="12dp"
         android:background="@drawable/calendar_title"
@@ -89,7 +90,7 @@
 
         android:fontFamily="@font/anton"
         android:textSize="20dp"
-
+        android:textColor="#C7C2C2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHora"
         android:layout_marginTop="24dp"
@@ -101,7 +102,7 @@
         android:orientation="horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="12dp"
         android:background="@drawable/calendar_title"
@@ -115,12 +116,14 @@
             android:id="@+id/rbTarea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#C7C2C2"
             android:text="Tarea"/>
 
         <RadioButton
             android:id="@+id/rbEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#C7C2C2"
             android:text="Evento"/>
     </RadioGroup>
 
@@ -130,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Estado:"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="20dp"
 
@@ -158,13 +161,15 @@
             android:id="@+id/rbPendiente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pendiente"/>
+            android:text="Pendiente"
+            android:textColor="#C7C2C2"/>
 
         <RadioButton
             android:id="@+id/rbFinalizada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Finalizada"/>
+            android:text="Finalizada"
+            android:textColor="#C7C2C2"/>
     </RadioGroup>
 
     <!-- COLOR -->
@@ -173,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Color:"
-
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:textSize="20dp"
 
@@ -229,10 +234,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirmar"
-
+            android:textColor="#C7C2C2"
             android:background="@drawable/calendar_title"
             android:backgroundTint="#2E2E2E"
-            android:textColor="#8A8A8A"
             android:fontFamily="@font/anton"
             android:textSize="16dp"
             />

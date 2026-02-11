@@ -8,16 +8,24 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:padding="16dp"
+    android:backgroundTint="#2E2E2E"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="0dp"
 
     android:text="Calendario (owner)"
     android:fontFamily="@font/anton"
     android:textSize="16sp"
-    android:textColor="#857F7F"
+    android:textColor="#C7C2C2"
+
+    app:icon="@drawable/calendario_icono"
+    app:iconGravity="start"
+    app:iconPadding="12dp"
+    app:iconTint="@color/white"
 
 
     app:backgroundTint="@color/black"
     app:cornerRadius="24dp"
-    app:strokeWidth="1dp"
     app:strokeColor="#DDDDDD"
     app:elevation="2dp"
     />

@@ -25,6 +25,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
+        android:textColor="#C7C2C2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

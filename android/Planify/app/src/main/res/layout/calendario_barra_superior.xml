@@ -18,6 +18,7 @@
         android:backgroundTint="#1B1B1B"
         android:gravity="center"
         android:textSize="24dp"
+        android:textColor="#C7C2C2"
         android:fontFamily="@font/anton"
         android:drawableEnd="@drawable/tres_puntos"
         android:drawableStart="@drawable/menu_treslineas"

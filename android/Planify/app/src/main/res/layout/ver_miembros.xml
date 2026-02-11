@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
 
             android:text="MIEMBROS"
+            android:textColor="#C7C2C2"
             android:gravity="center"
             android:textSize="30dp"
             android:fontFamily="@font/anton"
