@@ -59,6 +59,13 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    // Unit testing
+    testImplementation("junit:junit:4.13.2")
+    // Mockito (para mocks)
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    // Si usamos LiveData o arquitectura
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
     /*Dependencias RETROFIT*/
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

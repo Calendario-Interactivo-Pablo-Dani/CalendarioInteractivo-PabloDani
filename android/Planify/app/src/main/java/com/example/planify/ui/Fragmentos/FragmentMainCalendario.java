@@ -194,7 +194,7 @@ public class FragmentMainCalendario extends Fragment {
      *
      * El adapter NO calcula nada, solo pinta lo que recibe.
      */
-    private List<CalendarDay> generarDiasDelMes(Calendar calendar) {
+    public List<CalendarDay> generarDiasDelMes(Calendar calendar) {
 
         List<CalendarDay> days = new ArrayList<>();
 
