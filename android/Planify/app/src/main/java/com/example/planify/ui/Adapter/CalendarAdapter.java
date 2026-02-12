@@ -110,7 +110,6 @@ public class CalendarAdapter
         // CASO 1: casilla vacía (antes del día 1 del mes)
         if (dia.isEmpty()) {
 
-
             // No se muestra número
             holder.numeroDia.setText("");
 
@@ -156,7 +155,7 @@ public class CalendarAdapter
                                     false
                             );
 
-                    // color real desde backend
+                    // color real
                     barra.setBackgroundColor(
                             obtenerColorDesdeNombre(colores.get(i))
                     );
