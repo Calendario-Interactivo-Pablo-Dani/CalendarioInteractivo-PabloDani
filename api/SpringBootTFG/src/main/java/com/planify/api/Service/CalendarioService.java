@@ -9,6 +9,7 @@ import com.planify.api.dto.UsuarioCalendarioDTO;
 import com.planify.api.enums.RolUsuarioCalendario;
 import com.planify.api.repository.CalendarioRepository;
 import com.planify.api.repository.RelUserCalRepository;
+import com.planify.api.repository.TareaRepository;
 import com.planify.api.repository.UsuarioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,9 @@ public class CalendarioService {
  private final CalendarioRepository calendarioRepository;
  private final RelUserCalRepository relUserCalRepository;
  private final UsuarioRepository usuarioRepository;
- public CalendarioService(CalendarioRepository calendarioRepository, RelUserCalRepository relUserCalRepository, UsuarioRepository usuarioRepository) {
+private final TareaRepository tareaRepository;
+ public CalendarioService(CalendarioRepository calendarioRepository, RelUserCalRepository relUserCalRepository, UsuarioRepository usuarioRepository, TareaRepository tareaRepository){
+     this.tareaRepository = tareaRepository;
      this.calendarioRepository = calendarioRepository;
      this.relUserCalRepository = relUserCalRepository;
      this.usuarioRepository = usuarioRepository;
@@ -71,6 +74,8 @@ public class CalendarioService {
      RelUserCal relacion = relUserCalRepository.findByIdUser_IdAndIdCal_Id(idUser,idCal).orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN,"Usuario no pertenece al calendario"));
      if(relacion.getRol() == RolUsuarioCalendario.owner){
          //CASO OWNER
+         //Borramos las tareas del calendario
+         tareaRepository.deleteByCalendario_Id(idCal);
          //Borramos las relaciones del calendario
          relUserCalRepository.deleteByIdCal_Id(idCal);
          //Borramos el calendario

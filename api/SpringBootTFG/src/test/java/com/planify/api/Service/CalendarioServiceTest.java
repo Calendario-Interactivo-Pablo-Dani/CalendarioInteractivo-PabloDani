@@ -35,6 +35,8 @@ class CalendarioServiceTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
+    @Mock
+    private TareaRepository tareaRepository;
 
     @InjectMocks
     private CalendarioService calendarioService;
@@ -122,7 +124,7 @@ class CalendarioServiceTest {
 
     //SALIR O ELIMINAR CALENDARIO
     @Test
-    void salirOeliminarCalendario_ownerElimina() {
+    void salirOeliminarCalendario_ownerEliminaCalendario() {
         Integer idCal = 1;
         Integer idUser = 1;
 
@@ -140,10 +142,13 @@ class CalendarioServiceTest {
 
         calendarioService.salirOeliminarCalendario(idCal, idUser);
 
+        verify(tareaRepository).deleteByCalendario_Id(idCal);
         verify(relUserCalRepository).deleteByIdCal_Id(idCal);
         verify(calendarioRepository).delete(calendario);
+
         verify(relUserCalRepository, never()).delete(relacion);
     }
+
 
     @Test
     void salirOeliminarCalendario_miembroSale() {
